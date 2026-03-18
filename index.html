@@ -177,7 +177,7 @@ canvas{display:block}
  <div class="sub" id="s-30j">dans 30 jours</div>
  <div class="arr"></div>
  </div>
- <div class="kc" style="background:linear-gradient(135deg,#534ab7 0%,#3a34a0 100%);border-radius:14px" onclick="ouvrirDetail('rempli')">
+ <div class="kc wide" style="background:linear-gradient(135deg,#534ab7 0%,#3a34a0 100%)" onclick="ouvrirDetail('rempli')">
  <div class="lbl"> Remplissage</div>
  <div class="num" id="n-rempli"></div>
  <div class="sub" id="s-rempli"></div>
@@ -774,20 +774,18 @@ function processResa(rawRows){
  // Ajouter le snapshot actuel
  var now_var=new Date();
  var moisVar=now_var.getFullYear()+'-'+String(now_var.getMonth()+1).padStart(2,'0');
- snapPourVariation[moisVar]=membres.length;
- var moisKeys_v=Object.keys(snapPourVariation).sort();
+ // Ne pas injecter le mois courant - on compare membres.length vs le dernier mois passé
+ var moisKeys_v=Object.keys(snapPourVariation).filter(function(k){ return k<moisVar; }).sort();
  var variation='';
  var MNOMS_V=['jan','fev','mar','avr','mai','jun','jul','aou','sep','oct','nov','dec'];
- if(moisKeys_v.length>=2){
-   var dernierMois=moisKeys_v[moisKeys_v.length-1];
-   var avantDernierMois=moisKeys_v[moisKeys_v.length-2];
-   var valDernier=snapPourVariation[dernierMois];
+ if(moisKeys_v.length>=1){
+   var avantDernierMois=moisKeys_v[moisKeys_v.length-1];
    var valAvant=snapPourVariation[avantDernierMois];
-   var diff=valDernier-valAvant;
+   var diff=membres.length-valAvant;
    var pv=avantDernierMois.split('-');
    var nomAvant=MNOMS_V[parseInt(pv[1])-1]+' '+pv[0].slice(2);
-   var signe=diff>0?'+':diff===0?'=':'-';
-   variation=(diff!==0?(signe+Math.abs(diff)):signe)+' vs '+nomAvant+' ('+valAvant+')';
+   var signe=diff>0?'+':diff===0?'=':'';
+   variation=(diff>0?('+'+diff):diff===0?'stable':diff)+' vs '+nomAvant;
  }
  document.getElementById('s-actifs').textContent=variation||membres.length+' abonnés actifs';
  document.getElementById('b-actifs').textContent=membres.length+' membres';
