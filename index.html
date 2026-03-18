@@ -6,26 +6,26 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Hygie">
-<title>Hygie — Dashboard</title>
+<title>Hygie Dashboard</title>
 <style>
 :root{
-  --bg:#f0eeea;--sur:#fff;--s2:#e8e6e2;
-  --t:#141412;--t2:#5e5e56;--t3:#9e9e96;
-  --bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.12);
-  --green:#1a9e72;--bgreen:#dff4ec;--tgreen:#0a4f38;
-  --red:#d44e28;--bred:#faeae4;--tred:#6e2810;
-  --amber:#b87214;--bamber:#faebd6;--tamber:#5e3a08;
-  --blue:#1a5fa8;--bblue:#e4f0fc;--tblue:#0b3d7a;
-  --r:16px;--rs:10px;
+ --bg:#f0eeea;--sur:#fff;--s2:#e8e6e2;
+ --t:#141412;--t2:#5e5e56;--t3:#9e9e96;
+ --bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.12);
+ --green:#1a9e72;--bgreen:#dff4ec;--tgreen:#0a4f38;
+ --red:#d44e28;--bred:#faeae4;--tred:#6e2810;
+ --amber:#b87214;--bamber:#faebd6;--tamber:#5e3a08;
+ --blue:#1a5fa8;--bblue:#e4f0fc;--tblue:#0b3d7a;
+ --r:16px;--rs:10px;
 }
 @media(prefers-color-scheme:dark){:root{
-  --bg:#0c0c0b;--sur:#161614;--s2:#1e1e1c;
-  --t:#eeeee8;--t2:#8e8e84;--t3:#5e5e56;
-  --bd:rgba(255,255,255,.06);--bd2:rgba(255,255,255,.12);
-  --bgreen:#0a4f38;--tgreen:#9de0c6;
-  --bred:#6e2810;--tred:#f4c0ac;
-  --bamber:#5e3a08;--tamber:#f8c070;
-  --bblue:#0b3d7a;--tblue:#b0d2f4;
+ --bg:#0c0c0b;--sur:#161614;--s2:#1e1e1c;
+ --t:#eeeee8;--t2:#8e8e84;--t3:#5e5e56;
+ --bd:rgba(255,255,255,.06);--bd2:rgba(255,255,255,.12);
+ --bgreen:#0a4f38;--tgreen:#9de0c6;
+ --bred:#6e2810;--tred:#f4c0ac;
+ --bamber:#5e3a08;--tamber:#f8c070;
+ --bblue:#0b3d7a;--tblue:#b0d2f4;
 }}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);color:var(--t);min-height:100vh}
@@ -43,9 +43,9 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);
 /* Boutons import côte à côte */
 .imp-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .imp{display:flex;flex-direction:column;align-items:flex-start;gap:2px;
-  padding:10px 12px;border-radius:var(--rs);border:.5px solid var(--bd2);
-  background:var(--sur);color:var(--t2);cursor:pointer;
-  transition:all .15s;line-height:1.3;width:100%}
+ padding:10px 12px;border-radius:var(--rs);border:.5px solid var(--bd2);
+ background:var(--sur);color:var(--t2);cursor:pointer;
+ transition:all .15s;line-height:1.3;width:100%}
 .imp:hover{background:var(--s2)}
 .imp-icon{font-size:16px;margin-bottom:2px}
 .imp-name{font-size:12px;font-weight:600;color:var(--t)}
@@ -68,15 +68,15 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);
 
 /* Tuiles KPI */
 .kc{border-radius:var(--r);padding:18px 16px;cursor:pointer;position:relative;
-  overflow:hidden;transition:transform .12s, opacity .12s;
-  user-select:none;-webkit-user-select:none}
+ overflow:hidden;transition:transform .12s, opacity .12s;
+ user-select:none;-webkit-user-select:none}
 .kc:active{transform:scale(.972);opacity:.9}
 .kc.green{background:linear-gradient(135deg,#1db87f 0%,#158a5e 100%)}
 .kc.red{background:linear-gradient(135deg,#e05a32 0%,#b83d1e 100%)}
 .kc.amber{background:linear-gradient(135deg,#d4861a 0%,#a8650e 100%)}
 .kc.blue{background:linear-gradient(135deg,#2270c4 0%,#1450a0 100%)}
 .kc .lbl{font-size:11px;font-weight:600;color:rgba(255,255,255,.65);
-  margin-bottom:8px;letter-spacing:.02em;text-transform:uppercase}
+ margin-bottom:8px;letter-spacing:.02em;text-transform:uppercase}
 .kc .num{font-size:46px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff}
 .kc .num.sm{font-size:30px;letter-spacing:-.02em}
 .kc .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.4}
@@ -89,8 +89,8 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);
 .det-hdr{position:sticky;top:0;z-index:10;background:var(--bg);padding:env(safe-area-inset-top,14px) 16px 0;border-bottom:.5px solid var(--bd2)}
 .det-inner{display:flex;align-items:center;gap:11px;padding:9px 0 11px}
 .back{width:34px;height:34px;border-radius:50%;background:var(--s2);border:.5px solid var(--bd2);
-  display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;
-  flex-shrink:0;color:var(--t);line-height:1}
+ display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;
+ flex-shrink:0;color:var(--t);line-height:1}
 .det-ttl{font-size:16px;font-weight:700;flex:1}
 .dbadge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap}
 .dbadge.green{background:var(--bgreen);color:var(--tgreen)}
@@ -118,7 +118,7 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);
 /* Sélecteur de mois */
 .mois-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .mois-pill{padding:5px 12px;border-radius:20px;border:.5px solid var(--bd2);
-  background:transparent;color:var(--t2);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+ background:transparent;color:var(--t2);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
 .mois-pill.on{background:var(--blue);color:#fff;border-color:var(--blue)}
 
 .mc{background:var(--sur);border:.5px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:8px}
@@ -148,150 +148,173 @@ canvas{display:block}
 
 <div class="main" id="main">
 
-  <div class="hdr">
-    <div class="hdr-top">
-      <div class="hdr-brand">
-        <div class="hdr-title">CrossFit Hygie</div>
-        <div class="hdr-date" id="hdr-date"></div>
-      </div>
-    </div>
-    <div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:10px">
-      <button onclick="exporterSync()" style="font-size:10px;padding:3px 10px;border-radius:20px;border:.5px solid var(--bd2);background:transparent;color:var(--t3);cursor:pointer">&#8679; exporter</button>
-      <button onclick="importerSync()" style="font-size:10px;padding:3px 10px;border-radius:20px;border:.5px solid var(--bd2);background:transparent;color:var(--t3);cursor:pointer">&#8681; importer</button>
-    </div>
-    <div class="imp-row">
-      <label class="imp" id="lbl-resa" for="fi-resa">
-        <span class="imp-icon">&#8683;</span>
-        <span class="imp-name" id="txt-resa-name">Resawod</span>
-        <span class="imp-status" id="txt-resa-status">.xlsx — membres</span>
-      </label>
-      <label class="imp" id="lbl-hib" for="fi-hib">
-        <span class="imp-icon">&#8683;</span>
-        <span class="imp-name" id="txt-hib-name">Hiboutik</span>
-        <span class="imp-status" id="txt-hib-status">.csv — ventes</span>
-      </label>
-      <label class="imp" id="lbl-cours" for="fi-cours" style="grid-column:1/-1">
-        <span class="imp-icon">&#8683;</span>
-        <span class="imp-name" id="txt-cours-name">Taux de remplissage</span>
-        <span class="imp-status" id="txt-cours-status">.xlsx — cours ResaWod</span>
-      </label>
-      <input type="file" id="fi-resa" accept=".xlsx,.xls" style="display:none">
-      <input type="file" id="fi-hib" accept=".csv" style="display:none">
-      <input type="file" id="fi-cours" accept=".xlsx,.xls" style="display:none">
-    </div>
+ <div class="hdr">
+  <div class="hdr-top">
+   <div class="hdr-brand">
+    <div class="hdr-title">CrossFit Hygie</div>
+    <div class="hdr-date" id="hdr-date"></div>
+   </div>
+   <button onclick="ouvrirTiroir()" style="width:34px;height:34px;border-radius:50%;background:var(--s2);border:.5px solid var(--bd2);font-size:20px;cursor:pointer;color:var(--t2);display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1">&#8943;</button>
   </div>
+  <input type="file" id="fi-resa" accept=".xlsx,.xls" style="display:none">
+  <input type="file" id="fi-hib" accept=".csv" style="display:none">
+  <input type="file" id="fi-cours" accept=".xlsx,.xls" style="display:none">
+ </div>
 
-  <div class="sec-wrap">
-    <div class="sec">Membres</div>
-    <div class="grid2">
-      <div class="kc green" onclick="ouvrirDetail('actifs')">
-        <div class="lbl">Abonnés actifs</div>
-        <div class="num" id="n-actifs">—</div>
-        <div class="sub" id="s-actifs">—</div>
-        <div class="arr">›</div>
-      </div>
-      <div class="kc red" id="card-30j" onclick="ouvrirDetail('30j')">
-        <div class="lbl">Fins engagement</div>
-        <div class="num" id="n-30j">—</div>
-        <div class="sub" id="s-30j">dans 30 jours</div>
-        <div class="arr">›</div>
-      </div>
-      <div class="kc" style="background:linear-gradient(135deg,#534ab7 0%,#3a34a0 100%)" onclick="ouvrirDetail('rempli')">
-        <div class="lbl">Remplissage</div>
-        <div class="num" id="n-rempli">—</div>
-        <div class="sub" id="s-rempli">—</div>
-        <div class="arr">›</div>
-      </div>
-      <div class="kc amber" onclick="ouvrirDetail('prelev')">
-        <div class="lbl" id="lbl-prelev">Prélèvement</div>
-        <div class="num sm" id="n-prelev">—</div>
-        <div class="sub" id="s-prelev">—</div>
-        <div class="arr">›</div>
-      </div>
-    </div>
+ <div class="sec-wrap">
+ <div class="sec"> Membres</div>
+ <div class="grid2">
+ <div class="kc green" onclick="ouvrirDetail('actifs')">
+ <div class="lbl"> Abonnés actifs</div>
+ <div class="num" id="n-actifs"></div>
+ <div class="sub" id="s-actifs"></div>
+ <div class="arr"></div>
+ </div>
+ <div class="kc red" id="card-30j" onclick="ouvrirDetail('30j')">
+ <div class="lbl">Fins engagement</div>
+ <div class="num" id="n-30j"></div>
+ <div class="sub" id="s-30j">dans 30 jours</div>
+ <div class="arr"></div>
+ </div>
+ <div class="kc" style="background:linear-gradient(135deg,#534ab7 0%,#3a34a0 100%)" onclick="ouvrirDetail('rempli')">
+ <div class="lbl"> Remplissage</div>
+ <div class="num" id="n-rempli"></div>
+ <div class="sub" id="s-rempli"></div>
+ <div class="arr"></div>
+ </div>
+ <div class="kc amber" onclick="ouvrirDetail('prelev')">
+ <div class="lbl" id="lbl-prelev"> Prélèvement</div>
+ <div class="num sm" id="n-prelev"></div>
+ <div class="sub" id="s-prelev"></div>
+ <div class="arr"></div>
+ </div>
+ </div>
 
-    <div class="sec">Chiffre d'affaires</div>
-    <div class="stack">
-      <div class="kc blue" onclick="ouvrirDetail('ca')">
-        <div class="lbl" id="lbl-ca">Boutique</div>
-        <div class="num sm" id="n-ca">—</div>
-        <div class="sub" id="s-ca">—</div>
-        <div class="arr">›</div>
-      </div>
-    </div>
-  </div>
+ <div class="sec"> Chiffre d'affaires</div>
+ <div class="stack">
+ <div class="kc blue" onclick="ouvrirDetail('ca')">
+ <div class="lbl" id="lbl-ca"> Boutique</div>
+ <div class="num sm" id="n-ca"></div>
+ <div class="sub" id="s-ca"></div>
+ <div class="arr"></div>
+ </div>
+ </div>
+ </div>
 
 </div>
 
+<!-- TIROIR -->
+<div id="tiroir-overlay" onclick="fermerTiroir()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:200"></div>
+<div id="tiroir" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:201;background:var(--sur);border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom,16px);box-shadow:0 -4px 30px rgba(0,0,0,.12);transform:translateY(100%);transition:transform .3s cubic-bezier(.16,1,.3,1)">
+  <div style="width:32px;height:3px;border-radius:2px;background:var(--bd2);margin:10px auto 14px"></div>
+  <div style="padding:0 16px 16px">
+
+    <!-- Imports compacts -->
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:8px">Importer</div>
+    <div style="border-radius:var(--rs);overflow:hidden;border:.5px solid var(--bd);margin-bottom:14px">
+      <label for="fi-resa" id="lbl-resa" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--sur);cursor:pointer;border-bottom:.5px solid var(--bd)">
+        <div style="width:28px;height:28px;border-radius:8px;background:var(--bgreen);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--tgreen);flex-shrink:0">RW</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-resa-name">Resawod</div>
+          <div style="font-size:11px;color:var(--t3)" id="txt-resa-status">.xlsx — abonnés</div>
+        </div>
+        <div style="font-size:16px;color:var(--t3)">›</div>
+      </label>
+      <label for="fi-hib" id="lbl-hib" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--sur);cursor:pointer;border-bottom:.5px solid var(--bd)">
+        <div style="width:28px;height:28px;border-radius:8px;background:var(--bblue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--tblue);flex-shrink:0">HB</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-hib-name">Hiboutik</div>
+          <div style="font-size:11px;color:var(--t3)" id="txt-hib-status">.csv — ventes</div>
+        </div>
+        <div style="font-size:16px;color:var(--t3)">›</div>
+      </label>
+      <label for="fi-cours" id="lbl-cours" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--sur);cursor:pointer">
+        <div style="width:28px;height:28px;border-radius:8px;background:#eeedfe;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#3a34a0;flex-shrink:0">TR</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-cours-name">Taux de remplissage</div>
+          <div style="font-size:11px;color:var(--t3)" id="txt-cours-status">.xlsx — cours</div>
+        </div>
+        <div style="font-size:16px;color:var(--t3)">›</div>
+      </label>
+    </div>
+
+    <!-- Sync compact -->
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:8px">Synchronisation</div>
+    <div style="display:flex;gap:8px">
+      <button onclick="fermerTiroir();setTimeout(exporterSync,220)" style="flex:1;padding:10px;border-radius:var(--rs);background:var(--s2);border:.5px solid var(--bd2);font-size:13px;font-weight:600;color:var(--t);cursor:pointer">&#8679; Exporter</button>
+      <button onclick="fermerTiroir();setTimeout(importerSync,220)" style="flex:1;padding:10px;border-radius:var(--rs);background:var(--t);border:none;font-size:13px;font-weight:600;color:var(--bg);cursor:pointer">&#8681; Importer</button>
+    </div>
+  </div>
+</div>
 <!-- DETAIL ACTIFS -->
 <div class="det" id="d-actifs">
-  <div class="det-hdr"><div class="det-inner">
-    <div class="back" onclick="fermerDetail('actifs')">‹</div>
-    <div class="det-ttl">Abonnés actifs</div>
-    <div class="dbadge green" id="b-actifs">—</div>
-  </div></div>
-  <div class="det-body" id="c-actifs"></div>
+ <div class="det-hdr"><div class="det-inner">
+ <div class="back" onclick="fermerDetail('actifs')">‹</div>
+ <div class="det-ttl"> Abonnés actifs</div>
+ <div class="dbadge green" id="b-actifs"></div>
+ </div></div>
+ <div class="det-body" id="c-actifs"></div>
 </div>
 
 <!-- DETAIL REMPLISSAGE -->
 <div class="det" id="d-rempli">
-  <div class="det-hdr"><div class="det-inner">
-    <div class="back" onclick="fermerDetail('rempli')">‹</div>
-    <div class="det-ttl" id="ttl-rempli">Taux de remplissage</div>
-    <div class="dbadge" style="background:#eeedfe;color:#3a34a0" id="b-rempli">—</div>
+ <div class="det-hdr"><div class="det-inner">
+ <div class="back" onclick="fermerDetail('rempli')">‹</div>
+ <div class="det-ttl" id="ttl-rempli"> Taux de remplissage</div>
+ <div class="dbadge" style="background:#eeedfe;color:#3a34a0" id="b-rempli"></div>
 
-  </div></div>
-  <div class="det-body" id="c-rempli"></div>
+ </div></div>
+ <div class="det-body" id="c-rempli"></div>
 </div>
 
 <!-- DETAIL RETENTION -->
 <div class="det" id="d-retention">
-  <div class="det-hdr"><div class="det-inner">
-    <div class="back" onclick="fermerDetail('retention')">‹</div>
-    <div class="det-ttl">Taux de rétention</div>
-    <div class="dbadge green" id="b-retention">—</div>
-  </div></div>
-  <div class="det-body" id="c-retention"></div>
+ <div class="det-hdr"><div class="det-inner">
+ <div class="back" onclick="fermerDetail('retention')">‹</div>
+ <div class="det-ttl"> Taux de rétention</div>
+ <div class="dbadge green" id="b-retention"></div>
+ </div></div>
+ <div class="det-body" id="c-retention"></div>
 </div>
 
 <!-- DETAIL NOUVEAUX -->
 <div class="det" id="d-nouveaux">
-  <div class="det-hdr"><div class="det-inner">
-    <div class="back" onclick="fermerDetail('nouveaux')">‹</div>
-    <div class="det-ttl">Nouveaux membres</div>
-    <div class="dbadge blue" id="b-nouveaux">—</div>
-  </div></div>
-  <div class="det-body" id="c-nouveaux"></div>
+ <div class="det-hdr"><div class="det-inner">
+ <div class="back" onclick="fermerDetail('nouveaux')">‹</div>
+ <div class="det-ttl"> Nouveaux membres</div>
+ <div class="dbadge blue" id="b-nouveaux"></div>
+ </div></div>
+ <div class="det-body" id="c-nouveaux"></div>
 </div>
 
 <!-- DETAIL PRÉLÈVEMENT -->
 <div class="det" id="d-prelev">
-  <div class="det-hdr"><div class="det-inner">
-    <div class="back" onclick="fermerDetail('prelev')">‹</div>
-    <div class="det-ttl" id="ttl-prelev">Prélèvement estimé</div>
-    <div class="dbadge amber" id="b-prelev">—</div>
-  </div></div>
-  <div class="det-body" id="c-prelev"></div>
+ <div class="det-hdr"><div class="det-inner">
+ <div class="back" onclick="fermerDetail('prelev')">‹</div>
+ <div class="det-ttl" id="ttl-prelev"> Prélèvement estimé</div>
+ <div class="dbadge amber" id="b-prelev"></div>
+ </div></div>
+ <div class="det-body" id="c-prelev"></div>
 </div>
 
 <!-- DETAIL 30J -->
 <div class="det" id="d-30j">
-  <div class="det-hdr"><div class="det-inner">
-    <div class="back" onclick="fermerDetail('30j')">‹</div>
-    <div class="det-ttl">Fin d'engagement &lt; 30j</div>
-    <div class="dbadge red" id="b-30j">—</div>
-  </div></div>
-  <div class="det-body" id="c-30j"></div>
+ <div class="det-hdr"><div class="det-inner">
+ <div class="back" onclick="fermerDetail('30j')">‹</div>
+ <div class="det-ttl">Fins d'engagement</div>
+ <div class="dbadge red" id="b-30j"></div>
+ </div></div>
+ <div class="det-body" id="c-30j"></div>
 </div>
 
 <!-- DETAIL CA -->
 <div class="det" id="d-ca">
-  <div class="det-hdr"><div class="det-inner">
-    <div class="back" onclick="fermerDetail('ca')">‹</div>
-    <div class="det-ttl" id="ttl-ca">Boutique —  du mois en cours</div>
-    <div class="dbadge blue" id="b-ca">—</div>
-  </div></div>
-  <div class="det-body" id="c-ca"></div>
+ <div class="det-hdr"><div class="det-inner">
+ <div class="back" onclick="fermerDetail('ca')">‹</div>
+ <div class="det-ttl" id="ttl-ca"> Boutique</div>
+ <div class="dbadge blue" id="b-ca"></div>
+ </div></div>
+ <div class="det-body" id="c-ca"></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -318,200 +341,210 @@ function capNom(s){ return (s||'').split(/\s+/).map(capMot).join(' '); }
 function ini(p,n){ return ((p||'')[0]||'').toUpperCase()+((n||'')[0]||'').toUpperCase(); }
 
 function parseDate(v){
-  if(!v || v==='Illimité' || v==='Durée indéterminée') return null;
-  var s = String(v).trim();
-  var m1 = s.match(/^(\d{2})-(\d{2})-(\d{4})/);
-  if(m1) return new Date(parseInt(m1[3]), parseInt(m1[2])-1, parseInt(m1[1]));
-  var m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if(m2) return new Date(parseInt(m2[1]), parseInt(m2[2])-1, parseInt(m2[3]));
-  return null;
+ if(!v || v==='Illimité' || v==='Durée indéterminée') return null;
+ var s = String(v).trim();
+ var m1 = s.match(/^(\d{2})-(\d{2})-(\d{4})/);
+ if(m1) return new Date(parseInt(m1[3]), parseInt(m1[2])-1, parseInt(m1[1]));
+ var m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+ if(m2) return new Date(parseInt(m2[1]), parseInt(m2[2])-1, parseInt(m2[3]));
+ return null;
 }
 function fmtDate(v){
-  var d = parseDate(v); if(!d) return v||'—';
-  return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+ var d = parseDate(v); if(!d) return v||'';
+ return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
 }
 function fmtDateCourt(v){
-  var d = parseDate(v); if(!d) return v||'—';
-  return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'});
+ var d = parseDate(v); if(!d) return v||'';
+ return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'});
 }
 
+function ouvrirTiroir(){
+  var t=document.getElementById('tiroir'),o=document.getElementById('tiroir-overlay');
+  t.style.display='block';o.style.display='block';
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ t.style.transform='translateY(0)'; }); });
+}
+function fermerTiroir(){
+  var t=document.getElementById('tiroir'),o=document.getElementById('tiroir-overlay');
+  t.style.transform='translateY(100%)';
+  setTimeout(function(){ t.style.display='none';o.style.display='none'; },320);
+}
 function ouvrirDetail(id){
-  document.getElementById('d-'+id).classList.add('on');
-  document.body.style.overflow='hidden';
-  if(id==='retention') renderRetention();
-  if(id==='nouveaux') renderNouveaux();
+ document.getElementById('d-'+id).classList.add('on');
+ document.body.style.overflow='hidden';
+ if(id==='retention') renderRetention();
+ if(id==='nouveaux') renderNouveaux();
 }
 function fermerDetail(id){ document.getElementById('d-'+id).classList.remove('on'); document.body.style.overflow=''; }
 
 ['actifs','prelev','30j','ca','rempli','retention','nouveaux'].forEach(function(id){
-  var x0=0, el=document.getElementById('d-'+id);
-  el.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
-  el.addEventListener('touchend',function(e){ if(e.changedTouches[0].clientX-x0>70) fermerDetail(id); },{passive:true});
+ var x0=0, el=document.getElementById('d-'+id);
+ el.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+ el.addEventListener('touchend',function(e){ if(e.changedTouches[0].clientX-x0>70) fermerDetail(id); },{passive:true});
 });
 
 // ─── PARSE XLSX ───
 function parseXLSX(buffer){
-  var wb = XLSX.read(buffer,{type:'array',raw:true});
-  var ws = wb.Sheets[wb.SheetNames[0]];
-  var raw = XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:true});
+ var wb = XLSX.read(buffer,{type:'array',raw:true});
+ var ws = wb.Sheets[wb.SheetNames[0]];
+ var raw = XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:true});
 
-  // Trouver la ligne contenant 'Statut' (gère fichiers avec ou sans ligne titre)
-  var hi=-1;
-  for(var i=0;i<Math.min(raw.length,6);i++){
-    for(var j=0;j<raw[i].length;j++){
-      if(String(raw[i][j]||'').trim()==='Statut'){hi=i;break;}
-    }
-    if(hi>=0) break;
-  }
-  if(hi<0){ alert('Colonne Statut introuvable — vérifie le fichier ResaWod.'); return []; }
+ // Trouver la ligne contenant 'Statut' (gère fichiers avec ou sans ligne titre)
+ var hi=-1;
+ for(var i=0;i<Math.min(raw.length,6);i++){
+ for(var j=0;j<raw[i].length;j++){
+ if(String(raw[i][j]||'').trim()==='Statut'){hi=i;break;}
+ }
+ if(hi>=0) break;
+ }
+ if(hi<0){ alert('Colonne Statut introuvable vérifie le fichier ResaWod.'); return []; }
 
-  var hdrs=raw[hi], idx={};
-  for(var k=0;k<hdrs.length;k++){
-    var h=String(hdrs[k]||'').trim();
-    if(h) idx[h]=k;
-  }
+ var hdrs=raw[hi], idx={};
+ for(var k=0;k<hdrs.length;k++){
+ var h=String(hdrs[k]||'').trim();
+ if(h) idx[h]=k;
+ }
 
-  var COLS=['Prénom','Nom','Portable','Email','Abonnement','Profil','Prix','Paiement','Statut','Acheté le',"Date d'engagement",'Expiré le','Durée'];
-  var data=[];
-  for(var r=hi+1;r<raw.length;r++){
-    var row=raw[r];
-    if(!row||!row.length) continue;
-    var statutIdx=idx['Statut'];
-    if(statutIdx===undefined) continue;
-    var statut=String(row[statutIdx]||'').trim();
-    if(!statut) continue;
-    var obj={};
-    COLS.forEach(function(col){
-      var ci=idx[col];
-      if(ci===undefined){obj[col]='';return;}
-      var v=row[ci];
-      if(v===null||v===undefined){obj[col]='';return;}
-      if(typeof v==='number'&&v>40000&&v<60000){
-        var d=new Date(Math.round((v-25569)*86400*1000));
-        obj[col]=String(d.getDate()).padStart(2,'0')+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+d.getFullYear();
-        return;
-      }
-      obj[col]=String(v).trim();
-    });
-    data.push(obj);
-  }
-  return data;
+ var COLS=['Prénom','Nom','Portable','Email','Abonnement','Profil','Prix','Paiement','Statut','Acheté le',"Date d'engagement",'Expiré le','Durée'];
+ var data=[];
+ for(var r=hi+1;r<raw.length;r++){
+ var row=raw[r];
+ if(!row||!row.length) continue;
+ var statutIdx=idx['Statut'];
+ if(statutIdx===undefined) continue;
+ var statut=String(row[statutIdx]||'').trim();
+ if(!statut) continue;
+ var obj={};
+ COLS.forEach(function(col){
+ var ci=idx[col];
+ if(ci===undefined){obj[col]='';return;}
+ var v=row[ci];
+ if(v===null||v===undefined){obj[col]='';return;}
+ if(typeof v==='number'&&v>40000&&v<60000){
+ var d=new Date(Math.round((v-25569)*86400*1000));
+ obj[col]=String(d.getDate()).padStart(2,'0')+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+d.getFullYear();
+ return;
+ }
+ obj[col]=String(v).trim();
+ });
+ data.push(obj);
+ }
+ return data;
 }
 
 // ─── PARSE XLSX COURS ───
 function parseXLSXCours(buffer){
-  var wb=XLSX.read(buffer,{type:'array',raw:true});
-  var ws=wb.Sheets[wb.SheetNames[0]];
-  var raw=XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:true});
-  // Trouver headers
-  var hi=-1;
-  for(var i=0;i<Math.min(raw.length,3);i++){
-    if(raw[i].some(function(c){return String(c||'').trim()==='Date';})){hi=i;break;}
-  }
-  if(hi<0) return [];
-  var hdrs=raw[hi], idx={};
-  for(var k=0;k<hdrs.length;k++) idx[String(hdrs[k]||'').trim()]=k;
+ var wb=XLSX.read(buffer,{type:'array',raw:true});
+ var ws=wb.Sheets[wb.SheetNames[0]];
+ var raw=XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:true});
+ // Trouver headers
+ var hi=-1;
+ for(var i=0;i<Math.min(raw.length,3);i++){
+ if(raw[i].some(function(c){return String(c||'').trim()==='Date';})){hi=i;break;}
+ }
+ if(hi<0) return [];
+ var hdrs=raw[hi], idx={};
+ for(var k=0;k<hdrs.length;k++) idx[String(hdrs[k]||'').trim()]=k;
 
-  // Détecter le format :
-  // Format A (ancien) : Date | Date début | Date fin | Nom | Participants | Nombre de participants | Taux | Liste attente | Coach
-  // Format B (nouveau) : Date | Nom | Participants | Nombre de participants | Taux | Liste attente | Statut | Catégories
-  var colNom = idx['Nom'] !== undefined ? idx['Nom'] : null;
-  var colParticipants = idx['Participants'] !== undefined ? idx['Participants'] : null;
-  var colNbParticipants = idx['Nombre de participants'] !== undefined ? idx['Nombre de participants'] : null;
-  var colStatut = idx['Statut'] !== undefined ? idx['Statut'] : null;
-  if(colNom===null || colParticipants===null || colNbParticipants===null) return [];
+ // Détecter le format :
+ // Format A (ancien) : Date | Date début | Date fin | Nom | Participants | Nombre de participants | Taux | Liste attente | Coach
+ // Format B (nouveau) : Date | Nom | Participants | Nombre de participants | Taux | Liste attente | Statut | Catégories
+ var colNom = idx['Nom'] !== undefined ? idx['Nom'] : null;
+ var colParticipants = idx['Participants'] !== undefined ? idx['Participants'] : null;
+ var colNbParticipants = idx['Nombre de participants'] !== undefined ? idx['Nombre de participants'] : null;
+ var colStatut = idx['Statut'] !== undefined ? idx['Statut'] : null;
+ if(colNom===null || colParticipants===null || colNbParticipants===null) return [];
 
-  var EXCLUS=['Annulé','Stage','annulé'];
-  var data=[];
-  for(var r=hi+1;r<raw.length;r++){
-    var row=raw[r];
-    if(!row||!row[idx['Date']]) continue;
-    // Exclure statut Annulé (format B)
-    if(colStatut!==null && String(row[colStatut]||'').trim()==='Annulé') continue;
-    var nom=String(row[colNom]||'').trim();
-    if(!nom) continue;
-    if(EXCLUS.some(function(x){return nom.indexOf(x)>=0;})) continue;
-    // Convertir date
-    var dateVal=row[idx['Date']];
-    var dateStr='';
-    if(typeof dateVal==='number'&&dateVal>40000){
-      var d=new Date(Math.round((dateVal-25569)*86400*1000));
-      dateStr=String(d.getDate()).padStart(2,'0')+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+d.getFullYear();
-    } else { dateStr=String(dateVal).trim(); }
-    var inscrits=parseInt(row[colParticipants]||0)||0;
-    var capa=parseInt(row[colNbParticipants]||0)||0;
-    if(!capa) continue;
-    data.push({date:dateStr,nom:nom,inscrits:inscrits,capa:capa});
-  }
-  return data;
+ var EXCLUS=['Annulé','Stage','annulé'];
+ var data=[];
+ for(var r=hi+1;r<raw.length;r++){
+ var row=raw[r];
+ if(!row||!row[idx['Date']]) continue;
+ // Exclure statut Annulé (format B)
+ if(colStatut!==null && String(row[colStatut]||'').trim()==='Annulé') continue;
+ var nom=String(row[colNom]||'').trim();
+ if(!nom) continue;
+ if(EXCLUS.some(function(x){return nom.indexOf(x)>=0;})) continue;
+ // Convertir date
+ var dateVal=row[idx['Date']];
+ var dateStr='';
+ if(typeof dateVal==='number'&&dateVal>40000){
+ var d=new Date(Math.round((dateVal-25569)*86400*1000));
+ dateStr=String(d.getDate()).padStart(2,'0')+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+d.getFullYear();
+ } else { dateStr=String(dateVal).trim(); }
+ var inscrits=parseInt(row[colParticipants]||0)||0;
+ var capa=parseInt(row[colNbParticipants]||0)||0;
+ if(!capa) continue;
+ data.push({date:dateStr,nom:nom,inscrits:inscrits,capa:capa});
+ }
+ return data;
 }
 
 // ─── PROCESS COURS ───
 function processCours(rows){
-  // Fusion cumulative intelligente :
-  // - Mois courant : toujours remplacé intégralement
-  // - Mois passés : remplacés intégralement par les nouvelles données du fichier
-  //   (si un nouveau cours apparaît dans l'historique, il est pris en compte)
-  // - Mois absents du nouveau fichier : conservés depuis le cache
-  var now=new Date();
-  var moisCourant=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+ // Fusion cumulative intelligente :
+ // - Mois courant : toujours remplacé intégralement
+ // - Mois passés : remplacés intégralement par les nouvelles données du fichier
+ // (si un nouveau cours apparaît dans l'historique, il est pris en compte)
+ // - Mois absents du nouveau fichier : conservés depuis le cache
+ var now=new Date();
+ var moisCourant=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
 
-  var cumul={};
-  try{ var ex=localStorage.getItem('hygie_cours_cumul'); if(ex) cumul=JSON.parse(ex); }catch(e){}
+ var cumul={};
+ try{ var ex=localStorage.getItem('hygie_cours_cumul'); if(ex) cumul=JSON.parse(ex); }catch(e){}
 
-  // Indexer les nouvelles données par mois
-  var rowsParMois={};
-  rows.forEach(function(r){
-    var p=r.date.split('-');
-    if(p.length!==3) return;
-    var mois=p[2]+'-'+p[1];
-    if(!rowsParMois[mois]) rowsParMois[mois]=[];
-    rowsParMois[mois].push(r);
-  });
+ // Indexer les nouvelles données par mois
+ var rowsParMois={};
+ rows.forEach(function(r){
+ var p=r.date.split('-');
+ if(p.length!==3) return;
+ var mois=p[2]+'-'+p[1];
+ if(!rowsParMois[mois]) rowsParMois[mois]=[];
+ rowsParMois[mois].push(r);
+ });
 
-  // Pour chaque mois présent dans le nouveau fichier : remplacer complètement
-  // (capte les nouveaux cours, corrections, etc.)
-  // Pour les mois absents du fichier : conserver le cache
-  Object.keys(rowsParMois).forEach(function(mois){
-    cumul[mois]=rowsParMois[mois];
-  });
+ // Pour chaque mois présent dans le nouveau fichier : remplacer complètement
+ // (capte les nouveaux cours, corrections, etc.)
+ // Pour les mois absents du fichier : conserver le cache
+ Object.keys(rowsParMois).forEach(function(mois){
+ cumul[mois]=rowsParMois[mois];
+ });
 
-  try{ localStorage.setItem('hygie_cours_cumul', JSON.stringify(cumul)); }catch(e){}
+ try{ localStorage.setItem('hygie_cours_cumul', JSON.stringify(cumul)); }catch(e){}
 
-  // Aplatir pour rempliRows
-  rempliRows=[];
-  Object.keys(cumul).forEach(function(m){ rempliRows=rempliRows.concat(cumul[m]); });
+ // Aplatir pour rempliRows
+ rempliRows=[];
+ Object.keys(cumul).forEach(function(m){ rempliRows=rempliRows.concat(cumul[m]); });
 
-  updateTuileCours();
-  renderRempli();
+ updateTuileCours();
+ renderRempli();
 }
 
 function updateTuileCours(){
-  var now=new Date();
-  var moisCourant=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-  // Chercher le mois le plus récent disponible
-  var moisDispo={};
-  rempliRows.forEach(function(r){
-    var parts=r.date.split('-');
-    if(parts.length===3) moisDispo[parts[2]+'-'+parts[1]]=true;
-  });
-  var moisKeys=Object.keys(moisDispo).sort();
-  var moisRef=moisKeys.indexOf(moisCourant)>=0?moisCourant:moisKeys[moisKeys.length-1];
-  if(!moisRef) return;
-  var moisRows=rempliRows.filter(function(r){
-    var p=r.date.split('-');
-    return p.length===3&&(p[2]+'-'+p[1])===moisRef;
-  });
-  // Exclure Free Hygie du calcul du taux global
-  var moisRowsCalc=moisRows.filter(function(r){ return r.nom.indexOf('Free')<0; });
-  var inscrits=moisRowsCalc.reduce(function(a,r){return a+r.inscrits;},0);
-  var capa=moisRowsCalc.reduce(function(a,r){return a+r.capa;},0);
-  var taux=capa?inscrits/capa:0;
-  var p=moisRef.split('-');
-  var nomMois=new Date(parseInt(p[0]),parseInt(p[1])-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
-  document.getElementById('n-rempli').textContent=Math.round(taux*100)+'%';
-  document.getElementById('s-rempli').textContent=inscrits+' inscrits / '+capa+' places · '+nomMois;
-  document.getElementById('b-rempli').textContent=Math.round(taux*100)+'%';
+ var now=new Date();
+ var moisCourant=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+ // Chercher le mois le plus récent disponible
+ var moisDispo={};
+ rempliRows.forEach(function(r){
+ var parts=r.date.split('-');
+ if(parts.length===3) moisDispo[parts[2]+'-'+parts[1]]=true;
+ });
+ var moisKeys=Object.keys(moisDispo).sort();
+ var moisRef=moisKeys.indexOf(moisCourant)>=0?moisCourant:moisKeys[moisKeys.length-1];
+ if(!moisRef) return;
+ var moisRows=rempliRows.filter(function(r){
+ var p=r.date.split('-');
+ return p.length===3&&(p[2]+'-'+p[1])===moisRef;
+ });
+ // Exclure Free Hygie du calcul du taux global
+ var moisRowsCalc=moisRows.filter(function(r){ return r.nom.indexOf('Free')<0; });
+ var inscrits=moisRowsCalc.reduce(function(a,r){return a+r.inscrits;},0);
+ var capa=moisRowsCalc.reduce(function(a,r){return a+r.capa;},0);
+ var taux=capa?inscrits/capa:0;
+ var p=moisRef.split('-');
+ var nomMois=new Date(parseInt(p[0]),parseInt(p[1])-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+ document.getElementById('n-rempli').textContent=Math.round(taux*100)+'%';
+ document.getElementById('s-rempli').textContent=inscrits+' inscrits / '+capa+' places · '+nomMois;
+ document.getElementById('b-rempli').textContent=Math.round(taux*100)+'%';
 }
 
 // ─── RENDER REMPLISSAGE ───
@@ -519,174 +552,174 @@ var rempliMoisActif=null;
 var rempliTypeActif='Tous';
 
 function renderRempli(){
-  var el=document.getElementById('c-rempli');
-  if(!rempliRows.length){
-    el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3)">Importe le fichier Taux de remplissage</div>';
-    return;
-  }
-  var MOIS_NOMS=['jan','fev','mar','avr','mai','jun','jul','aou','sep','oct','nov','dec'];
-  var moisDispo={};
-  rempliRows.forEach(function(r){
-    var p=r.date.split('-');
-    if(p.length===3) moisDispo[p[2]+'-'+p[1]]=true;
-  });
-  var moisKeys=Object.keys(moisDispo).sort().reverse();
-  if(!rempliMoisActif) rempliMoisActif=moisKeys[0];
+ var el=document.getElementById('c-rempli');
+ if(!rempliRows.length){
+ el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3)">Importe le fichier Taux de remplissage</div>';
+ return;
+ }
+ var MOIS_NOMS=['jan','fev','mar','avr','mai','jun','jul','aou','sep','oct','nov','dec'];
+ var moisDispo={};
+ rempliRows.forEach(function(r){
+ var p=r.date.split('-');
+ if(p.length===3) moisDispo[p[2]+'-'+p[1]]=true;
+ });
+ var moisKeys=Object.keys(moisDispo).sort().reverse();
+ if(!rempliMoisActif) rempliMoisActif=moisKeys[0];
 
-  var typesDispo={};
-  rempliRows.forEach(function(r){ typesDispo[r.nom]=true; });
-  var types=['Tous'].concat(Object.keys(typesDispo).sort());
+ var typesDispo={};
+ rempliRows.forEach(function(r){ typesDispo[r.nom]=true; });
+ var types=['Tous'].concat(Object.keys(typesDispo).sort());
 
-  // Graphique évolution taux par mois (hors Free)
-  var moisChronos=Object.keys(moisDispo).sort();
-  var tauxParMois=moisChronos.map(function(m){
-    var rowsMois=rempliRows.filter(function(r){
-      var p=r.date.split('-');
-      return p.length===3&&(p[2]+'-'+p[1])===m&&r.nom.indexOf('Free')<0;
-    });
-    var ins=rowsMois.reduce(function(a,r){return a+r.inscrits;},0);
-    var cap=rowsMois.reduce(function(a,r){return a+r.capa;},0);
-    return cap?Math.round(ins/cap*100):0;
-  });
-  var nbVisibleRempli=Math.min(6,moisChronos.length);
-  var xMinR=moisChronos.length-nbVisibleRempli;
-  var xMaxR=moisChronos.length-1;
-  var labelsRempli=moisChronos.map(function(k){
-    var p=k.split('-'); return MOIS_NOMS[parseInt(p[1])-1]+' '+p[0].slice(2);
-  });
+ // Graphique évolution taux par mois (hors Free)
+ var moisChronos=Object.keys(moisDispo).sort();
+ var tauxParMois=moisChronos.map(function(m){
+ var rowsMois=rempliRows.filter(function(r){
+ var p=r.date.split('-');
+ return p.length===3&&(p[2]+'-'+p[1])===m&&r.nom.indexOf('Free')<0;
+ });
+ var ins=rowsMois.reduce(function(a,r){return a+r.inscrits;},0);
+ var cap=rowsMois.reduce(function(a,r){return a+r.capa;},0);
+ return cap?Math.round(ins/cap*100):0;
+ });
+ var nbVisibleRempli=Math.min(6,moisChronos.length);
+ var xMinR=moisChronos.length-nbVisibleRempli;
+ var xMaxR=moisChronos.length-1;
+ var labelsRempli=moisChronos.map(function(k){
+ var p=k.split('-'); return MOIS_NOMS[parseInt(p[1])-1]+' '+p[0].slice(2);
+ });
 
-  var graphRempliHTML='<div class="cc"><div class="cc-ttl">Évolution du taux de remplissage</div>'
-    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
-    +'<div class="cc-sub" style="margin:0">Hors Free Hygie</div>'
-    +'<select id="selRempliEvol" style="padding:4px 8px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:11px">'
-    +'<option value="6">6 mois</option><option value="12">12 mois</option><option value="all">Tout</option>'
-    +'</select></div>'
-    +'<div style="position:relative;width:100%;height:160px"><canvas id="cvRempliEvol"></canvas></div></div>';
+ var graphRempliHTML='<div class="cc"><div class="cc-ttl">Évolution du taux de remplissage</div>'
+ +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
+ +'<div class="cc-sub" style="margin:0">Hors Free Hygie</div>'
+ +'<select id="selRempliEvol" style="padding:4px 8px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:11px">'
+ +'<option value="6">6 mois</option><option value="12">12 mois</option><option value="all">Tout</option>'
+ +'</select></div>'
+ +'<div style="position:relative;width:100%;height:160px"><canvas id="cvRempliEvol"></canvas></div></div>';
 
-  // Sélecteur mois dropdown
-  var pillsMoisHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">'
-    +'<span style="font-size:12px;color:var(--t2);font-weight:600;flex-shrink:0">Mois</span>'
-    +'<select id="sel-mois-rempli" style="flex:1;padding:7px 10px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:13px;font-weight:500">';
-  pillsMoisHTML+='<option value="all"'+(rempliMoisActif==='all'?' selected':'')+'>Toute la période</option>';
-  moisKeys.forEach(function(m){
-    var p=m.split('-');
-    var lbl=MOIS_NOMS[parseInt(p[1])-1]+' '+p[0];
-    pillsMoisHTML+='<option value="'+m+'"'+(m===rempliMoisActif?' selected':'')+'>'+lbl+'</option>';
-  });
-  pillsMoisHTML+='</select></div>';
+ // Sélecteur mois dropdown
+ var pillsMoisHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">'
+ +'<span style="font-size:12px;color:var(--t2);font-weight:600;flex-shrink:0">Mois</span>'
+ +'<select id="sel-mois-rempli" style="flex:1;padding:7px 10px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:13px;font-weight:500">';
+ pillsMoisHTML+='<option value="all"'+(rempliMoisActif==='all'?' selected':'')+'>Toute la période</option>';
+ moisKeys.forEach(function(m){
+ var p=m.split('-');
+ var lbl=MOIS_NOMS[parseInt(p[1])-1]+' '+p[0];
+ pillsMoisHTML+='<option value="'+m+'"'+(m===rempliMoisActif?' selected':'')+'>'+lbl+'</option>';
+ });
+ pillsMoisHTML+='</select></div>';
 
-  // Pills types via delegation
-  var pillsTypesHTML='<div class="mois-pills" id="pills-types-rempli">';
-  types.forEach(function(t){
-    var cls='mois-pill'+(t===rempliTypeActif?' on':'');
-    var style=t===rempliTypeActif?'background:#534ab7;border-color:#534ab7':'';
-    var label=t==='Tous'?'Tous les cours':t;
-    var encoded=encodeURIComponent(t);
-    pillsTypesHTML+='<button class="'+cls+'" data-type="'+encoded+'" style="'+style+'">'+label+'</button>';
-  });
-  pillsTypesHTML+='</div>';
+ // Pills types via delegation
+ var pillsTypesHTML='<div class="mois-pills" id="pills-types-rempli">';
+ types.forEach(function(t){
+ var cls='mois-pill'+(t===rempliTypeActif?' on':'');
+ var style=t===rempliTypeActif?'background:#534ab7;border-color:#534ab7':'';
+ var label=t==='Tous'?'Tous les cours':t;
+ var encoded=encodeURIComponent(t);
+ pillsTypesHTML+='<button class="'+cls+'" data-type="'+encoded+'" style="'+style+'">'+label+'</button>';
+ });
+ pillsTypesHTML+='</div>';
 
-  // Données filtrées
-  var filtered=rempliRows.filter(function(r){
-    var p=r.date.split('-');
-    var mois=p.length===3?(p[2]+'-'+p[1]):'';
-    var okMois=rempliMoisActif==='all'||mois===rempliMoisActif;
-    return okMois&&(rempliTypeActif==='Tous'||r.nom===rempliTypeActif);
-  });
-  // Pour le taux global : exclure Free Hygie sauf si on filtre spécifiquement sur Free
-  var filteredCalc=rempliTypeActif==='Tous'
-    ? filtered.filter(function(r){ return r.nom.indexOf('Free')<0; })
-    : filtered;
-  var totalInscrits=filteredCalc.reduce(function(a,r){return a+r.inscrits;},0);
-  var totalCapa=filteredCalc.reduce(function(a,r){return a+r.capa;},0);
-  var taux=totalCapa?totalInscrits/totalCapa:0;
+ // Données filtrées
+ var filtered=rempliRows.filter(function(r){
+ var p=r.date.split('-');
+ var mois=p.length===3?(p[2]+'-'+p[1]):'';
+ var okMois=rempliMoisActif==='all'||mois===rempliMoisActif;
+ return okMois&&(rempliTypeActif==='Tous'||r.nom===rempliTypeActif);
+ });
+ // Pour le taux global : exclure Free Hygie sauf si on filtre spécifiquement sur Free
+ var filteredCalc=rempliTypeActif==='Tous'
+ ? filtered.filter(function(r){ return r.nom.indexOf('Free')<0; })
+ : filtered;
+ var totalInscrits=filteredCalc.reduce(function(a,r){return a+r.inscrits;},0);
+ var totalCapa=filteredCalc.reduce(function(a,r){return a+r.capa;},0);
+ var taux=totalCapa?totalInscrits/totalCapa:0;
 
-  // Stats par type pour le mois
-  var byType={};
-  rempliRows.filter(function(r){
-    var p=r.date.split('-');
-    var mois=p.length===3?(p[2]+'-'+p[1]):'';
-    return rempliMoisActif==='all'||mois===rempliMoisActif;
-  }).forEach(function(r){
-    if(!byType[r.nom]) byType[r.nom]={inscrits:0,capa:0,seances:0};
-    byType[r.nom].inscrits+=r.inscrits;
-    byType[r.nom].capa+=r.capa;
-    byType[r.nom].seances++;
-  });
-  var typeEntries=Object.entries(byType).sort(function(a,b){
-    return (b[1].capa?b[1].inscrits/b[1].capa:0)-(a[1].capa?a[1].inscrits/a[1].capa:0);
-  });
+ // Stats par type pour le mois
+ var byType={};
+ rempliRows.filter(function(r){
+ var p=r.date.split('-');
+ var mois=p.length===3?(p[2]+'-'+p[1]):'';
+ return rempliMoisActif==='all'||mois===rempliMoisActif;
+ }).forEach(function(r){
+ if(!byType[r.nom]) byType[r.nom]={inscrits:0,capa:0,seances:0};
+ byType[r.nom].inscrits+=r.inscrits;
+ byType[r.nom].capa+=r.capa;
+ byType[r.nom].seances++;
+ });
+ var typeEntries=Object.entries(byType).sort(function(a,b){
+ return (b[1].capa?b[1].inscrits/b[1].capa:0)-(a[1].capa?a[1].inscrits/a[1].capa:0);
+ });
 
-  var nomMois=rempliMoisActif==='all'?'Toute la période':(function(){var p=rempliMoisActif.split('-');return new Date(parseInt(p[0]),parseInt(p[1])-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});})();
+ var nomMois=rempliMoisActif==='all'?'Toute la période':(function(){var p=rempliMoisActif.split('-');return new Date(parseInt(p[0]),parseInt(p[1])-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});})();
 
-  var statsHTML='<div class="sgrid">'
-    +'<div class="sc"><div class="sc-lbl">Taux global</div><div class="sc-val" style="color:#534ab7">'+Math.round(taux*100)+'%</div><div class="sc-sub">'+nomMois+'</div></div>'
-    +'<div class="sc"><div class="sc-lbl">Séances</div><div class="sc-val">'+filtered.length+'</div><div class="sc-sub">'+(rempliTypeActif==='Tous'?'tous types':rempliTypeActif)+'</div></div>'
-    +'</div>';
+ var statsHTML='<div class="sgrid">'
+ +'<div class="sc"><div class="sc-lbl">Taux global</div><div class="sc-val" style="color:#534ab7">'+Math.round(taux*100)+'%</div><div class="sc-sub">'+nomMois+'</div></div>'
+ +'<div class="sc"><div class="sc-lbl">Séances</div><div class="sc-val">'+filtered.length+'</div><div class="sc-sub">'+(rempliTypeActif==='Tous'?'tous types':rempliTypeActif)+'</div></div>'
+ +'</div>';
 
-  var barsHTML='<div class="cc"><div class="cc-ttl">Par type de cours</div><div class="cc-sub">'+nomMois+' · taux de remplissage</div><div class="blist">';
-  typeEntries.forEach(function(e){
-    var t=e[1].capa?e[1].inscrits/e[1].capa:0;
-    var pct=Math.round(t*100);
-    var col=pct>=80?'#1a9e72':pct>=60?'#534ab7':'#b87214';
-    barsHTML+='<div class="bi">'
-      +'<div class="bt"><span>'+e[0]+'</span>'
-      +'<span style="font-weight:700">'+pct+'%'
-      +' <span style="font-weight:400;color:var(--t3)">'+e[1].inscrits+'/'+e[1].capa+' · '+e[1].seances+' séances</span></span></div>'
-      +'<div class="bbg"><div class="bfill" style="width:'+pct+'%;background:'+col+'"></div></div>'
-      +'</div>';
-  });
-  barsHTML+='</div></div>';
+ var barsHTML='<div class="cc"><div class="cc-ttl">Par type de cours</div><div class="cc-sub">'+nomMois+' · taux de remplissage</div><div class="blist">';
+ typeEntries.forEach(function(e){
+ var t=e[1].capa?e[1].inscrits/e[1].capa:0;
+ var pct=Math.round(t*100);
+ var col=pct>=80?'#1a9e72':pct>=60?'#534ab7':'#b87214';
+ barsHTML+='<div class="bi">'
+ +'<div class="bt"><span>'+e[0]+'</span>'
+ +'<span style="font-weight:700">'+pct+'%'
+ +' <span style="font-weight:400;color:var(--t3)">'+e[1].inscrits+'/'+e[1].capa+' · '+e[1].seances+' séances</span></span></div>'
+ +'<div class="bbg"><div class="bfill" style="width:'+pct+'%;background:'+col+'"></div></div>'
+ +'</div>';
+ });
+ barsHTML+='</div></div>';
 
-  el.innerHTML=graphRempliHTML+pillsMoisHTML+pillsTypesHTML+statsHTML+barsHTML;
+ el.innerHTML=graphRempliHTML+pillsMoisHTML+pillsTypesHTML+statsHTML+barsHTML;
 
-  document.getElementById('ttl-rempli').textContent='Remplissage — '+nomMois;
-  document.getElementById('b-rempli').textContent=Math.round(taux*100)+'%';
+ document.getElementById('ttl-rempli').textContent='Remplissage '+nomMois;
+ document.getElementById('b-rempli').textContent=Math.round(taux*100)+'%';
 
-  // Event delegation pour les pills
-  var selMois=document.getElementById('sel-mois-rempli');
-  if(selMois) selMois.addEventListener('change',function(){ rempliMoisActif=this.value; renderRempli(); });
-  var elTypes=document.getElementById('pills-types-rempli');
-  if(elTypes) elTypes.addEventListener('click',function(e){
-    var btn=e.target.closest('[data-type]');
-    if(btn){ rempliTypeActif=decodeURIComponent(btn.getAttribute('data-type')); renderRempli(); }
-  });
+ // Event delegation pour les pills
+ var selMois=document.getElementById('sel-mois-rempli');
+ if(selMois) selMois.addEventListener('change',function(){ rempliMoisActif=this.value; renderRempli(); });
+ var elTypes=document.getElementById('pills-types-rempli');
+ if(elTypes) elTypes.addEventListener('click',function(e){
+ var btn=e.target.closest('[data-type]');
+ if(btn){ rempliTypeActif=decodeURIComponent(btn.getAttribute('data-type')); renderRempli(); }
+ });
 
-  // Graphique évolution
-  setTimeout(function(){
-    var ctx=document.getElementById('cvRempliEvol');
-    if(!ctx) return;
-    if(chartRempliEvol) chartRempliEvol.destroy();
-    chartRempliEvol=new Chart(ctx,{
-      type:'line',
-      data:{labels:labelsRempli,datasets:[{
-        data:tauxParMois,
-        borderColor:'#534ab7',
-        backgroundColor:'rgba(83,74,183,0.08)',
-        borderWidth:2,
-        pointBackgroundColor:'#534ab7',
-        pointRadius:4,
-        fill:true,
-        tension:0.3
-      }]},
-      options:{
-        responsive:true,maintainAspectRatio:false,
-        plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'%';}}}},
-        scales:{
-          x:{grid:{display:false},ticks:{font:{size:10},color:'#a0a096',maxRotation:0},min:xMinR,max:xMaxR},
-          y:{grid:{color:'rgba(120,120,120,0.08)'},ticks:{font:{size:10},color:'#a0a096',callback:function(v){return v+'%';}},suggestedMin:40,suggestedMax:100}
-        }
-      }
-    });
-    var selEvol=document.getElementById('selRempliEvol');
-    if(selEvol) selEvol.addEventListener('change',function(){
-      var val=this.value;
-      var n=val==='all'?moisChronos.length:parseInt(val);
-      chartRempliEvol.options.scales.x.min=Math.max(0,moisChronos.length-n);
-      chartRempliEvol.options.scales.x.max=moisChronos.length-1;
-      chartRempliEvol.update('none');
-    });
-  },80);
+ // Graphique évolution
+ setTimeout(function(){
+ var ctx=document.getElementById('cvRempliEvol');
+ if(!ctx) return;
+ if(chartRempliEvol) chartRempliEvol.destroy();
+ chartRempliEvol=new Chart(ctx,{
+ type:'line',
+ data:{labels:labelsRempli,datasets:[{
+ data:tauxParMois,
+ borderColor:'#534ab7',
+ backgroundColor:'rgba(83,74,183,0.08)',
+ borderWidth:2,
+ pointBackgroundColor:'#534ab7',
+ pointRadius:4,
+ fill:true,
+ tension:0.3
+ }]},
+ options:{
+ responsive:true,maintainAspectRatio:false,
+ plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'%';}}}},
+ scales:{
+ x:{grid:{display:false},ticks:{font:{size:10},color:'#a0a096',maxRotation:0},min:xMinR,max:xMaxR},
+ y:{grid:{color:'rgba(120,120,120,0.08)'},ticks:{font:{size:10},color:'#a0a096',callback:function(v){return v+'%';}},suggestedMin:40,suggestedMax:100}
+ }
+ }
+ });
+ var selEvol=document.getElementById('selRempliEvol');
+ if(selEvol) selEvol.addEventListener('change',function(){
+ var val=this.value;
+ var n=val==='all'?moisChronos.length:parseInt(val);
+ chartRempliEvol.options.scales.x.min=Math.max(0,moisChronos.length-n);
+ chartRempliEvol.options.scales.x.max=moisChronos.length-1;
+ chartRempliEvol.update('none');
+ });
+ },80);
 }
 
 window.setRempliMois=function(m){ rempliMoisActif=m; renderRempli(); };
@@ -694,1055 +727,1068 @@ window.setRempliType=function(t){ rempliTypeActif=t; renderRempli(); };
 
 // ─── PARSE CSV ───
 function parseCSV(text){
-  var lines=text.split('\n').filter(function(l){return l.trim();});
-  var sep=lines[0].split(';').length>lines[0].split(',').length?';':',';
-  function unq(s){return s.replace(/^"|"$/g,'').trim();}
-  var headers=lines[0].split(sep).map(unq);
-  var rows=[];
-  for(var i=1;i<lines.length;i++){
-    var vals=lines[i].split(sep).map(unq);
-    if(vals.length<3) continue;
-    var row={};
-    headers.forEach(function(h,j){row[h]=vals[j]||'';});
-    if(row['Date']&&row['CA TTC']) rows.push(row);
-  }
-  return rows;
+ var lines=text.split('\n').filter(function(l){return l.trim();});
+ var sep=lines[0].split(';').length>lines[0].split(',').length?';':',';
+ function unq(s){return s.replace(/^"|"$/g,'').trim();}
+ var headers=lines[0].split(sep).map(unq);
+ var rows=[];
+ for(var i=1;i<lines.length;i++){
+ var vals=lines[i].split(sep).map(unq);
+ if(vals.length<3) continue;
+ var row={};
+ headers.forEach(function(h,j){row[h]=vals[j]||'';});
+ if(row['Date']&&row['CA TTC']) rows.push(row);
+ }
+ return rows;
 }
 
 // ─── PROCESS RESAWOD ───
 function processResa(rawRows){
-  var now=new Date();
-  membres=rawRows.filter(function(r){
-    var s=(r['Statut']||'').toLowerCase();
-    return s==='active'||s==='actif'||s==='activo';
-  }).map(function(r,i){
-    var engDate=parseDate(r["Date d'engagement"]);
-    var jours=engDate?Math.round((engDate-now)/864e5):null;
-    r._i=i; r._engDate=engDate; r._jours=jours;
-    return r;
-  });
+ var now=new Date();
+ membres=rawRows.filter(function(r){
+ var s=(r['Statut']||'').toLowerCase();
+ return s==='active'||s==='actif'||s==='activo';
+ }).map(function(r,i){
+ var engDate=parseDate(r["Date d'engagement"]);
+ var jours=engDate?Math.round((engDate-now)/864e5):null;
+ r._i=i; r._engDate=engDate; r._jours=jours;
+ return r;
+ });
 
-  fin30=membres.filter(function(m){return m._jours!==null&&m._jours>=0&&m._jours<=30;})
-    .sort(function(a,b){return a._jours-b._jours;});
+ fin30=membres.filter(function(m){return m._jours!==null&&m._jours>=0&&m._jours<=30;})
+ .sort(function(a,b){return a._jours-b._jours;});
 
-  var next1=new Date(now.getFullYear(),now.getMonth()+1,1);
-  var nomProchain=next1.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+ var next1=new Date(now.getFullYear(),now.getMonth()+1,1);
+ var nomProchain=next1.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
 
-  prelevData=membres.filter(function(m){
-    if((m['Paiement']||'').toLowerCase().indexOf('mensuel')<0) return false;
-    var exp=parseDate(m['Expiré le']);
-    if(exp&&exp<next1) return false;
-    return true;
-  }).sort(function(a,b){return parseFloat(b['Prix']||0)-parseFloat(a['Prix']||0);});
+ prelevData=membres.filter(function(m){
+ if((m['Paiement']||'').toLowerCase().indexOf('mensuel')<0) return false;
+ var exp=parseDate(m['Expiré le']);
+ if(exp&&exp<next1) return false;
+ return true;
+ }).sort(function(a,b){return parseFloat(b['Prix']||0)-parseFloat(a['Prix']||0);});
 
-  var totalPrelev=prelevData.reduce(function(a,m){return a+parseFloat(m['Prix']||0);},0);
-  var mrr=membres.reduce(function(a,m){return a+parseFloat(m['Prix']||0);},0);
-  var urgents=fin30.filter(function(m){return m._jours<=7;}).length;
+ var totalPrelev=prelevData.reduce(function(a,m){return a+parseFloat(m['Prix']||0);},0);
+ var mrr=membres.reduce(function(a,m){return a+parseFloat(m['Prix']||0);},0);
+ var urgents=fin30.filter(function(m){return m._jours<=7;}).length;
 
-  document.getElementById('n-actifs').textContent=fmtN(membres.length);
-  // Variation vs mois précédent
-  var snapPourVariation={};
-  try{ var exv=localStorage.getItem('hygie_snapshots'); if(exv) snapPourVariation=JSON.parse(exv); }catch(e){}
-  // Inclure les données historiques HISTO pour la variation
-  var HISTO_VAR={"2025-01":210,"2025-02":202,"2025-03":211,"2025-04":226,"2025-05":235,"2025-06":242,"2025-07":242,"2025-08":247,"2025-09":264,"2025-10":264,"2025-11":271,"2025-12":269,"2026-01":269,"2026-02":271};
-  Object.keys(HISTO_VAR).forEach(function(k){ if(!snapPourVariation[k]) snapPourVariation[k]=HISTO_VAR[k]; });
-  // Ajouter le snapshot actuel
-  var now_var=new Date();
-  var moisVar=now_var.getFullYear()+'-'+String(now_var.getMonth()+1).padStart(2,'0');
-  snapPourVariation[moisVar]=membres.length;
-  var moisKeys_v=Object.keys(snapPourVariation).sort();
-  var variation='';
-  var MNOMS_V=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
-  if(moisKeys_v.length>=2){
-    var dernierMois=moisKeys_v[moisKeys_v.length-1];
-    var avantDernierMois=moisKeys_v[moisKeys_v.length-2];
-    var valDernier=snapPourVariation[dernierMois];
-    var valAvant=snapPourVariation[avantDernierMois];
-    var diff=valDernier-valAvant;
-    var pv=avantDernierMois.split('-');
-    var nomAvant=MNOMS_V[parseInt(pv[1])-1]+' '+pv[0].slice(2);
-    var signe=diff>0?'+':diff<0?'':'=';
-    variation=(diff!==0?(signe+diff):' stable')+' vs '+nomAvant;
-  }
-  document.getElementById('s-actifs').textContent=variation||membres.length+' abonnés actifs';
-  document.getElementById('b-actifs').textContent=membres.length+' membres';
-  document.getElementById('lbl-prelev').textContent='Prélèvement estimé — '+nomProchain;
-  document.getElementById('ttl-prelev').textContent='Prélèvement — '+nomProchain;
-  document.getElementById('n-prelev').textContent=fmtE(totalPrelev);
-  document.getElementById('s-prelev').textContent=prelevData.length+' abonnés mensuels valides';
-  document.getElementById('b-prelev').textContent=fmtE(totalPrelev);
-  document.getElementById('n-30j').textContent=fin30.length;
-  document.getElementById('s-30j').textContent=urgents>0
-    ?urgents+' membre'+(urgents>1?'s':'')+' dans les 7 prochains jours'
-    :(fin30[0]?'Prochain dans '+fin30[0]._jours+'j':'Aucun dans les 30j');
-  document.getElementById('b-30j').textContent=fin30.length+' membres';
-  document.getElementById('card-30j').className='kc '+(urgents>0?'red':'amber');
+ document.getElementById('n-actifs').textContent=fmtN(membres.length);
+ // Variation vs mois précédent
+ var snapPourVariation={};
+ try{ var exv=localStorage.getItem('hygie_snapshots'); if(exv) snapPourVariation=JSON.parse(exv); }catch(e){}
+ // Inclure les données historiques HISTO pour la variation
+ var HISTO_VAR={"2025-01":210,"2025-02":202,"2025-03":211,"2025-04":226,"2025-05":235,"2025-06":242,"2025-07":242,"2025-08":247,"2025-09":264,"2025-10":264,"2025-11":271,"2025-12":269,"2026-01":269,"2026-02":271};
+ Object.keys(HISTO_VAR).forEach(function(k){ if(!snapPourVariation[k]) snapPourVariation[k]=HISTO_VAR[k]; });
+ // Ajouter le snapshot actuel
+ var now_var=new Date();
+ var moisVar=now_var.getFullYear()+'-'+String(now_var.getMonth()+1).padStart(2,'0');
+ snapPourVariation[moisVar]=membres.length;
+ var moisKeys_v=Object.keys(snapPourVariation).sort();
+ var variation='';
+ var MNOMS_V=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+ if(moisKeys_v.length>=2){
+ var dernierMois=moisKeys_v[moisKeys_v.length-1];
+ var avantDernierMois=moisKeys_v[moisKeys_v.length-2];
+ var valDernier=snapPourVariation[dernierMois];
+ var valAvant=snapPourVariation[avantDernierMois];
+ var diff=valDernier-valAvant;
+ var pv=avantDernierMois.split('-');
+ var nomAvant=MNOMS_V[parseInt(pv[1])-1]+' '+pv[0].slice(2);
+ var signe=diff>0?'+':diff<0?'':'=';
+ variation=(diff!==0?(signe+diff):' stable')+' vs '+nomAvant;
+ }
+ document.getElementById('s-actifs').textContent=variation||membres.length+' abonnés actifs';
+ document.getElementById('b-actifs').textContent=membres.length+' membres';
+ document.getElementById('lbl-prelev').textContent='Prélèvement estimé '+nomProchain;
+ document.getElementById('ttl-prelev').textContent='Prélèvement '+nomProchain;
+ document.getElementById('n-prelev').textContent=fmtE(totalPrelev);
+ document.getElementById('s-prelev').textContent=prelevData.length+' abonnés mensuels valides';
+ document.getElementById('b-prelev').textContent=fmtE(totalPrelev);
+ document.getElementById('n-30j').textContent=fin30.length;
+ document.getElementById('s-30j').textContent=urgents>0
+ ?urgents+' membre'+(urgents>1?'s':'')+' dans les 7 prochains jours'
+ :(fin30[0]?'Prochain dans '+fin30[0]._jours+'j':'Aucun dans les 30j');
+ document.getElementById('b-30j').textContent=fin30.length+' membres';
+ document.getElementById('card-30j').className='kc '+(urgents>0?'red':'amber');
 
-  // Calculer nouveaux et rétention pour le snapshot
-  var now_snap=new Date();
-  var moisSnap=now_snap.getFullYear()+'-'+String(now_snap.getMonth()+1).padStart(2,'0');
-  var nouveauxSnap=membres.filter(function(m){
-    var d=parseDate(m['Acheté le']);
-    return d&&d.getFullYear()===now_snap.getFullYear()&&d.getMonth()===now_snap.getMonth();
-  }).length;
-  var churnsSnap=rawRows.filter(function(r){
-    var s=(r['Statut']||'').toLowerCase();
-    var d=parseDate(r['Expiré le']);
-    return (s==='caducado'||s==='expiré'||s==='expired')&&d&&d.getFullYear()===now_snap.getFullYear()&&d.getMonth()===now_snap.getMonth();
-  }).length;
-  var retentionSnap=membres.length>0?Math.round((membres.length/(membres.length+churnsSnap))*100):0;
-  sauvegarderSnapshotMembres(membres.length, nouveauxSnap, retentionSnap);
-  renderActifs(); renderPrelev(totalPrelev,next1,nomProchain); render30j();
+ // Calculer nouveaux et rétention pour le snapshot
+ var now_snap=new Date();
+ var moisSnap=now_snap.getFullYear()+'-'+String(now_snap.getMonth()+1).padStart(2,'0');
+ var nouveauxSnap=membres.filter(function(m){
+ var d=parseDate(m['Acheté le']);
+ return d&&d.getFullYear()===now_snap.getFullYear()&&d.getMonth()===now_snap.getMonth();
+ }).length;
+ var churnsSnap=rawRows.filter(function(r){
+ var s=(r['Statut']||'').toLowerCase();
+ var d=parseDate(r['Expiré le']);
+ return (s==='caducado'||s==='expiré'||s==='expired')&&d&&d.getFullYear()===now_snap.getFullYear()&&d.getMonth()===now_snap.getMonth();
+ }).length;
+ var retentionSnap=membres.length>0?Math.round((membres.length/(membres.length+churnsSnap))*100):0;
+ sauvegarderSnapshotMembres(membres.length, nouveauxSnap, retentionSnap);
+ renderActifs(); renderPrelev(totalPrelev,next1,nomProchain); render30j();
 }
 
 // ─── PROCESS HIBOUTIK ───
 function processHib(rows){
-  // Fusionner avec données cumulatives en mémoire
-  var cumul={};
-  try{ var ex=localStorage.getItem('hygie_hib_cumul'); if(ex) cumul=JSON.parse(ex); }catch(e){}
+ // Fusionner avec données cumulatives en mémoire
+ var cumul={};
+ try{ var ex=localStorage.getItem('hygie_hib_cumul'); if(ex) cumul=JSON.parse(ex); }catch(e){}
 
-  // Intégrer les nouvelles lignes dans le cumul en mémoire
-  var now=new Date();
-  var moisCourant=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-  rows.forEach(function(r){
-    var mois=(r['Date']||'').slice(0,7);
-    if(!mois) return;
-    if(!cumul[mois]) cumul[mois]=[];
-    if(mois===moisCourant){
-      // Mois courant : toujours remplacer avec les données fraîches
-      cumul[mois]=rows.filter(function(r2){return (r2['Date']||'').indexOf(mois)===0;});
-      return; // sortir du forEach après avoir traité tout le mois courant
-    } else {
-      var ids={};
-      cumul[mois].forEach(function(r2){ ids[r2['ID']]=true; });
-      if(!ids[r['ID']]) cumul[mois].push(r);
-    }
-  });
+ // Intégrer les nouvelles lignes dans le cumul en mémoire
+ var now=new Date();
+ var moisCourant=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+ rows.forEach(function(r){
+ var mois=(r['Date']||'').slice(0,7);
+ if(!mois) return;
+ if(!cumul[mois]) cumul[mois]=[];
+ if(mois===moisCourant){
+ // Mois courant : toujours remplacer avec les données fraîches
+ cumul[mois]=rows.filter(function(r2){return (r2['Date']||'').indexOf(mois)===0;});
+ return; // sortir du forEach après avoir traité tout le mois courant
+ } else {
+ var ids={};
+ cumul[mois].forEach(function(r2){ ids[r2['ID']]=true; });
+ if(!ids[r['ID']]) cumul[mois].push(r);
+ }
+ });
 
-  // Aplatir le cumul en tableau pour hibRows
-  hibRows=[];
-  Object.keys(cumul).forEach(function(m){ hibRows=hibRows.concat(cumul[m]); });
+ // Aplatir le cumul en tableau pour hibRows
+ hibRows=[];
+ Object.keys(cumul).forEach(function(m){ hibRows=hibRows.concat(cumul[m]); });
 
-  moisActif=moisCourant;
-  var nomMois=now.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
-  var moisRows=hibRows.filter(function(r){return (r['Date']||'').indexOf(moisActif)===0;});
-  var ca=moisRows.reduce(function(a,r){return a+parseFloat(r['CA TTC']||0);},0);
-  var nb=moisRows.length;
-  var panier=nb?ca/nb:0;
+ moisActif=moisCourant;
+ var nomMois=now.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+ var moisRows=hibRows.filter(function(r){return (r['Date']||'').indexOf(moisActif)===0;});
+ var ca=moisRows.reduce(function(a,r){return a+parseFloat(r['CA TTC']||0);},0);
+ var nb=moisRows.length;
+ var panier=nb?ca/nb:0;
 
-  document.getElementById('lbl-ca').textContent='Boutique — '+nomMois;
-  document.getElementById('ttl-ca').textContent='Boutique — '+nomMois;
-  document.getElementById('n-ca').textContent=fmtE(ca);
-  document.getElementById('s-ca').textContent=nb+' transactions · panier moy. '+fmtE(panier);
-  document.getElementById('b-ca').textContent=fmtE(ca);
+ document.getElementById('lbl-ca').textContent='Boutique '+nomMois;
+ document.getElementById('ttl-ca').textContent='Boutique '+nomMois;
+ document.getElementById('n-ca').textContent=fmtE(ca);
+ document.getElementById('s-ca').textContent=nb+' transactions · panier moy. '+fmtE(panier);
+ document.getElementById('b-ca').textContent=fmtE(ca);
 
-  renderCA(moisActif);
+ renderCA(moisActif);
 }
 
 // ─── RENDER CA AVEC FILTRE MOIS ───
 function getMoisDispo(){
-  var set={};
-  hibRows.forEach(function(r){ if(r['Date']) set[r['Date'].slice(0,7)]=true; });
-  return Object.keys(set).sort().reverse();
+ var set={};
+ hibRows.forEach(function(r){ if(r['Date']) set[r['Date'].slice(0,7)]=true; });
+ return Object.keys(set).sort().reverse();
 }
 
 function renderCA(prefixMois){
-  moisActif=prefixMois;
-  var el=document.getElementById('c-ca');
-  var rows=prefixMois==='all'?hibRows:hibRows.filter(function(r){return (r['Date']||'').indexOf(prefixMois)===0;});
-  var ca=rows.reduce(function(a,r){return a+parseFloat(r['CA TTC']||0);},0);
-  var nb=rows.length;
-  var panier=nb?ca/nb:0;
-  var nomMois=prefixMois==='all'?'Toute la période':(function(){var parts=prefixMois.split('-');return new Date(parseInt(parts[0]),parseInt(parts[1])-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});})();
+ moisActif=prefixMois;
+ var el=document.getElementById('c-ca');
+ var rows=prefixMois==='all'?hibRows:hibRows.filter(function(r){return (r['Date']||'').indexOf(prefixMois)===0;});
+ var ca=rows.reduce(function(a,r){return a+parseFloat(r['CA TTC']||0);},0);
+ var nb=rows.length;
+ var panier=nb?ca/nb:0;
+ var nomMois=prefixMois==='all'?'Toute la période':(function(){var parts=prefixMois.split('-');return new Date(parseInt(parts[0]),parseInt(parts[1])-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});})();
 
-  var byDay={};
-  rows.forEach(function(r){ byDay[r['Date']]=(byDay[r['Date']]||0)+parseFloat(r['CA TTC']||0); });
-  var days=Object.keys(byDay).sort();
-  var moyJour=days.length?ca/days.length:0;
-  var best=days.length?days.reduce(function(a,b){return byDay[b]>byDay[a]?b:a;},days[0]):'';
-  var marge=rows.reduce(function(a,r){return a+parseFloat(r['Marge']||0);},0);
-  var margePct=ca?marge/ca*100:0;
-  var modes={};
-  rows.forEach(function(r){
-    var m=r['Mode de paiement']||'Autre';
-    modes[m]=(modes[m]||0)+parseFloat(r['CA TTC']||0);
-  });
-  var totalPay=Object.values(modes).reduce(function(a,b){return a+b;},0);
-  var modeNames={CB:'Carte bancaire',ESP:'Espèces',CRED:'Crédit client',DIV:'Divers',CHQ:'Chèque'};
+ var byDay={};
+ rows.forEach(function(r){ byDay[r['Date']]=(byDay[r['Date']]||0)+parseFloat(r['CA TTC']||0); });
+ var days=Object.keys(byDay).sort();
+ var moyJour=days.length?ca/days.length:0;
+ var best=days.length?days.reduce(function(a,b){return byDay[b]>byDay[a]?b:a;},days[0]):'';
+ var marge=rows.reduce(function(a,r){return a+parseFloat(r['Marge']||0);},0);
+ var margePct=ca?marge/ca*100:0;
+ var modes={};
+ rows.forEach(function(r){
+ var m=r['Mode de paiement']||'Autre';
+ modes[m]=(modes[m]||0)+parseFloat(r['CA TTC']||0);
+ });
+ var totalPay=Object.values(modes).reduce(function(a,b){return a+b;},0);
+ var modeNames={CB:'Carte bancaire',ESP:'Espèces',CRED:'Crédit client',DIV:'Divers',CHQ:'Chèque'};
 
-  // Sélecteur de mois — menu déroulant
-  var moisDispo=getMoisDispo();
-  var pillsHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">'
-    +'<span style="font-size:12px;color:var(--t2);font-weight:600;flex-shrink:0">Mois</span>'
-    +'<select id="sel-mois-ca" style="flex:1;padding:7px 10px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:13px;font-weight:500">';
-  pillsHTML+='<option value="all"'+(prefixMois==='all'?' selected':'')+'>Toute la période</option>';
-  moisDispo.forEach(function(m){
-    var p=m.split('-');
-    var lbl=new Date(parseInt(p[0]),parseInt(p[1])-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
-    pillsHTML+='<option value="'+m+'"'+(m===prefixMois?' selected':'')+'>'+lbl+'</option>';
-  });
-  pillsHTML+='</select></div>';
+ // Sélecteur de mois menu déroulant
+ var moisDispo=getMoisDispo();
+ var pillsHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">'
+ +'<span style="font-size:12px;color:var(--t2);font-weight:600;flex-shrink:0">Mois</span>'
+ +'<select id="sel-mois-ca" style="flex:1;padding:7px 10px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:13px;font-weight:500">';
+ pillsHTML+='<option value="all"'+(prefixMois==='all'?' selected':'')+'>Toute la période</option>';
+ moisDispo.forEach(function(m){
+ var p=m.split('-');
+ var lbl=new Date(parseInt(p[0]),parseInt(p[1])-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+ pillsHTML+='<option value="'+m+'"'+(m===prefixMois?' selected':'')+'>'+lbl+'</option>';
+ });
+ pillsHTML+='</select></div>';
 
-  var statsHTML='<div class="sgrid">'+
-    '<div class="sc"><div class="sc-lbl">CA '+nomMois+'</div><div class="sc-val">'+fmtE(ca)+'</div><div class="sc-sub">'+days.length+' jours</div></div>'+
-    '<div class="sc"><div class="sc-lbl">Transactions</div><div class="sc-val">'+nb+'</div><div class="sc-sub">ce mois</div></div>'+
-    '<div class="sc"><div class="sc-lbl">Panier moyen</div><div class="sc-val">'+fmtE(panier)+'</div><div class="sc-sub">par transaction</div></div>'+
-    '<div class="sc"><div class="sc-lbl">Moy. / jour</div><div class="sc-val">'+fmtE(moyJour)+'</div><div class="sc-sub">sur '+days.length+' jours</div></div>'+
-    '<div class="sc"><div class="sc-lbl">Meilleur jour</div><div class="sc-val">'+fmtE(byDay[best]||0)+'</div><div class="sc-sub">'+fmtDateCourt(best)+'</div></div>'+
-    '<div class="sc"><div class="sc-lbl">Marge totale</div><div class="sc-val">'+fmtE(marge)+'</div><div class="sc-sub">'+margePct.toFixed(1)+'%</div></div>'+
-    '</div>';
+ var statsHTML='<div class="sgrid">'+
+ '<div class="sc"><div class="sc-lbl">CA '+nomMois+'</div><div class="sc-val">'+fmtE(ca)+'</div><div class="sc-sub">'+days.length+' jours</div></div>'+
+ '<div class="sc"><div class="sc-lbl">Transactions</div><div class="sc-val">'+nb+'</div><div class="sc-sub">ce mois</div></div>'+
+ '<div class="sc"><div class="sc-lbl">Panier moyen</div><div class="sc-val">'+fmtE(panier)+'</div><div class="sc-sub">par transaction</div></div>'+
+ '<div class="sc"><div class="sc-lbl">Moy. / jour</div><div class="sc-val">'+fmtE(moyJour)+'</div><div class="sc-sub">sur '+days.length+' jours</div></div>'+
+ '<div class="sc"><div class="sc-lbl">Meilleur jour</div><div class="sc-val">'+fmtE(byDay[best]||0)+'</div><div class="sc-sub">'+fmtDateCourt(best)+'</div></div>'+
+ '<div class="sc"><div class="sc-lbl">Marge totale</div><div class="sc-val">'+fmtE(marge)+'</div><div class="sc-sub">'+margePct.toFixed(1)+'%</div></div>'+
+ '</div>';
 
-  var chartHTML='<div class="cc"><div class="cc-ttl">CA par jour</div><div class="cc-sub">'+nomMois+'</div>'+
-    '<div style="position:relative;width:100%;height:180px"><canvas id="cvCA"></canvas></div></div>';
+ var chartHTML='<div class="cc"><div class="cc-ttl">CA par jour</div><div class="cc-sub">'+nomMois+'</div>'+
+ '<div style="position:relative;width:100%;height:180px"><canvas id="cvCA"></canvas></div></div>';
 
-  el.innerHTML=pillsHTML+statsHTML+chartHTML;
-  var selCA=document.getElementById('sel-mois-ca');
-  if(selCA) selCA.addEventListener('change',function(){ renderCA(this.value); });
+ el.innerHTML=pillsHTML+statsHTML+chartHTML;
+ var selCA=document.getElementById('sel-mois-ca');
+ if(selCA) selCA.addEventListener('change',function(){ renderCA(this.value); });
 
-  setTimeout(function(){
-    var ctx=document.getElementById('cvCA');
-    if(!ctx) return;
-    if(chartCAinst) chartCAinst.destroy();
-    chartCAinst=new Chart(ctx,{
-      type:'bar',
-      data:{labels:days.map(function(d){return fmtDateCourt(d);}),
-        datasets:[{data:days.map(function(d){return Math.round(byDay[d]);}),
-          backgroundColor:days.map(function(d){return d===best?'#1a5fa8':'#85b7eb';}),borderRadius:3}]},
-      options:{responsive:true,maintainAspectRatio:false,
-        plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return fmtE(c.parsed.y);}}}},
-        scales:{
-          x:{grid:{display:false},ticks:{font:{size:10},color:'#a0a096',maxRotation:45,maxTicksLimit:12}},
-          y:{grid:{color:'rgba(120,120,120,0.08)'},ticks:{font:{size:10},color:'#a0a096',callback:function(v){return v+'€';}}}
-        }}
-    });
-  },80);
+ setTimeout(function(){
+ var ctx=document.getElementById('cvCA');
+ if(!ctx) return;
+ if(chartCAinst) chartCAinst.destroy();
+ chartCAinst=new Chart(ctx,{
+ type:'bar',
+ data:{labels:days.map(function(d){return fmtDateCourt(d);}),
+ datasets:[{data:days.map(function(d){return Math.round(byDay[d]);}),
+ backgroundColor:days.map(function(d){return d===best?'#1a5fa8':'#85b7eb';}),borderRadius:3}]},
+ options:{responsive:true,maintainAspectRatio:false,
+ plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return fmtE(c.parsed.y);}}}},
+ scales:{
+ x:{grid:{display:false},ticks:{font:{size:10},color:'#a0a096',maxRotation:45,maxTicksLimit:12}},
+ y:{grid:{color:'rgba(120,120,120,0.08)'},ticks:{font:{size:10},color:'#a0a096',callback:function(v){return v+'€';}}}
+ }}
+ });
+ },80);
 }
 
 // ─── RENDER ACTIFS ───
 function renderActifs(){
-  var el=document.getElementById('c-actifs');
+ var el=document.getElementById('c-actifs');
 
-  // Graphique évolution
-  var snapshots={};
-  try{ var ex=localStorage.getItem('hygie_snapshots'); if(ex) snapshots=JSON.parse(ex); }catch(e){}
-  // Dédupliquer par mois YYYY-MM (garder la valeur la plus récente si doublon)
-  var snapParMois={};
-  Object.keys(snapshots).forEach(function(k){
-    var mois=k.slice(0,7); // YYYY-MM
-    snapParMois[mois]=snapshots[k];
-  });
-  var moisKeys=Object.keys(snapParMois).sort();
-  var MOIS_NOMS=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
-  // Données rétention et nouveaux
-  var snapNouveaux={};
-  try{ var exn2=localStorage.getItem('hygie_snap_nouveaux'); if(exn2) snapNouveaux=JSON.parse(exn2); }catch(e){}
-  var snapRetention={};
-  try{ var exr2=localStorage.getItem('hygie_snap_retention'); if(exr2) snapRetention=JSON.parse(exr2); }catch(e){}
+ // Graphique évolution
+ var snapshots={};
+ try{ var ex=localStorage.getItem('hygie_snapshots'); if(ex) snapshots=JSON.parse(ex); }catch(e){}
+ // Dédupliquer par mois YYYY-MM (garder la valeur la plus récente si doublon)
+ var snapParMois={};
+ Object.keys(snapshots).forEach(function(k){
+ var mois=k.slice(0,7); // YYYY-MM
+ snapParMois[mois]=snapshots[k];
+ });
+ var moisKeys=Object.keys(snapParMois).sort();
+ var MOIS_NOMS=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+ // Données rétention et nouveaux
+ var snapNouveaux={};
+ try{ var exn2=localStorage.getItem('hygie_snap_nouveaux'); if(exn2) snapNouveaux=JSON.parse(exn2); }catch(e){}
+ var snapRetention={};
+ try{ var exr2=localStorage.getItem('hygie_snap_retention'); if(exr2) snapRetention=JSON.parse(exr2); }catch(e){}
 
-  // Valeurs du dernier mois connu
-  var dernierMoisSnap=moisKeys.length?moisKeys[moisKeys.length-1]:'';
-  var retentionActuel=dernierMoisSnap&&snapRetention[dernierMoisSnap]?snapRetention[dernierMoisSnap]:null;
-  var nouveauxActuel=dernierMoisSnap&&snapNouveaux[dernierMoisSnap]!==undefined?snapNouveaux[dernierMoisSnap]:null;
-  // Soustraire les membres retirés pour ce mois
-  if(nouveauxActuel!==null){
-    var cleSupprActuel='hygie_suppr_'+dernierMoisSnap;
-    var supprimesActuel={};
-    try{ var exsa=localStorage.getItem(cleSupprActuel); if(exsa) supprimesActuel=JSON.parse(exsa); }catch(e){}
-    nouveauxActuel=Math.max(0,nouveauxActuel-Object.keys(supprimesActuel).length);
-  }
+ // Valeurs du dernier mois connu
+ var dernierMoisSnap=moisKeys.length?moisKeys[moisKeys.length-1]:'';
+ var retentionActuel=dernierMoisSnap&&snapRetention[dernierMoisSnap]?snapRetention[dernierMoisSnap]:null;
+ var nouveauxActuel=dernierMoisSnap&&snapNouveaux[dernierMoisSnap]!==undefined?snapNouveaux[dernierMoisSnap]:null;
+ // Soustraire les membres retirés pour ce mois
+ if(nouveauxActuel!==null){
+ var cleSupprActuel='hygie_suppr_'+dernierMoisSnap;
+ var supprimesActuel={};
+ try{ var exsa=localStorage.getItem(cleSupprActuel); if(exsa) supprimesActuel=JSON.parse(exsa); }catch(e){}
+ nouveauxActuel=Math.max(0,nouveauxActuel-Object.keys(supprimesActuel).length);
+ }
 
-  // Tuiles rétention + nouveaux
-  var tuilesHTML='<div class="grid2" style="margin-bottom:12px" id="mini-tuiles-actifs">'
-    +'<div class="kc green" style="padding:14px 14px" data-det="retention">'
-    +'<div class="lbl" style="font-size:10px">Taux de rétention</div>'
-    +'<div class="num" style="font-size:32px">'+(retentionActuel!==null?retentionActuel+'%':'—')+'</div>'
-    +'<div class="sub" style="font-size:10px">mois en cours</div>'
-    +'<div class="arr" style="font-size:16px">›</div></div>'
-    +'<div class="kc blue" style="padding:14px 14px" data-det="nouveaux">'
-    +'<div class="lbl" style="font-size:10px">Nouveaux membres</div>'
-    +'<div class="num" id="mini-n-nouveaux" style="font-size:32px">'+(nouveauxActuel!==null?nouveauxActuel:'—')+'</div>'
-    +'<div class="sub" style="font-size:10px">mois en cours</div>'
-    +'<div class="arr" style="font-size:16px">›</div></div>'
-    +'</div>';
+ // Tuiles rétention + nouveaux
+ var tuilesHTML='<div class="grid2" style="margin-bottom:12px" id="mini-tuiles-actifs">'
+ +'<div class="kc green" style="padding:14px 14px" data-det="retention">'
+ +'<div class="lbl" style="font-size:10px"> Taux de rétention</div>'
+ +'<div class="num" style="font-size:32px">'+(retentionActuel!==null?retentionActuel+'%':'')+'</div>'
+ +'<div class="sub" style="font-size:10px">mois en cours</div>'
+ +'<div class="arr" style="font-size:16px"></div></div>'
+ +'<div class="kc blue" style="padding:14px 14px" data-det="nouveaux">'
+ +'<div class="lbl" style="font-size:10px"> Nouveaux membres</div>'
+ +'<div class="num" id="mini-n-nouveaux" style="font-size:32px">'+(nouveauxActuel!==null?nouveauxActuel:'')+'</div>'
+ +'<div class="sub" style="font-size:10px">mois en cours</div>'
+ +'<div class="arr" style="font-size:16px"></div></div>'
+ +'</div>';
 
-  document.getElementById('b-actifs').textContent=membres.length+' membres';
-  document.getElementById('b-retention').textContent=retentionActuel!==null?retentionActuel+'%':'—';
-  document.getElementById('b-nouveaux').textContent=nouveauxActuel!==null?nouveauxActuel+' ce mois':'—';
+ document.getElementById('b-actifs').textContent=membres.length+' membres';
+ document.getElementById('b-retention').textContent=retentionActuel!==null?retentionActuel+'%':'';
+ document.getElementById('b-nouveaux').textContent=nouveauxActuel!==null?nouveauxActuel+' ce mois':'';
 
-  var graphHTML='';
-  if(moisKeys.length>=2){
-    graphHTML='<div class="cc"><div class="cc-ttl">Évolution des abonnés</div>'+
-      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'+
-        '<div class="cc-sub" style="margin:0">Abonnés actifs par mois</div>'+
-        '<button id="btnTout" onclick="toggleVueTout()" style="font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;border:.5px solid var(--bd2);background:transparent;color:var(--t2);cursor:pointer">Tout voir</button>'+
-      '</div>'+
-      '<div style="position:relative;width:100%;height:180px"><canvas id="cvActifs"></canvas></div>'+
-      '<div style="margin-top:10px;display:flex;align-items:center;gap:8px">'+
-        '<select id="selActifsMois" style="flex:1;padding:6px 8px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:12px">'+
-          '<option value="6">6 derniers mois</option>'+
-          '<option value="12">12 derniers mois</option>'+
-          '<option value="all">Toute la période</option>'+
-        '</select>'+
-        '<button id="btnTout" onclick="toggleVueTout()" style="font-size:11px;font-weight:600;padding:6px 11px;border-radius:var(--rs);border:.5px solid var(--bd2);background:transparent;color:var(--t2);cursor:pointer;white-space:nowrap">Tout voir</button>'+
-      '</div>'+
-      '</div>';
-  } else {
-    graphHTML='<div class="cc" style="margin-bottom:10px">'+
-      '<div class="cc-ttl">Évolution des abonnés</div>'+
-      '<div class="cc-sub" style="padding:8px 0;color:var(--t3)">Graphique disponible dès le prochain import.</div></div>';
-  }
+ var graphHTML='';
+ if(moisKeys.length>=2){
+ graphHTML='<div class="cc"><div class="cc-ttl">Évolution des abonnés</div>'+
+ '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'+
+ '<div class="cc-sub" style="margin:0">Abonnés actifs par mois</div>'+
+ '<button id="btnTout" onclick="toggleVueTout()" style="font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;border:.5px solid var(--bd2);background:transparent;color:var(--t2);cursor:pointer">Tout voir</button>'+
+ '</div>'+
+ '<div style="position:relative;width:100%;height:180px"><canvas id="cvActifs"></canvas></div>'+
+ '<div style="margin-top:10px;display:flex;align-items:center;gap:8px">'+
+ '<select id="selActifsMois" style="flex:1;padding:6px 8px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:12px">'+
+ '<option value="6">6 derniers mois</option>'+
+ '<option value="12">12 derniers mois</option>'+
+ '<option value="all">Toute la période</option>'+
+ '</select>'+
+ '<button id="btnTout" onclick="toggleVueTout()" style="font-size:11px;font-weight:600;padding:6px 11px;border-radius:var(--rs);border:.5px solid var(--bd2);background:transparent;color:var(--t2);cursor:pointer;white-space:nowrap">Tout voir</button>'+
+ '</div>'+
+ '</div>';
+ } else {
+ graphHTML='<div class="cc" style="margin-bottom:10px">'+
+ '<div class="cc-ttl"> Évolution des abonnés</div>'+
+ '<div class="cc-sub" style="padding:8px 0;color:var(--t3)">Graphique disponible dès le prochain import.</div></div>';
+ }
 
-  // Liste par abonnement
-  var groups={};
-  membres.forEach(function(m){ var k=m['Abonnement']||'Autre'; if(!groups[k]) groups[k]=[]; groups[k].push(m); });
-  var sorted=Object.entries(groups).sort(function(a,b){return b[1].length-a[1].length;});
-  var listeHTML=sorted.map(function(e){
-    return '<div class="gh">'+e[0]+' — '+e[1].length+' membre'+(e[1].length>1?'s':'')+'</div>'+
-      e[1].map(function(m){return cardMembre(m,false);}).join('');
-  }).join('');
+ // Liste par abonnement
+ var groups={};
+ membres.forEach(function(m){ var k=m['Abonnement']||'Autre'; if(!groups[k]) groups[k]=[]; groups[k].push(m); });
+ var sorted=Object.entries(groups).sort(function(a,b){return b[1].length-a[1].length;});
+ var totalMembres=membres.length;
+ var repartitionHTML='<div class="cc"><div class="cc-ttl">Repartition des abonnements</div>'
+   +'<div class="cc-sub">'+totalMembres+' membres actifs</div>'
+   +'<div class="blist">';
+ sorted.forEach(function(e){
+   var pct=totalMembres?Math.round(e[1].length/totalMembres*100):0;
+   repartitionHTML+='<div class="bi">'
+     +'<div class="bt"><span>'+e[0]+'</span>'
+     +'<span style="font-weight:700">'+e[1].length
+     +' <span style="font-weight:400;color:var(--t3)">'+pct+'%</span></span></div>'
+     +'<div class="bbg"><div class="bfill" style="width:'+pct+'%;background:var(--green)"></div></div>'
+     +'</div>';
+ });
+ repartitionHTML+='</div></div>';
+ var listeHTML=sorted.map(function(e){
+ return '<div class="gh">'+e[0]+' - '+e[1].length+' membre'+(e[1].length>1?'s':'')+'</div>'+
+ e[1].map(function(m){return cardMembre(m,false);}).join('');
+ }).join('');
+ el.innerHTML=tuilesHTML+graphHTML+repartitionHTML+listeHTML;
+ var miniTuiles=document.getElementById('mini-tuiles-actifs');
+ if(miniTuiles) miniTuiles.addEventListener('click',function(e){
+ var card=e.target.closest('[data-det]');
+ if(card) ouvrirDetail(card.getAttribute('data-det'));
+ });
 
-  el.innerHTML=tuilesHTML+graphHTML+listeHTML;
-  var miniTuiles=document.getElementById('mini-tuiles-actifs');
-  if(miniTuiles) miniTuiles.addEventListener('click',function(e){
-    var card=e.target.closest('[data-det]');
-    if(card) ouvrirDetail(card.getAttribute('data-det'));
-  });
+ if(moisKeys.length>=2){
+ setTimeout(function(){
+ var ctx=document.getElementById('cvActifs');
+ if(!ctx) return;
+ if(chartActifsInst) chartActifsInst.destroy();
+ var labels=moisKeys.map(function(k){
+ var moisNum=parseInt(k.split('-')[1])-1;
+ var annee=k.split('-')[0].slice(2);
+ return MOIS_NOMS[moisNum]+' '+annee;
+ });
+ var vals=moisKeys.map(function(k){ return snapParMois[k]; });
+ var minVal=Math.max(0,Math.min.apply(null,vals)-10);
+ var nbVisible=Math.min(6,labels.length);
+ var xMin=labels.length-nbVisible;
+ var xMax=labels.length-1;
 
-  if(moisKeys.length>=2){
-    setTimeout(function(){
-      var ctx=document.getElementById('cvActifs');
-      if(!ctx) return;
-      if(chartActifsInst) chartActifsInst.destroy();
-      var labels=moisKeys.map(function(k){
-        var moisNum=parseInt(k.split('-')[1])-1;
-        var annee=k.split('-')[0].slice(2);
-        return MOIS_NOMS[moisNum]+' '+annee;
-      });
-      var vals=moisKeys.map(function(k){ return snapParMois[k]; });
-      var minVal=Math.max(0,Math.min.apply(null,vals)-10);
-      var nbVisible=Math.min(6,labels.length);
-      var xMin=labels.length-nbVisible;
-      var xMax=labels.length-1;
+ chartActifsInst=new Chart(ctx,{
+ type:'line',
+ data:{labels:labels,datasets:[{
+ data:vals,
+ borderColor:'#1a9e72',
+ backgroundColor:'rgba(26,158,114,0.08)',
+ borderWidth:2,
+ pointBackgroundColor:'#1a9e72',
+ pointRadius:4,
+ fill:true,
+ tension:0.3
+ }]},
+ options:{
+ responsive:true,maintainAspectRatio:false,
+ plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+' abonnés';}}}},
+ scales:{
+ x:{grid:{display:false},ticks:{font:{size:10},color:'#a0a096',maxRotation:0},min:xMin,max:xMax},
+ y:{grid:{color:'rgba(120,120,120,0.08)'},ticks:{font:{size:10},color:'#a0a096',precision:0},suggestedMin:minVal}
+ }
+ }
+ });
 
-      chartActifsInst=new Chart(ctx,{
-        type:'line',
-        data:{labels:labels,datasets:[{
-          data:vals,
-          borderColor:'#1a9e72',
-          backgroundColor:'rgba(26,158,114,0.08)',
-          borderWidth:2,
-          pointBackgroundColor:'#1a9e72',
-          pointRadius:4,
-          fill:true,
-          tension:0.3
-        }]},
-        options:{
-          responsive:true,maintainAspectRatio:false,
-          plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+' abonnés';}}}},
-          scales:{
-            x:{grid:{display:false},ticks:{font:{size:10},color:'#a0a096',maxRotation:0},min:xMin,max:xMax},
-            y:{grid:{color:'rgba(120,120,120,0.08)'},ticks:{font:{size:10},color:'#a0a096',precision:0},suggestedMin:minVal}
-          }
-        }
-      });
+ // Select navigation mois
+ var selActifs=document.getElementById('selActifsMois');
+ var btnTout=document.getElementById('btnTout');
 
-      // Select navigation mois
-      var selActifs=document.getElementById('selActifsMois');
-      var btnTout=document.getElementById('btnTout');
+ function applySelectActifs(val){
+ if(val==='all'){
+ chartActifsInst.options.scales.x.min=0;
+ chartActifsInst.options.scales.x.max=labels.length-1;
+ } else {
+ var n=parseInt(val);
+ chartActifsInst.options.scales.x.min=Math.max(0,labels.length-n);
+ chartActifsInst.options.scales.x.max=labels.length-1;
+ }
+ chartActifsInst.update('none');
+ }
 
-      function applySelectActifs(val){
-        if(val==='all'){
-          chartActifsInst.options.scales.x.min=0;
-          chartActifsInst.options.scales.x.max=labels.length-1;
-        } else {
-          var n=parseInt(val);
-          chartActifsInst.options.scales.x.min=Math.max(0,labels.length-n);
-          chartActifsInst.options.scales.x.max=labels.length-1;
-        }
-        chartActifsInst.update('none');
-      }
+ window.toggleVueTout=function(){
+ if(selActifs){
+ selActifs.value=selActifs.value==='all'?'6':'all';
+ applySelectActifs(selActifs.value);
+ if(btnTout){ 
+ var isAll=selActifs.value==='all';
+ btnTout.textContent=isAll?'Réduire':'Tout voir';
+ btnTout.style.background=isAll?'var(--bgreen)':'transparent';
+ btnTout.style.color=isAll?'var(--tgreen)':'var(--t2)';
+ }
+ }
+ };
 
-      window.toggleVueTout=function(){
-        if(selActifs){
-          selActifs.value=selActifs.value==='all'?'6':'all';
-          applySelectActifs(selActifs.value);
-          if(btnTout){ 
-            var isAll=selActifs.value==='all';
-            btnTout.textContent=isAll?'Réduire':'Tout voir';
-            btnTout.style.background=isAll?'var(--bgreen)':'transparent';
-            btnTout.style.color=isAll?'var(--tgreen)':'var(--t2)';
-          }
-        }
-      };
-
-      if(selActifs) selActifs.addEventListener('change',function(){ applySelectActifs(this.value); });
-    },80);
-  }
+ if(selActifs) selActifs.addEventListener('change',function(){ applySelectActifs(this.value); });
+ },80);
+ }
 }
 
 // ─── RENDER RETENTION ───
 function renderRetention(){
-  var el=document.getElementById('c-retention');
-  var snapRetention={};
-  try{ var ex=localStorage.getItem('hygie_snap_retention'); if(ex) snapRetention=JSON.parse(ex); }catch(e){}
-  var MNOMS=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
-  var moisKeys=Object.keys(snapRetention).sort();
-  if(!moisKeys.length){
-    el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3)">Données disponibles après le prochain import ResaWod</div>';
-    return;
-  }
-  var labels=moisKeys.map(function(k){ var p=k.split('-'); return MNOMS[parseInt(p[1])-1]+' '+p[0].slice(2); });
-  var vals=moisKeys.map(function(k){ return snapRetention[k]; });
-  var dernier=vals[vals.length-1];
-  var avant=vals.length>=2?vals[vals.length-2]:null;
-  var diff=avant!==null?dernier-avant:null;
+ var el=document.getElementById('c-retention');
+ var snapRetention={};
+ try{ var ex=localStorage.getItem('hygie_snap_retention'); if(ex) snapRetention=JSON.parse(ex); }catch(e){}
+ var MNOMS=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+ var moisKeys=Object.keys(snapRetention).sort();
+ if(!moisKeys.length){
+ el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3)">Données disponibles après le prochain import ResaWod</div>';
+ return;
+ }
+ var labels=moisKeys.map(function(k){ var p=k.split('-'); return MNOMS[parseInt(p[1])-1]+' '+p[0].slice(2); });
+ var vals=moisKeys.map(function(k){ return snapRetention[k]; });
+ var dernier=vals[vals.length-1];
+ var avant=vals.length>=2?vals[vals.length-2]:null;
+ var diff=avant!==null?dernier-avant:null;
 
-  var statsHTML='<div class="sgrid">'
-    +'<div class="sc"><div class="sc-lbl">Rétention actuelle</div><div class="sc-val" style="color:var(--green)">'+dernier+'%</div><div class="sc-sub">'+labels[labels.length-1]+'</div></div>'
-    +'<div class="sc"><div class="sc-lbl">Variation</div><div class="sc-val" style="color:'+(diff===null?'var(--t)':(diff>=0?'var(--green)':'var(--red)'))+'">'+(diff===null?'—':(diff>=0?'+':'')+diff+' pts')+'</div><div class="sc-sub">vs mois préc.</div></div>'
-    +'</div>';
+ var statsHTML='<div class="sgrid">'
+ +'<div class="sc"><div class="sc-lbl">Rétention actuelle</div><div class="sc-val" style="color:var(--green)">'+dernier+'%</div><div class="sc-sub">'+labels[labels.length-1]+'</div></div>'
+ +'<div class="sc"><div class="sc-lbl">Variation</div><div class="sc-val" style="color:'+(diff===null?'var(--t)':(diff>=0?'var(--green)':'var(--red)'))+'">'+(diff===null?'':(diff>=0?'+':'')+diff+' pts')+'</div><div class="sc-sub">vs mois préc.</div></div>'
+ +'</div>';
 
-  var chartHTML='<div class="cc"><div class="cc-ttl">Évolution du taux de rétention</div><div class="cc-sub">Par mois · en %</div>'
-    +'<div style="position:relative;width:100%;height:200px"><canvas id="cvRetention"></canvas></div></div>';
+ var chartHTML='<div class="cc"><div class="cc-ttl">Évolution du taux de rétention</div><div class="cc-sub">Par mois · en %</div>'
+ +'<div style="position:relative;width:100%;height:200px"><canvas id="cvRetention"></canvas></div></div>';
 
-  el.innerHTML=statsHTML+chartHTML;
+ el.innerHTML=statsHTML+chartHTML;
 
-  setTimeout(function(){
-    var ctx=document.getElementById('cvRetention');
-    if(!ctx) return;
-    if(chartRetentionInst) chartRetentionInst.destroy();
-    var nbV=Math.min(6,labels.length);
-    chartRetentionInst=new Chart(ctx,{
-      type:'line',
-      data:{labels:labels,datasets:[{data:vals,borderColor:'#1a9e72',backgroundColor:'rgba(26,158,114,0.08)',borderWidth:2,pointBackgroundColor:'#1a9e72',pointRadius:4,fill:true,tension:0.3}]},
-      options:{responsive:true,maintainAspectRatio:false,
-        plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'%';}}}},
-        scales:{
-          x:{grid:{display:false},ticks:{font:{size:10},color:'#a0a096',maxRotation:0},min:Math.max(0,labels.length-nbV),max:labels.length-1},
-          y:{grid:{color:'rgba(120,120,120,0.08)'},ticks:{font:{size:10},color:'#a0a096',callback:function(v){return v+'%';}},suggestedMin:85,suggestedMax:100}
-        }
-      }
-    });
-    var sel=document.createElement('select');
-    sel.style='margin-top:10px;width:100%;padding:6px 8px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:12px';
-    [['6','6 derniers mois'],['12','12 derniers mois'],['all','Toute la période']].forEach(function(o){
-      var opt=document.createElement('option'); opt.value=o[0]; opt.textContent=o[1]; sel.appendChild(opt);
-    });
-    sel.addEventListener('change',function(){
-      var n=this.value==='all'?labels.length:parseInt(this.value);
-      chartRetentionInst.options.scales.x.min=Math.max(0,labels.length-n);
-      chartRetentionInst.options.scales.x.max=labels.length-1;
-      chartRetentionInst.update('none');
-    });
-    ctx.parentElement.parentElement.appendChild(sel);
-  },80);
+ setTimeout(function(){
+ var ctx=document.getElementById('cvRetention');
+ if(!ctx) return;
+ if(chartRetentionInst) chartRetentionInst.destroy();
+ var nbV=Math.min(6,labels.length);
+ chartRetentionInst=new Chart(ctx,{
+ type:'line',
+ data:{labels:labels,datasets:[{data:vals,borderColor:'#1a9e72',backgroundColor:'rgba(26,158,114,0.08)',borderWidth:2,pointBackgroundColor:'#1a9e72',pointRadius:4,fill:true,tension:0.3}]},
+ options:{responsive:true,maintainAspectRatio:false,
+ plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'%';}}}},
+ scales:{
+ x:{grid:{display:false},ticks:{font:{size:10},color:'#a0a096',maxRotation:0},min:Math.max(0,labels.length-nbV),max:labels.length-1},
+ y:{grid:{color:'rgba(120,120,120,0.08)'},ticks:{font:{size:10},color:'#a0a096',callback:function(v){return v+'%';}},suggestedMin:85,suggestedMax:100}
+ }
+ }
+ });
+ var sel=document.createElement('select');
+ sel.style='margin-top:10px;width:100%;padding:6px 8px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:12px';
+ [['6','6 derniers mois'],['12','12 derniers mois'],['all','Toute la période']].forEach(function(o){
+ var opt=document.createElement('option'); opt.value=o[0]; opt.textContent=o[1]; sel.appendChild(opt);
+ });
+ sel.addEventListener('change',function(){
+ var n=this.value==='all'?labels.length:parseInt(this.value);
+ chartRetentionInst.options.scales.x.min=Math.max(0,labels.length-n);
+ chartRetentionInst.options.scales.x.max=labels.length-1;
+ chartRetentionInst.update('none');
+ });
+ ctx.parentElement.parentElement.appendChild(sel);
+ },80);
 }
 
 // ─── RENDER NOUVEAUX ───
 function renderNouveaux(){
-  var el=document.getElementById('c-nouveaux');
-  var snapNouveaux={};
-  try{ var ex=localStorage.getItem('hygie_snap_nouveaux'); if(ex) snapNouveaux=JSON.parse(ex); }catch(e){}
-  var MNOMS=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
-  var moisKeys=Object.keys(snapNouveaux).sort();
-  if(!moisKeys.length){
-    el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3)">Données disponibles après le prochain import ResaWod</div>';
-    return;
-  }
-  var labels=moisKeys.map(function(k){ var p=k.split('-'); return MNOMS[parseInt(p[1])-1]+' '+p[0].slice(2); });
-  var vals=moisKeys.map(function(k){ return snapNouveaux[k]; });
-  var dernier=vals[vals.length-1];
-  var avant=vals.length>=2?vals[vals.length-2]:null;
-  var diff=avant!==null?dernier-avant:null;
-  var total=vals.reduce(function(a,b){return a+b;},0);
-  var moy=Math.round(total/vals.length);
+ var el=document.getElementById('c-nouveaux');
+ var snapNouveaux={};
+ try{ var ex=localStorage.getItem('hygie_snap_nouveaux'); if(ex) snapNouveaux=JSON.parse(ex); }catch(e){}
+ var MNOMS=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+ var moisKeys=Object.keys(snapNouveaux).sort();
+ if(!moisKeys.length){
+ el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3)">Données disponibles après le prochain import ResaWod</div>';
+ return;
+ }
+ var labels=moisKeys.map(function(k){ var p=k.split('-'); return MNOMS[parseInt(p[1])-1]+' '+p[0].slice(2); });
+ var vals=moisKeys.map(function(k){ return snapNouveaux[k]; });
+ var dernier=vals[vals.length-1];
+ var avant=vals.length>=2?vals[vals.length-2]:null;
+ var diff=avant!==null?dernier-avant:null;
+ var total=vals.reduce(function(a,b){return a+b;},0);
+ var moy=Math.round(total/vals.length);
 
-  // Tenir compte des supprimés pour le dernier mois
-  var dernierMoisPourStats=moisKeys[moisKeys.length-1];
-  var cleSupprStats='hygie_suppr_'+dernierMoisPourStats;
-  var supprimesStats={};
-  try{ var exss=localStorage.getItem(cleSupprStats); if(exss) supprimesStats=JSON.parse(exss); }catch(e){}
-  var nbSupprimes=Object.keys(supprimesStats).length;
-  var dernierVisible=Math.max(0,dernier-nbSupprimes);
+ // Tenir compte des supprimés pour le dernier mois
+ var dernierMoisPourStats=moisKeys[moisKeys.length-1];
+ var cleSupprStats='hygie_suppr_'+dernierMoisPourStats;
+ var supprimesStats={};
+ try{ var exss=localStorage.getItem(cleSupprStats); if(exss) supprimesStats=JSON.parse(exss); }catch(e){}
+ var nbSupprimes=Object.keys(supprimesStats).length;
+ var dernierVisible=Math.max(0,dernier-nbSupprimes);
 
-  var statsHTML='<div class="sgrid">'
-    +'<div class="sc"><div class="sc-lbl">Nouveaux ce mois</div><div class="sc-val" style="color:var(--blue)">'+dernierVisible+'</div><div class="sc-sub">'+labels[labels.length-1]+(nbSupprimes?' ('+nbSupprimes+' retirés)':'')+'</div></div>'
-    +'<div class="sc"><div class="sc-lbl">Variation</div><div class="sc-val" style="color:'+(diff===null?'var(--t)':(diff>=0?'var(--green)':'var(--red)'))+'">'+(diff===null?'—':(diff>=0?'+':'')+diff)+'</div><div class="sc-sub">vs mois préc.</div></div>'
-    +'<div class="sc"><div class="sc-lbl">Total période</div><div class="sc-val">'+total+'</div><div class="sc-sub">tous mois confondus</div></div>'
-    +'<div class="sc"><div class="sc-lbl">Moy. mensuelle</div><div class="sc-val">'+moy+'</div><div class="sc-sub">nouveaux/mois</div></div>'
-    +'</div>';
+ var statsHTML='<div class="sgrid">'
+ +'<div class="sc"><div class="sc-lbl">Nouveaux ce mois</div><div class="sc-val" style="color:var(--blue)">'+dernierVisible+'</div><div class="sc-sub">'+labels[labels.length-1]+(nbSupprimes?' ('+nbSupprimes+' retirés)':'')+'</div></div>'
+ +'<div class="sc"><div class="sc-lbl">Variation</div><div class="sc-val" style="color:'+(diff===null?'var(--t)':(diff>=0?'var(--green)':'var(--red)'))+'">'+(diff===null?'':(diff>=0?'+':'')+diff)+'</div><div class="sc-sub">vs mois préc.</div></div>'
+ +'<div class="sc"><div class="sc-lbl">Total période</div><div class="sc-val">'+total+'</div><div class="sc-sub">tous mois confondus</div></div>'
+ +'<div class="sc"><div class="sc-lbl">Moy. mensuelle</div><div class="sc-val">'+moy+'</div><div class="sc-sub">nouveaux/mois</div></div>'
+ +'</div>';
 
-  document.getElementById('b-nouveaux').textContent=dernierVisible+' ce mois';
+ document.getElementById('b-nouveaux').textContent=dernierVisible+' ce mois';
 
-  var chartHTML='<div class="cc"><div class="cc-ttl">Nouveaux membres par mois</div><div class="cc-sub">Historique des imports</div>'
-    +'<div style="position:relative;width:100%;height:200px"><canvas id="cvNouveaux"></canvas></div></div>';
+ var chartHTML='<div class="cc"><div class="cc-ttl">Nouveaux membres par mois</div><div class="cc-sub">Historique des imports</div>'
+ +'<div style="position:relative;width:100%;height:200px"><canvas id="cvNouveaux"></canvas></div></div>';
 
-  // Liste des nouveaux du mois le plus récent
-  var listeNouveaux='';
-  if(membres.length){
-    var dernierMoisNouv=moisKeys[moisKeys.length-1];
-    var p2=dernierMoisNouv.split('-');
-    var anneeN=parseInt(p2[0]), moisN=parseInt(p2[1])-1;
-    var listeMembresNouv=membres.filter(function(m){
-      var d=parseDate(m['Acheté le']);
-      return d&&d.getFullYear()===anneeN&&d.getMonth()===moisN;
-    });
-    if(listeMembresNouv.length){
-      var nomMoisN=new Date(anneeN,moisN,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
-      listeNouveaux='<div class="cc"><div class="cc-ttl">Nouveaux en '+nomMoisN+'</div>'
-        +'<div class="cc-sub">'+listeMembresNouv.length+' membre'+(listeMembresNouv.length>1?'s':'')+' inscrits ce mois</div>'
-        +'<div class="ml" id="liste-nouveaux-membres"></div></div>';
-    }
-  }
+ // Liste des nouveaux du mois le plus récent
+ var listeNouveaux='';
+ if(membres.length){
+ var dernierMoisNouv=moisKeys[moisKeys.length-1];
+ var p2=dernierMoisNouv.split('-');
+ var anneeN=parseInt(p2[0]), moisN=parseInt(p2[1])-1;
+ var listeMembresNouv=membres.filter(function(m){
+ var d=parseDate(m['Acheté le']);
+ return d&&d.getFullYear()===anneeN&&d.getMonth()===moisN;
+ });
+ if(listeMembresNouv.length){
+ var nomMoisN=new Date(anneeN,moisN,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+ listeNouveaux='<div class="cc"><div class="cc-ttl">Nouveaux en '+nomMoisN+'</div>'
+ +'<div class="cc-sub">'+listeMembresNouv.length+' membre'+(listeMembresNouv.length>1?'s':'')+' inscrits ce mois</div>'
+ +'<div class="ml" id="liste-nouveaux-membres"></div></div>';
+ }
+ }
 
-  el.innerHTML=statsHTML+chartHTML+listeNouveaux;
+ el.innerHTML=statsHTML+chartHTML+listeNouveaux;
 
-  setTimeout(function(){
-    var ctx=document.getElementById('cvNouveaux');
-    if(!ctx) return;
-    if(chartNouveauxInst) chartNouveauxInst.destroy();
-    var nbV=Math.min(6,labels.length);
-    chartNouveauxInst=new Chart(ctx,{
-      type:'bar',
-      data:{labels:labels,datasets:[{data:vals,backgroundColor:'#1a5fa8',borderRadius:3}]},
-      options:{responsive:true,maintainAspectRatio:false,
-        plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+' nouveaux';}}}},
-        scales:{
-          x:{grid:{display:false},ticks:{font:{size:10},color:'#a0a096',maxRotation:0},min:Math.max(0,labels.length-nbV),max:labels.length-1},
-          y:{grid:{color:'rgba(120,120,120,0.08)'},ticks:{font:{size:10},color:'#a0a096',precision:0},suggestedMin:0}
-        }
-      }
-    });
-    var sel=document.createElement('select');
-    sel.style='margin-top:10px;width:100%;padding:6px 8px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:12px';
-    [['6','6 derniers mois'],['12','12 derniers mois'],['all','Toute la période']].forEach(function(o){
-      var opt=document.createElement('option'); opt.value=o[0]; opt.textContent=o[1]; sel.appendChild(opt);
-    });
-    sel.addEventListener('change',function(){
-      var n=this.value==='all'?labels.length:parseInt(this.value);
-      chartNouveauxInst.options.scales.x.min=Math.max(0,labels.length-n);
-      chartNouveauxInst.options.scales.x.max=labels.length-1;
-      chartNouveauxInst.update('none');
-    });
-    ctx.parentElement.parentElement.appendChild(sel);
-  },80);
+ setTimeout(function(){
+ var ctx=document.getElementById('cvNouveaux');
+ if(!ctx) return;
+ if(chartNouveauxInst) chartNouveauxInst.destroy();
+ var nbV=Math.min(6,labels.length);
+ chartNouveauxInst=new Chart(ctx,{
+ type:'bar',
+ data:{labels:labels,datasets:[{data:vals,backgroundColor:'#1a5fa8',borderRadius:3}]},
+ options:{responsive:true,maintainAspectRatio:false,
+ plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+' nouveaux';}}}},
+ scales:{
+ x:{grid:{display:false},ticks:{font:{size:10},color:'#a0a096',maxRotation:0},min:Math.max(0,labels.length-nbV),max:labels.length-1},
+ y:{grid:{color:'rgba(120,120,120,0.08)'},ticks:{font:{size:10},color:'#a0a096',precision:0},suggestedMin:0}
+ }
+ }
+ });
+ var sel=document.createElement('select');
+ sel.style='margin-top:10px;width:100%;padding:6px 8px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--t);font-size:12px';
+ [['6','6 derniers mois'],['12','12 derniers mois'],['all','Toute la période']].forEach(function(o){
+ var opt=document.createElement('option'); opt.value=o[0]; opt.textContent=o[1]; sel.appendChild(opt);
+ });
+ sel.addEventListener('change',function(){
+ var n=this.value==='all'?labels.length:parseInt(this.value);
+ chartNouveauxInst.options.scales.x.min=Math.max(0,labels.length-n);
+ chartNouveauxInst.options.scales.x.max=labels.length-1;
+ chartNouveauxInst.update('none');
+ });
+ ctx.parentElement.parentElement.appendChild(sel);
+ },80);
 
-  // Rendre la liste des nouveaux
-  var elListe=document.getElementById('liste-nouveaux-membres');
-  if(elListe&&membres.length){
-    var dernierMoisNouv2=moisKeys[moisKeys.length-1];
-    var p3=dernierMoisNouv2.split('-');
-    var anneeN2=parseInt(p3[0]), moisN2=parseInt(p3[1])-1;
-    var listeFiltree=membres.filter(function(m){
-      var d=parseDate(m['Acheté le']);
-      return d&&d.getFullYear()===anneeN2&&d.getMonth()===moisN2;
-    }).sort(function(a,b){
-      var da=parseDate(a['Acheté le']), db=parseDate(b['Acheté le']);
-      return (db||0)-(da||0);
-    });
-    // Charger les supprimés pour ce mois
-    var cleSuppr='hygie_suppr_'+dernierMoisNouv2;
-    var supprimesSet={};
-    try{ var exs=localStorage.getItem(cleSuppr); if(exs) supprimesSet=JSON.parse(exs); }catch(e){}
+ // Rendre la liste des nouveaux
+ var elListe=document.getElementById('liste-nouveaux-membres');
+ if(elListe&&membres.length){
+ var dernierMoisNouv2=moisKeys[moisKeys.length-1];
+ var p3=dernierMoisNouv2.split('-');
+ var anneeN2=parseInt(p3[0]), moisN2=parseInt(p3[1])-1;
+ var listeFiltree=membres.filter(function(m){
+ var d=parseDate(m['Acheté le']);
+ return d&&d.getFullYear()===anneeN2&&d.getMonth()===moisN2;
+ }).sort(function(a,b){
+ var da=parseDate(a['Acheté le']), db=parseDate(b['Acheté le']);
+ return (db||0)-(da||0);
+ });
+ // Charger les supprimés pour ce mois
+ var cleSuppr='hygie_suppr_'+dernierMoisNouv2;
+ var supprimesSet={};
+ try{ var exs=localStorage.getItem(cleSuppr); if(exs) supprimesSet=JSON.parse(exs); }catch(e){}
 
-    // Filtrer les non-supprimés
-    var listeVisible=listeFiltree.filter(function(m){
-      var uid=(m['Prénom']||'').trim()+'|'+(m['Nom']||'').trim()+'|'+(m['Acheté le']||'');
-      return !supprimesSet[uid];
-    });
+ // Filtrer les non-supprimés
+ var listeVisible=listeFiltree.filter(function(m){
+ var uid=(m['Prénom']||'').trim()+'|'+(m['Nom']||'').trim()+'|'+(m['Acheté le']||'');
+ return !supprimesSet[uid];
+ });
 
-    window._supprimerNouveauMembre=function(uid, cleS){
-      var s={};
-      try{ var ex2=localStorage.getItem(cleS); if(ex2) s=JSON.parse(ex2); }catch(e){}
-      s[uid]=true;
-      try{ localStorage.setItem(cleS, JSON.stringify(s)); }catch(e){}
-      renderNouveaux();
-    };
+ window._supprimerNouveauMembre=function(uid, cleS){
+ var s={};
+ try{ var ex2=localStorage.getItem(cleS); if(ex2) s=JSON.parse(ex2); }catch(e){}
+ s[uid]=true;
+ try{ localStorage.setItem(cleS, JSON.stringify(s)); }catch(e){}
+ renderNouveaux();
+ };
 
-    elListe.innerHTML=listeVisible.map(function(m,i){
-      var nom=capNom(m['Prénom'])+' '+(m['Nom']||'').toUpperCase();
-      var init=ini(m['Prénom'],m['Nom']);
-      var bg=AV_BG[m._i%AV_BG.length], tx=AV_TX[m._i%AV_TX.length];
-      var tel=(m['Portable']||'').replace(/\s/g,'');
-      var dateAchat=m['Acheté le']?fmtDate(m['Acheté le']):'—';
-      var uid=(m['Prénom']||'').trim()+'|'+(m['Nom']||'').trim()+'|'+(m['Acheté le']||'');
-      return '<div class="mc" style="position:relative;padding-top:14px">'
-        +'<button class="btn-suppr-nouveau" data-uid="'+encodeURIComponent(uid)+'" data-cle="'+cleSuppr+'" '
-        +'style="position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;'
-        +'background:var(--bred);border:none;color:var(--tred);font-size:16px;font-weight:700;'
-        +'cursor:pointer;line-height:24px;text-align:center;z-index:10;padding:0">&#xd7;</button>'
-        +'<div class="mc-top">'
-        +'<div class="av" style="background:'+bg+';color:'+tx+'">'+init+'</div>'
-        +'<div style="flex:1;min-width:0"><div class="mc-name">'+nom.trim()+'</div>'
-        +'<div class="mc-abo">'+m['Abonnement']+'</div></div>'
-        +'<div class="mc-tag tag-g" style="font-size:10px;margin-right:30px">Nouveau</div></div>'
-        +'<div class="div"></div>'
-        +'<div class="rows">'
-        +'<div class="row"><span class="rl">Inscrit le</span><span class="rv">'+dateAchat+'</span></div>'
-        +'<div class="row"><span class="rl">Téléphone</span><span class="rv">'+(m['Portable']||'—')+'</span></div>'
-        +'<div class="row"><span class="rl">Email</span><span class="rv" style="font-size:11px">'+(m['Email']||'—')+'</span></div>'
-        +'</div>'
-        +(tel?'<div class="btns"><a href="tel:'+tel+'" class="btn">Appeler</a><a href="sms:'+tel+'" class="btn p">SMS</a></div>':'')
-        +'</div>';
-    }).join('');
+ elListe.innerHTML=listeVisible.map(function(m,i){
+ var nom=capNom(m['Prénom'])+' '+(m['Nom']||'').toUpperCase();
+ var init=ini(m['Prénom'],m['Nom']);
+ var bg=AV_BG[m._i%AV_BG.length], tx=AV_TX[m._i%AV_TX.length];
+ var tel=(m['Portable']||'').replace(/\s/g,'');
+ var dateAchat=m['Acheté le']?fmtDate(m['Acheté le']):'';
+ var uid=(m['Prénom']||'').trim()+'|'+(m['Nom']||'').trim()+'|'+(m['Acheté le']||'');
+ return '<div class="mc" style="position:relative;padding-top:14px">'
+ +'<button class="btn-suppr-nouveau" data-uid="'+encodeURIComponent(uid)+'" data-cle="'+cleSuppr+'" '
+ +'style="position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;'
+ +'background:var(--bred);border:none;color:var(--tred);font-size:16px;font-weight:700;'
+ +'cursor:pointer;line-height:24px;text-align:center;z-index:10;padding:0">&#xd7;</button>'
+ +'<div class="mc-top">'
+ +'<div class="av" style="background:'+bg+';color:'+tx+'">'+init+'</div>'
+ +'<div style="flex:1;min-width:0"><div class="mc-name">'+nom.trim()+'</div>'
+ +'<div class="mc-abo">'+m['Abonnement']+'</div></div>'
+ +'<div class="mc-tag tag-g" style="font-size:10px;margin-right:30px">Nouveau</div></div>'
+ +'<div class="div"></div>'
+ +'<div class="rows">'
+ +'<div class="row"><span class="rl">Inscrit le</span><span class="rv">'+dateAchat+'</span></div>'
+ +'<div class="row"><span class="rl">Téléphone</span><span class="rv">'+(m['Portable']||'')+'</span></div>'
+ +'<div class="row"><span class="rl">Email</span><span class="rv" style="font-size:11px">'+(m['Email']||'')+'</span></div>'
+ +'</div>'
+ +(tel?'<div class="btns"><a href="tel:'+tel+'" class="btn">Appeler</a><a href="sms:'+tel+'" class="btn p">SMS</a></div>':'')
+ +'</div>';
+ }).join('');
 
-    // Event delegation propre sur elListe
-    elListe.onclick=function(e){
-      var btn=e.target.closest('.btn-suppr-nouveau');
-      if(!btn){ return; }
-      e.stopPropagation();
-      e.preventDefault();
-      var uid=decodeURIComponent(btn.getAttribute('data-uid'));
-      var cle=btn.getAttribute('data-cle');
-      var s={};
-      try{ var es=localStorage.getItem(cle); if(es) s=JSON.parse(es); }catch(ex){}
-      s[uid]=true;
-      try{ localStorage.setItem(cle, JSON.stringify(s)); }catch(ex){}
-      // Mettre à jour la mini-tuile et le badge
-      var nbSupprTotal=Object.keys(s).length;
-      var snapN={};
-      try{ var esn=localStorage.getItem('hygie_snap_nouveaux'); if(esn) snapN=JSON.parse(esn); }catch(ex2){}
-      var moisKeys_n=Object.keys(snapN).sort();
-      var dernierN=moisKeys_n.length?snapN[moisKeys_n[moisKeys_n.length-1]]:0;
-      var nbVisible=Math.max(0,dernierN-nbSupprTotal);
-      var miniN=document.getElementById('mini-n-nouveaux');
-      if(miniN) miniN.textContent=nbVisible;
-      var bNouv=document.getElementById('b-nouveaux');
-      if(bNouv) bNouv.textContent=nbVisible+' ce mois';
-      renderNouveaux();
-    };
+ // Event delegation propre sur elListe
+ elListe.onclick=function(e){
+ var btn=e.target.closest('.btn-suppr-nouveau');
+ if(!btn){ return; }
+ e.stopPropagation();
+ e.preventDefault();
+ var uid=decodeURIComponent(btn.getAttribute('data-uid'));
+ var cle=btn.getAttribute('data-cle');
+ var s={};
+ try{ var es=localStorage.getItem(cle); if(es) s=JSON.parse(es); }catch(ex){}
+ s[uid]=true;
+ try{ localStorage.setItem(cle, JSON.stringify(s)); }catch(ex){}
+ // Mettre à jour la mini-tuile et le badge
+ var nbSupprTotal=Object.keys(s).length;
+ var snapN={};
+ try{ var esn=localStorage.getItem('hygie_snap_nouveaux'); if(esn) snapN=JSON.parse(esn); }catch(ex2){}
+ var moisKeys_n=Object.keys(snapN).sort();
+ var dernierN=moisKeys_n.length?snapN[moisKeys_n[moisKeys_n.length-1]]:0;
+ var nbVisible=Math.max(0,dernierN-nbSupprTotal);
+ var miniN=document.getElementById('mini-n-nouveaux');
+ if(miniN) miniN.textContent=nbVisible;
+ var bNouv=document.getElementById('b-nouveaux');
+ if(bNouv) bNouv.textContent=nbVisible+' ce mois';
+ renderNouveaux();
+ };
 
 
-  }
+ }
 }
 
 // ─── RENDER PRÉLÈVEMENT ───
 function renderPrelev(total,next1,nomProchain){
-  var el=document.getElementById('c-prelev');
-  var byAbo={};
-  prelevData.forEach(function(m){
-    var k=m['Abonnement']||'Autre';
-    if(!byAbo[k]) byAbo[k]={count:0,total:0,membres:[]};
-    byAbo[k].count++; byAbo[k].total+=parseFloat(m['Prix']||0); byAbo[k].membres.push(m);
-  });
-  var aboList=Object.entries(byAbo).sort(function(a,b){return b[1].total-a[1].total;});
-  var maxAbo=aboList.length?aboList[0][1].total:1;
+ var el=document.getElementById('c-prelev');
+ var byAbo={};
+ prelevData.forEach(function(m){
+ var k=m['Abonnement']||'Autre';
+ if(!byAbo[k]) byAbo[k]={count:0,total:0,membres:[]};
+ byAbo[k].count++; byAbo[k].total+=parseFloat(m['Prix']||0); byAbo[k].membres.push(m);
+ });
+ var aboList=Object.entries(byAbo).sort(function(a,b){return b[1].total-a[1].total;});
+ var maxAbo=aboList.length?aboList[0][1].total:1;
 
-  var bars=aboList.map(function(e){
-    var pct=Math.round(e[1].total/maxAbo*100);
-    return '<div class="bi"><div class="bt"><span>'+e[0]+'</span><span style="font-weight:700">'+fmtE(e[1].total)+
-      ' <span style="font-weight:400;color:var(--t3)">'+e[1].count+' mbr</span></span></div>'+
-      '<div class="bbg"><div class="bfill" style="width:'+pct+'%;background:var(--amber)"></div></div></div>';
-  }).join('');
+ var bars=aboList.map(function(e){
+ var pct=Math.round(e[1].total/maxAbo*100);
+ return '<div class="bi"><div class="bt"><span>'+e[0]+'</span><span style="font-weight:700">'+fmtE(e[1].total)+
+ ' <span style="font-weight:400;color:var(--t3)">'+e[1].count+' mbr</span></span></div>'+
+ '<div class="bbg"><div class="bfill" style="width:'+pct+'%;background:var(--amber)"></div></div></div>';
+ }).join('');
 
-  el.innerHTML=
-    '<div class="sgrid">'+
-      '<div class="sc"><div class="sc-lbl">Total estimé</div><div class="sc-val">'+fmtE(total)+'</div>'+
-        '<div class="sc-sub">au '+next1.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})+'</div></div>'+
-      '<div class="sc"><div class="sc-lbl">Abonnés concernés</div><div class="sc-val">'+prelevData.length+'</div>'+
-        '<div class="sc-sub">paiements mensuels</div></div>'+
-    '</div>'+
-    '<div class="cc"><div class="cc-ttl">Répartition par formule</div>'+
-      '<div class="cc-sub">Montant prélevé par abonnement</div>'+
-      '<div class="blist">'+bars+'</div></div>'+
-    aboList.map(function(e){
-      return '<div class="gh">'+e[0]+' — '+e[1].count+' membre'+(e[1].count>1?'s':'')+' · '+fmtE(e[1].total)+'</div>'+
-        e[1].membres.map(function(m){return cardPrelev(m);}).join('');
-    }).join('');
+ el.innerHTML=
+ '<div class="sgrid">'+
+ '<div class="sc"><div class="sc-lbl">Total estimé</div><div class="sc-val">'+fmtE(total)+'</div>'+
+ '<div class="sc-sub">au '+next1.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})+'</div></div>'+
+ '<div class="sc"><div class="sc-lbl">Abonnés concernés</div><div class="sc-val">'+prelevData.length+'</div>'+
+ '<div class="sc-sub">paiements mensuels</div></div>'+
+ '</div>'+
+ '<div class="cc"><div class="cc-ttl">Répartition par formule</div>'+
+ '<div class="cc-sub">Montant prélevé par abonnement</div>'+
+ '<div class="blist">'+bars+'</div></div>'+
+ aboList.map(function(e){
+ return '<div class="gh">'+e[0]+' '+e[1].count+' membre'+(e[1].count>1?'s':'')+' · '+fmtE(e[1].total)+'</div>'+
+ e[1].membres.map(function(m){return cardPrelev(m);}).join('');
+ }).join('');
 }
 
 // ─── RENDER 30J ───
 function render30j(){
-  var el=document.getElementById('c-30j');
-  if(!fin30.length){
-    el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3);font-size:14px">Aucune fin d\'engagement dans les 30 prochains jours</div>';
-    return;
-  }
-  var g={'Cette semaine (0-7j)':[],'Semaine 2 (8-14j)':[],'Semaine 3 (15-21j)':[],'Semaine 4 (22-30j)':[]};
-  fin30.forEach(function(m){
-    if(m._jours<=7) g['Cette semaine (0-7j)'].push(m);
-    else if(m._jours<=14) g['Semaine 2 (8-14j)'].push(m);
-    else if(m._jours<=21) g['Semaine 3 (15-21j)'].push(m);
-    else g['Semaine 4 (22-30j)'].push(m);
-  });
-  el.innerHTML=Object.entries(g).filter(function(e){return e[1].length;}).map(function(e){
-    return '<div class="gh">'+e[0]+' — '+e[1].length+' membre'+(e[1].length>1?'s':'')+'</div>'+
-      e[1].map(function(m){return cardMembre(m,true);}).join('');
-  }).join('');
+ var el=document.getElementById('c-30j');
+ if(!fin30.length){
+ el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3);font-size:14px">Aucune fin d\'engagement dans les 30 prochains jours</div>';
+ return;
+ }
+ var g={'Cette semaine (0-7j)':[],'Semaine 2 (8-14j)':[],'Semaine 3 (15-21j)':[],'Semaine 4 (22-30j)':[]};
+ fin30.forEach(function(m){
+ if(m._jours<=7) g['Cette semaine (0-7j)'].push(m);
+ else if(m._jours<=14) g['Semaine 2 (8-14j)'].push(m);
+ else if(m._jours<=21) g['Semaine 3 (15-21j)'].push(m);
+ else g['Semaine 4 (22-30j)'].push(m);
+ });
+ el.innerHTML=Object.entries(g).filter(function(e){return e[1].length;}).map(function(e){
+ return '<div class="gh">'+e[0]+' '+e[1].length+' membre'+(e[1].length>1?'s':'')+'</div>'+
+ e[1].map(function(m){return cardMembre(m,true);}).join('');
+ }).join('');
 }
 
 // ─── CARTES MEMBRES ───
 function cardMembre(m,showEng){
-  var nom=capNom(m['Prénom'])+' '+(m['Nom']||'').toUpperCase();
-  var i=ini(m['Prénom'],m['Nom']);
-  var bg=AV_BG[m._i%AV_BG.length], tx=AV_TX[m._i%AV_TX.length];
-  var tel=(m['Portable']||'').replace(/\s/g,'');
-  var tag='';
-  if(showEng&&m._jours!==null){
-    var cls=m._jours<=7?'tag-r':m._jours<=14?'tag-a':'tag-g';
-    tag='<div class="mc-tag '+cls+'">J+'+m._jours+'</div>';
-  }
-  return '<div class="mc">'+
-    '<div class="mc-top">'+
-      '<div class="av" style="background:'+bg+';color:'+tx+'">'+i+'</div>'+
-      '<div style="flex:1;min-width:0"><div class="mc-name">'+nom.trim()+'</div><div class="mc-abo">'+m['Abonnement']+'</div></div>'+
-      tag+'</div>'+
-    '<div class="div"></div>'+
-    '<div class="rows">'+
-      (showEng?'<div class="row"><span class="rl">Fin engagement</span><span class="rv" style="color:'+
-        (m._jours<=7?'var(--red)':m._jours<=14?'var(--amber)':'var(--t)')+'">'+fmtDate(m["Date d'engagement"])+'</span></div>':'')+
-      '<div class="row"><span class="rl">Téléphone</span><span class="rv">'+(m['Portable']||'—')+'</span></div>'+
-      '<div class="row"><span class="rl">Email</span><span class="rv" style="font-size:11px">'+(m['Email']||'—')+'</span></div>'+
-    '</div>'+
-    (tel?'<div class="btns"><a href="tel:'+tel+'" class="btn">Appeler</a><a href="sms:'+tel+'" class="btn p">SMS</a></div>':'')+
-  '</div>';
+ var nom=capNom(m['Prénom'])+' '+(m['Nom']||'').toUpperCase();
+ var i=ini(m['Prénom'],m['Nom']);
+ var bg=AV_BG[m._i%AV_BG.length], tx=AV_TX[m._i%AV_TX.length];
+ var tel=(m['Portable']||'').replace(/\s/g,'');
+ var tag='';
+ if(showEng&&m._jours!==null){
+ var cls=m._jours<=7?'tag-r':m._jours<=14?'tag-a':'tag-g';
+ tag='<div class="mc-tag '+cls+'">J+'+m._jours+'</div>';
+ }
+ return '<div class="mc">'+
+ '<div class="mc-top">'+
+ '<div class="av" style="background:'+bg+';color:'+tx+'">'+i+'</div>'+
+ '<div style="flex:1;min-width:0"><div class="mc-name">'+nom.trim()+'</div><div class="mc-abo">'+m['Abonnement']+'</div></div>'+
+ tag+'</div>'+
+ '<div class="div"></div>'+
+ '<div class="rows">'+
+ (showEng?'<div class="row"><span class="rl">Fin engagement</span><span class="rv" style="color:'+
+ (m._jours<=7?'var(--red)':m._jours<=14?'var(--amber)':'var(--t)')+'">'+fmtDate(m["Date d'engagement"])+'</span></div>':'')+
+ '<div class="row"><span class="rl">Téléphone</span><span class="rv">'+(m['Portable']||'')+'</span></div>'+
+ '<div class="row"><span class="rl">Email</span><span class="rv" style="font-size:11px">'+(m['Email']||'')+'</span></div>'+
+ '</div>'+
+ (tel?'<div class="btns"><a href="tel:'+tel+'" class="btn">Appeler</a><a href="sms:'+tel+'" class="btn p">SMS</a></div>':'')+
+ '</div>';
 }
 
 function cardPrelev(m){
-  var nom=capNom(m['Prénom'])+' '+(m['Nom']||'').toUpperCase();
-  var i=ini(m['Prénom'],m['Nom']);
-  var bg=AV_BG[m._i%AV_BG.length], tx=AV_TX[m._i%AV_TX.length];
-  var tel=(m['Portable']||'').replace(/\s/g,'');
-  var prix=parseFloat(m['Prix']||0);
-  return '<div class="mc">'+
-    '<div class="mc-top">'+
-      '<div class="av" style="background:'+bg+';color:'+tx+'">'+i+'</div>'+
-      '<div style="flex:1;min-width:0"><div class="mc-name">'+nom.trim()+'</div><div class="mc-abo">'+m['Abonnement']+'</div></div>'+
-      '<div class="mc-tag tag-b" style="font-size:13px;padding:4px 10px">'+fmtE(prix)+'</div></div>'+
-    '<div class="div"></div>'+
-    '<div class="rows">'+
-      '<div class="row"><span class="rl">Mensualité</span><span class="rv" style="color:var(--amber);font-weight:700">'+fmtE(prix)+'</span></div>'+
-      '<div class="row"><span class="rl">Fin abonnement</span><span class="rv">'+fmtDate(m['Expiré le'])+'</span></div>'+
-      '<div class="row"><span class="rl">Téléphone</span><span class="rv">'+(m['Portable']||'—')+'</span></div>'+
-      '<div class="row"><span class="rl">Email</span><span class="rv" style="font-size:11px">'+(m['Email']||'—')+'</span></div>'+
-    '</div>'+
-    (tel?'<div class="btns"><a href="tel:'+tel+'" class="btn">Appeler</a><a href="sms:'+tel+'" class="btn p">SMS</a></div>':'')+
-  '</div>';
+ var nom=capNom(m['Prénom'])+' '+(m['Nom']||'').toUpperCase();
+ var i=ini(m['Prénom'],m['Nom']);
+ var bg=AV_BG[m._i%AV_BG.length], tx=AV_TX[m._i%AV_TX.length];
+ var tel=(m['Portable']||'').replace(/\s/g,'');
+ var prix=parseFloat(m['Prix']||0);
+ return '<div class="mc">'+
+ '<div class="mc-top">'+
+ '<div class="av" style="background:'+bg+';color:'+tx+'">'+i+'</div>'+
+ '<div style="flex:1;min-width:0"><div class="mc-name">'+nom.trim()+'</div><div class="mc-abo">'+m['Abonnement']+'</div></div>'+
+ '<div class="mc-tag tag-b" style="font-size:13px;padding:4px 10px">'+fmtE(prix)+'</div></div>'+
+ '<div class="div"></div>'+
+ '<div class="rows">'+
+ '<div class="row"><span class="rl">Mensualité</span><span class="rv" style="color:var(--amber);font-weight:700">'+fmtE(prix)+'</span></div>'+
+ '<div class="row"><span class="rl">Fin abonnement</span><span class="rv">'+fmtDate(m['Expiré le'])+'</span></div>'+
+ '<div class="row"><span class="rl">Téléphone</span><span class="rv">'+(m['Portable']||'')+'</span></div>'+
+ '<div class="row"><span class="rl">Email</span><span class="rv" style="font-size:11px">'+(m['Email']||'')+'</span></div>'+
+ '</div>'+
+ (tel?'<div class="btns"><a href="tel:'+tel+'" class="btn">Appeler</a><a href="sms:'+tel+'" class="btn p">SMS</a></div>':'')+
+ '</div>';
 }
 
 // ─── SAUVEGARDE / RESTAURATION ───
 function sauvegarder(cle,donnees,nomFichier){
-  try{
-    if(cle==='hib'){
-      // CA : fusion cumulative — les mois passés ne sont jamais écrasés
-      var existing={};
-      try{ var ex=localStorage.getItem('hygie_hib_cumul'); if(ex) existing=JSON.parse(ex); }catch(e){}
-      // Indexer les nouvelles données par mois
-      donnees.forEach(function(r){
-        var mois=(r['Date']||'').slice(0,7);
-        if(!mois) return;
-        // Ne pas écraser les mois déjà en mémoire sauf si c'est le mois en cours
-        var now=new Date();
-        var moisCourant=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-        if(!existing[mois] || mois===moisCourant){
-          if(!existing[mois]) existing[mois]=[];
-          // Ajouter seulement les lignes pas encore présentes (par ID)
-          var idsExistants={};
-          existing[mois].forEach(function(r2){ idsExistants[r2['ID']]=true; });
-          if(!idsExistants[r['ID']]) existing[mois].push(r);
-        }
-      });
-      localStorage.setItem('hygie_hib_cumul', JSON.stringify(existing));
-    } else {
-      localStorage.setItem('hygie_'+cle, JSON.stringify(donnees));
-    }
-    localStorage.setItem('hygie_'+cle+'_nom', nomFichier);
-    localStorage.setItem('hygie_'+cle+'_date', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}));
-  }catch(e){ console.log('localStorage error',e); }
+ try{
+ if(cle==='hib'){
+ // CA : fusion cumulative les mois passés ne sont jamais écrasés
+ var existing={};
+ try{ var ex=localStorage.getItem('hygie_hib_cumul'); if(ex) existing=JSON.parse(ex); }catch(e){}
+ // Indexer les nouvelles données par mois
+ donnees.forEach(function(r){
+ var mois=(r['Date']||'').slice(0,7);
+ if(!mois) return;
+ // Ne pas écraser les mois déjà en mémoire sauf si c'est le mois en cours
+ var now=new Date();
+ var moisCourant=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+ if(!existing[mois] || mois===moisCourant){
+ if(!existing[mois]) existing[mois]=[];
+ // Ajouter seulement les lignes pas encore présentes (par ID)
+ var idsExistants={};
+ existing[mois].forEach(function(r2){ idsExistants[r2['ID']]=true; });
+ if(!idsExistants[r['ID']]) existing[mois].push(r);
+ }
+ });
+ localStorage.setItem('hygie_hib_cumul', JSON.stringify(existing));
+ } else {
+ localStorage.setItem('hygie_'+cle, JSON.stringify(donnees));
+ }
+ localStorage.setItem('hygie_'+cle+'_nom', nomFichier);
+ localStorage.setItem('hygie_'+cle+'_date', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}));
+ }catch(e){ console.log('localStorage error',e); }
 }
 
 function sauvegarderSnapshotMembres(count, nouveaux, retention){
-  try{
-    var now=new Date();
-    var moisCle=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-    var snapshots={};
-    try{ var ex=localStorage.getItem('hygie_snapshots'); if(ex) snapshots=JSON.parse(ex); }catch(e){}
-    snapshots[moisCle]=count;
-    localStorage.setItem('hygie_snapshots', JSON.stringify(snapshots));
-    // Sauvegarder aussi nouveaux et rétention
-    var snapNouveaux={};
-    try{ var exn=localStorage.getItem('hygie_snap_nouveaux'); if(exn) snapNouveaux=JSON.parse(exn); }catch(e){}
-    snapNouveaux[moisCle]=nouveaux;
-    localStorage.setItem('hygie_snap_nouveaux', JSON.stringify(snapNouveaux));
-    var snapRetention={};
-    try{ var exr=localStorage.getItem('hygie_snap_retention'); if(exr) snapRetention=JSON.parse(exr); }catch(e){}
-    snapRetention[moisCle]=retention;
-    localStorage.setItem('hygie_snap_retention', JSON.stringify(snapRetention));
-    console.log('Snapshot sauvegardé:', moisCle, 'actifs:'+count, 'nouveaux:'+nouveaux, 'retention:'+retention+'%');
-  }catch(e){ console.log('Erreur snapshot:', e); }
+ try{
+ var now=new Date();
+ var moisCle=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+ var snapshots={};
+ try{ var ex=localStorage.getItem('hygie_snapshots'); if(ex) snapshots=JSON.parse(ex); }catch(e){}
+ snapshots[moisCle]=count;
+ localStorage.setItem('hygie_snapshots', JSON.stringify(snapshots));
+ // Sauvegarder aussi nouveaux et rétention
+ var snapNouveaux={};
+ try{ var exn=localStorage.getItem('hygie_snap_nouveaux'); if(exn) snapNouveaux=JSON.parse(exn); }catch(e){}
+ snapNouveaux[moisCle]=nouveaux;
+ localStorage.setItem('hygie_snap_nouveaux', JSON.stringify(snapNouveaux));
+ var snapRetention={};
+ try{ var exr=localStorage.getItem('hygie_snap_retention'); if(exr) snapRetention=JSON.parse(exr); }catch(e){}
+ snapRetention[moisCle]=retention;
+ localStorage.setItem('hygie_snap_retention', JSON.stringify(snapRetention));
+ console.log('Snapshot sauvegardé:', moisCle, 'actifs:'+count, 'nouveaux:'+nouveaux, 'retention:'+retention+'%');
+ }catch(e){ console.log('Erreur snapshot:', e); }
 }
 
 function majLabelCours(nom,date){
-  document.getElementById('lbl-cours').className='imp ok-purple';
-  document.getElementById('txt-cours-name').textContent='✓ Remplissage';
-  document.getElementById('txt-cours-status').textContent=(date||'')+(nom?' · '+nom:'');
+ document.getElementById('lbl-cours').className='imp ok-purple';
+ document.getElementById('txt-cours-name').textContent=' Remplissage';
+ document.getElementById('txt-cours-status').textContent=(date||'')+(nom?' · '+nom:'');
 }
 
 function majLabelResa(nom,date){
-  document.getElementById('lbl-resa').className='imp ok-green';
-  document.getElementById('txt-resa-name').textContent='✓ Resawod';
-  document.getElementById('txt-resa-status').textContent=(date?date:'')+(nom?' · '+nom:'');
+ document.getElementById('lbl-resa').className='imp ok-green';
+ document.getElementById('txt-resa-name').textContent=' Resawod';
+ document.getElementById('txt-resa-status').textContent=(date?date:'')+(nom?' · '+nom:'');
 }
 function majLabelHib(nom,date){
-  document.getElementById('lbl-hib').className='imp ok-blue';
-  document.getElementById('txt-hib-name').textContent='✓ Hiboutik';
-  document.getElementById('txt-hib-status').textContent=(date?date:'')+(nom?' · '+nom:'');
+ document.getElementById('lbl-hib').className='imp ok-blue';
+ document.getElementById('txt-hib-name').textContent=' Hiboutik';
+ document.getElementById('txt-hib-status').textContent=(date?date:'')+(nom?' · '+nom:'');
 }
 
 function restaurer(){
-  try{
-    var resaRaw=localStorage.getItem('hygie_resa');
-    if(resaRaw){
-      processResa(JSON.parse(resaRaw));
-      majLabelResa(localStorage.getItem('hygie_resa_nom'), localStorage.getItem('hygie_resa_date'));
-    }
-  }catch(e){}
-  try{
-    // Restaurer CA depuis le cumul
-    var cumul=localStorage.getItem('hygie_hib_cumul');
-    if(cumul){
-      var rows=[];
-      var obj=JSON.parse(cumul);
-      Object.keys(obj).forEach(function(m){ rows=rows.concat(obj[m]); });
-      if(rows.length){
-        hibRows=rows;
-        var now=new Date();
-        moisActif=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-        var nomMois=now.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
-        var moisRows=hibRows.filter(function(r){return (r['Date']||'').indexOf(moisActif)===0;});
-        var ca=moisRows.reduce(function(a,r){return a+parseFloat(r['CA TTC']||0);},0);
-        var nb=moisRows.length;
-        var panier=nb?ca/nb:0;
-        document.getElementById('lbl-ca').textContent='Boutique — '+nomMois;
-        document.getElementById('ttl-ca').textContent='Boutique — '+nomMois;
-        document.getElementById('n-ca').textContent=fmtE(ca);
-        document.getElementById('s-ca').textContent=nb+' transactions · panier moy. '+fmtE(panier);
-        document.getElementById('b-ca').textContent=fmtE(ca);
-        renderCA(moisActif);
-        majLabelHib(localStorage.getItem('hygie_hib_nom'), localStorage.getItem('hygie_hib_date'));
-      }
-    }
-  }catch(e){}
-  try{
-    // Version v2 : parser multi-format. Invalider les caches v1.
-    var cachVer=localStorage.getItem('hygie_cours_ver');
-    if(cachVer!=='v2'){
-      localStorage.removeItem('hygie_cours_cumul');
-      localStorage.setItem('hygie_cours_ver','v2');
-    }
-    var coursCumul=localStorage.getItem('hygie_cours_cumul');
-    if(coursCumul){
-      var cumul=JSON.parse(coursCumul);
-      rempliRows=[];
-      Object.keys(cumul).forEach(function(m){ rempliRows=rempliRows.concat(cumul[m]); });
-      if(rempliRows.length){
-        updateTuileCours();
-        renderRempli();
-        var lbl=localStorage.getItem('hygie_cours_nom');
-        var dat=localStorage.getItem('hygie_cours_date');
-        if(lbl) majLabelCours(lbl,dat);
-      }
-    }
-  }catch(e){}
+ try{
+ var resaRaw=localStorage.getItem('hygie_resa');
+ if(resaRaw){
+ processResa(JSON.parse(resaRaw));
+ majLabelResa(localStorage.getItem('hygie_resa_nom'), localStorage.getItem('hygie_resa_date'));
+ }
+ }catch(e){}
+ try{
+ // Restaurer CA depuis le cumul
+ var cumul=localStorage.getItem('hygie_hib_cumul');
+ if(cumul){
+ var rows=[];
+ var obj=JSON.parse(cumul);
+ Object.keys(obj).forEach(function(m){ rows=rows.concat(obj[m]); });
+ if(rows.length){
+ hibRows=rows;
+ var now=new Date();
+ moisActif=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+ var nomMois=now.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+ var moisRows=hibRows.filter(function(r){return (r['Date']||'').indexOf(moisActif)===0;});
+ var ca=moisRows.reduce(function(a,r){return a+parseFloat(r['CA TTC']||0);},0);
+ var nb=moisRows.length;
+ var panier=nb?ca/nb:0;
+ document.getElementById('lbl-ca').textContent='Boutique '+nomMois;
+ document.getElementById('ttl-ca').textContent='Boutique '+nomMois;
+ document.getElementById('n-ca').textContent=fmtE(ca);
+ document.getElementById('s-ca').textContent=nb+' transactions · panier moy. '+fmtE(panier);
+ document.getElementById('b-ca').textContent=fmtE(ca);
+ renderCA(moisActif);
+ majLabelHib(localStorage.getItem('hygie_hib_nom'), localStorage.getItem('hygie_hib_date'));
+ }
+ }
+ }catch(e){}
+ try{
+ // Version v2 : parser multi-format. Invalider les caches v1.
+ var cachVer=localStorage.getItem('hygie_cours_ver');
+ if(cachVer!=='v2'){
+ localStorage.removeItem('hygie_cours_cumul');
+ localStorage.setItem('hygie_cours_ver','v2');
+ }
+ var coursCumul=localStorage.getItem('hygie_cours_cumul');
+ if(coursCumul){
+ var cumul=JSON.parse(coursCumul);
+ rempliRows=[];
+ Object.keys(cumul).forEach(function(m){ rempliRows=rempliRows.concat(cumul[m]); });
+ if(rempliRows.length){
+ updateTuileCours();
+ renderRempli();
+ var lbl=localStorage.getItem('hygie_cours_nom');
+ var dat=localStorage.getItem('hygie_cours_date');
+ if(lbl) majLabelCours(lbl,dat);
+ }
+ }
+ }catch(e){}
 }
 
 // ─── IMPORT ───
 document.getElementById('fi-resa').addEventListener('change',function(e){
-  var file=e.target.files[0]; if(!file) return;
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    var rows=parseXLSX(new Uint8Array(ev.target.result));
-    if(!rows.length) return;
-    processResa(rows);
-    sauvegarder('resa',rows,file.name);
-    var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
-    majLabelResa(file.name,d);
-  };
-  reader.readAsArrayBuffer(file);
-  this.value='';
+ var file=e.target.files[0]; if(!file) return;
+ var reader=new FileReader();
+ reader.onload=function(ev){
+ var rows=parseXLSX(new Uint8Array(ev.target.result));
+ if(!rows.length) return;
+ processResa(rows);
+ sauvegarder('resa',rows,file.name);
+ var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+ majLabelResa(file.name,d);
+ };
+ reader.readAsArrayBuffer(file);
+ this.value='';
 });
 
 document.getElementById('fi-hib').addEventListener('change',function(e){
-  var file=e.target.files[0]; if(!file) return;
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    var rows=parseCSV(ev.target.result);
-    if(!rows.length) return;
-    processHib(rows);
-    sauvegarder('hib',rows,file.name);
-    var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
-    majLabelHib(file.name,d);
-  };
-  reader.readAsText(file,'UTF-8');
-  this.value='';
+ var file=e.target.files[0]; if(!file) return;
+ var reader=new FileReader();
+ reader.onload=function(ev){
+ var rows=parseCSV(ev.target.result);
+ if(!rows.length) return;
+ processHib(rows);
+ sauvegarder('hib',rows,file.name);
+ var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+ majLabelHib(file.name,d);
+ };
+ reader.readAsText(file,'UTF-8');
+ this.value='';
 });
 
 document.getElementById('fi-cours').addEventListener('change',function(e){
-  var file=e.target.files[0]; if(!file) return;
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    var rows=parseXLSXCours(new Uint8Array(ev.target.result));
-    if(!rows.length){ alert('Fichier cours non reconnu.'); return; }
-    processCours(rows);
-    try{
-      localStorage.setItem('hygie_cours_nom', file.name);
-      localStorage.setItem('hygie_cours_date', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}));
-    }catch(e){}
-    var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
-    majLabelCours(file.name,d);
-  };
-  reader.readAsArrayBuffer(file);
-  this.value='';
+ var file=e.target.files[0]; if(!file) return;
+ var reader=new FileReader();
+ reader.onload=function(ev){
+ var rows=parseXLSXCours(new Uint8Array(ev.target.result));
+ if(!rows.length){ alert('Fichier cours non reconnu.'); return; }
+ processCours(rows);
+ try{
+ localStorage.setItem('hygie_cours_nom', file.name);
+ localStorage.setItem('hygie_cours_date', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}));
+ }catch(e){}
+ var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+ majLabelCours(file.name,d);
+ };
+ reader.readAsArrayBuffer(file);
+ this.value='';
 });
 
 // ─── SYNC ───
 function exporterSync(){
-  var KEYS=['hygie_snapshots','hygie_snap_nouveaux','hygie_snap_retention',
-    'hygie_hib_cumul','hygie_cours_cumul','hygie_cours_ver',
-    'hygie_resa_nom','hygie_resa_date','hygie_hib_nom','hygie_hib_date',
-    'hygie_cours_nom','hygie_cours_date'];
-  for(var i=0;i<localStorage.length;i++){
-    var k=localStorage.key(i);
-    if(k&&k.indexOf('hygie_suppr_')===0) KEYS.push(k);
-  }
-  var data={};
-  KEYS.forEach(function(k){ var v=localStorage.getItem(k); if(v) data[k]=v; });
-  var json=JSON.stringify(data);
-  var b64=btoa(unescape(encodeURIComponent(json)));
-  var code='HYGIE-'+b64;
+ var KEYS=['hygie_snapshots','hygie_snap_nouveaux','hygie_snap_retention',
+ 'hygie_hib_cumul','hygie_cours_cumul','hygie_cours_ver',
+ 'hygie_resa_nom','hygie_resa_date','hygie_hib_nom','hygie_hib_date',
+ 'hygie_cours_nom','hygie_cours_date'];
+ for(var i=0;i<localStorage.length;i++){
+ var k=localStorage.key(i);
+ if(k&&k.indexOf('hygie_suppr_')===0) KEYS.push(k);
+ }
+ var data={};
+ KEYS.forEach(function(k){ var v=localStorage.getItem(k); if(v) data[k]=v; });
+ var json=JSON.stringify(data);
+ var b64=btoa(unescape(encodeURIComponent(json)));
+ var code='HYGIE-'+b64;
 
-  var overlay=document.createElement('div');
-  overlay.style='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
-  var box=document.createElement('div');
-  box.style='background:var(--sur);border-radius:16px;padding:20px;width:100%;max-width:400px;display:flex;flex-direction:column;gap:12px';
-  var titre=document.createElement('div');
-  titre.textContent='Code de sync';
-  titre.style='font-size:15px;font-weight:700;color:var(--t)';
-  var sub=document.createElement('div');
-  sub.textContent="Copie ce code sur l'autre appareil";
-  sub.style='font-size:12px;color:var(--t3);margin-top:-6px';
-  var ta=document.createElement('textarea');
-  ta.value=code;
-  ta.readOnly=true;
-  ta.style='width:100%;height:100px;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:var(--s2);color:var(--t);font-size:11px;resize:none;font-family:monospace';
-  var rowBtns=document.createElement('div');
-  rowBtns.style='display:flex;gap:8px';
-  var btnCopy=document.createElement('button');
-  btnCopy.textContent='Copier';
-  btnCopy.style='flex:1;padding:10px;border-radius:10px;border:none;background:var(--t);color:var(--bg);cursor:pointer;font-size:13px;font-weight:700';
-  var btnFermer=document.createElement('button');
-  btnFermer.textContent='Fermer';
-  btnFermer.style='flex:1;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:transparent;color:var(--t2);cursor:pointer;font-size:13px';
-  rowBtns.appendChild(btnCopy);
-  rowBtns.appendChild(btnFermer);
-  box.appendChild(titre);
-  box.appendChild(sub);
-  box.appendChild(ta);
-  box.appendChild(rowBtns);
-  overlay.appendChild(box);
-  document.body.appendChild(overlay);
-  ta.focus(); ta.select();
+ var overlay=document.createElement('div');
+ overlay.style='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
+ var box=document.createElement('div');
+ box.style='background:var(--sur);border-radius:16px;padding:20px;width:100%;max-width:400px;display:flex;flex-direction:column;gap:12px';
+ var titre=document.createElement('div');
+ titre.textContent='Code de sync';
+ titre.style='font-size:15px;font-weight:700;color:var(--t)';
+ var sub=document.createElement('div');
+ sub.textContent="Copie ce code sur l'autre appareil";
+ sub.style='font-size:12px;color:var(--t3);margin-top:-6px';
+ var ta=document.createElement('textarea');
+ ta.value=code;
+ ta.readOnly=true;
+ ta.style='width:100%;height:100px;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:var(--s2);color:var(--t);font-size:11px;resize:none;font-family:monospace';
+ var rowBtns=document.createElement('div');
+ rowBtns.style='display:flex;gap:8px';
+ var btnCopy=document.createElement('button');
+ btnCopy.textContent='Copier';
+ btnCopy.style='flex:1;padding:10px;border-radius:10px;border:none;background:var(--t);color:var(--bg);cursor:pointer;font-size:13px;font-weight:700';
+ var btnFermer=document.createElement('button');
+ btnFermer.textContent='Fermer';
+ btnFermer.style='flex:1;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:transparent;color:var(--t2);cursor:pointer;font-size:13px';
+ rowBtns.appendChild(btnCopy);
+ rowBtns.appendChild(btnFermer);
+ box.appendChild(titre);
+ box.appendChild(sub);
+ box.appendChild(ta);
+ box.appendChild(rowBtns);
+ overlay.appendChild(box);
+ document.body.appendChild(overlay);
+ ta.focus(); ta.select();
 
-  function fermer(){ document.body.removeChild(overlay); }
-  btnFermer.onclick=fermer;
-  btnCopy.onclick=function(){
-    ta.select();
-    try{
-      navigator.clipboard.writeText(ta.value).then(function(){
-        btnCopy.textContent='✓ Copié !';
-        btnCopy.style.background='var(--green)';
-        setTimeout(fermer, 1000);
-      });
-    }catch(e){
-      document.execCommand('copy');
-      btnCopy.textContent='✓ Copié !';
-      btnCopy.style.background='var(--green)';
-      setTimeout(fermer, 1000);
-    }
-  };
+ function fermer(){ document.body.removeChild(overlay); }
+ btnFermer.onclick=fermer;
+ btnCopy.onclick=function(){
+ ta.select();
+ try{
+ navigator.clipboard.writeText(ta.value).then(function(){
+ btnCopy.textContent=' Copié !';
+ btnCopy.style.background='var(--green)';
+ setTimeout(fermer, 1000);
+ });
+ }catch(e){
+ document.execCommand('copy');
+ btnCopy.textContent=' Copié !';
+ btnCopy.style.background='var(--green)';
+ setTimeout(fermer, 1000);
+ }
+ };
 }
 
 function importerSync(){
-  // Interface maison — prompt() bloqué dans certains contextes
-  var overlay=document.createElement('div');
-  overlay.style='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
-  var box=document.createElement('div');
-  box.style='background:var(--sur);border-radius:16px;padding:20px;width:100%;max-width:400px;display:flex;flex-direction:column;gap:12px';
-  var titre=document.createElement('div');
-  titre.textContent='Colle le code de sync';
-  titre.style='font-size:15px;font-weight:700;color:var(--t)';
-  var ta=document.createElement('textarea');
-  ta.placeholder='HYGIE-...';
-  ta.style='width:100%;height:100px;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:var(--s2);color:var(--t);font-size:12px;resize:none;font-family:monospace';
-  var rowBtns=document.createElement('div');
-  rowBtns.style='display:flex;gap:8px';
-  var btnAnn=document.createElement('button');
-  btnAnn.textContent='Annuler';
-  btnAnn.style='flex:1;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:transparent;color:var(--t2);cursor:pointer;font-size:13px';
-  var btnOk=document.createElement('button');
-  btnOk.textContent='Importer';
-  btnOk.style='flex:1;padding:10px;border-radius:10px;border:none;background:var(--t);color:var(--bg);cursor:pointer;font-size:13px;font-weight:700';
-  rowBtns.appendChild(btnAnn);
-  rowBtns.appendChild(btnOk);
-  box.appendChild(titre);
-  box.appendChild(ta);
-  box.appendChild(rowBtns);
-  overlay.appendChild(box);
-  document.body.appendChild(overlay);
-  ta.focus();
+ // Interface maison prompt() bloqué dans certains contextes
+ var overlay=document.createElement('div');
+ overlay.style='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
+ var box=document.createElement('div');
+ box.style='background:var(--sur);border-radius:16px;padding:20px;width:100%;max-width:400px;display:flex;flex-direction:column;gap:12px';
+ var titre=document.createElement('div');
+ titre.textContent='Colle le code de sync';
+ titre.style='font-size:15px;font-weight:700;color:var(--t)';
+ var ta=document.createElement('textarea');
+ ta.placeholder='HYGIE-...';
+ ta.style='width:100%;height:100px;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:var(--s2);color:var(--t);font-size:12px;resize:none;font-family:monospace';
+ var rowBtns=document.createElement('div');
+ rowBtns.style='display:flex;gap:8px';
+ var btnAnn=document.createElement('button');
+ btnAnn.textContent='Annuler';
+ btnAnn.style='flex:1;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:transparent;color:var(--t2);cursor:pointer;font-size:13px';
+ var btnOk=document.createElement('button');
+ btnOk.textContent='Importer';
+ btnOk.style='flex:1;padding:10px;border-radius:10px;border:none;background:var(--t);color:var(--bg);cursor:pointer;font-size:13px;font-weight:700';
+ rowBtns.appendChild(btnAnn);
+ rowBtns.appendChild(btnOk);
+ box.appendChild(titre);
+ box.appendChild(ta);
+ box.appendChild(rowBtns);
+ overlay.appendChild(box);
+ document.body.appendChild(overlay);
+ ta.focus();
 
-  function fermer(){ document.body.removeChild(overlay); }
-  btnAnn.onclick=fermer;
+ function fermer(){ document.body.removeChild(overlay); }
+ btnAnn.onclick=fermer;
 
-  btnOk.onclick=function(){
-    var code=ta.value.trim();
-    if(!code||code.indexOf('HYGIE-')!==0){
-      ta.style.borderColor='var(--red)';
-      ta.placeholder='Code invalide — commence par HYGIE-';
-      return;
-    }
-    try{
-      var b64=code.slice(6);
-      var json=decodeURIComponent(escape(atob(b64)));
-      var data=JSON.parse(json);
-      Object.keys(data).forEach(function(k){ localStorage.setItem(k,data[k]); });
-      fermer();
-      location.reload();
-    }catch(e){
-      ta.style.borderColor='var(--red)';
-      ta.value='';
-      ta.placeholder='Erreur: '+e.message;
-    }
-  };
+ btnOk.onclick=function(){
+ var code=ta.value.trim();
+ if(!code||code.indexOf('HYGIE-')!==0){
+ ta.style.borderColor='var(--red)';
+ ta.placeholder='Code invalide commence par HYGIE-';
+ return;
+ }
+ try{
+ var b64=code.slice(6);
+ var json=decodeURIComponent(escape(atob(b64)));
+ var data=JSON.parse(json);
+ Object.keys(data).forEach(function(k){ localStorage.setItem(k,data[k]); });
+ fermer();
+ location.reload();
+ }catch(e){
+ ta.style.borderColor='var(--red)';
+ ta.value='';
+ ta.placeholder='Erreur: '+e.message;
+ }
+ };
 }
 
 document.getElementById('hdr-date').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 
 // Listener global pour les croix de suppression nouveaux membres
 document.addEventListener('click', function(e){
-  var btn=e.target.closest('.btn-suppr-nouveau');
-  if(!btn) return;
-  var uid=decodeURIComponent(btn.getAttribute('data-uid'));
-  var cle=btn.getAttribute('data-cle');
-  if(confirm('Retirer ce membre des nouveaux ce mois ?')){
-    window._supprimerNouveauMembre(uid, cle);
-  }
+ var btn=e.target.closest('.btn-suppr-nouveau');
+ if(!btn) return;
+ var uid=decodeURIComponent(btn.getAttribute('data-uid'));
+ var cle=btn.getAttribute('data-cle');
+ if(confirm('Retirer ce membre des nouveaux ce mois ?')){
+ window._supprimerNouveauMembre(uid, cle);
+ }
 });
 
 // ─── DONNÉES HISTORIQUES ───
 // Injectées une fois, jamais écrasées par les imports suivants
 (function(){
-  // Clés YYYY-MM pour cohérence avec le reste
-  var HISTO = {"2025-01": 210, "2025-02": 202, "2025-03": 211, "2025-04": 226, "2025-05": 235, "2025-06": 242, "2025-07": 242, "2025-08": 247, "2025-09": 264, "2025-10": 264, "2025-11": 271, "2025-12": 269, "2026-01": 269, "2026-02": 271};
-  try{
-    var snapshots={};
-    try{ var ex=localStorage.getItem('hygie_snapshots'); if(ex) snapshots=JSON.parse(ex); }catch(e){}
-    // Injecter les mois historiques sans écraser ce qui existe déjà
-    Object.keys(HISTO).forEach(function(k){
-      if(!snapshots[k]) snapshots[k]=HISTO[k];
-    });
-    localStorage.setItem('hygie_snapshots', JSON.stringify(snapshots));
-  }catch(e){}
+ // Clés YYYY-MM pour cohérence avec le reste
+ var HISTO = {"2025-01": 210, "2025-02": 202, "2025-03": 211, "2025-04": 226, "2025-05": 235, "2025-06": 242, "2025-07": 242, "2025-08": 247, "2025-09": 264, "2025-10": 264, "2025-11": 271, "2025-12": 269, "2026-01": 269, "2026-02": 271};
+ try{
+ var snapshots={};
+ try{ var ex=localStorage.getItem('hygie_snapshots'); if(ex) snapshots=JSON.parse(ex); }catch(e){}
+ // Injecter les mois historiques sans écraser ce qui existe déjà
+ Object.keys(HISTO).forEach(function(k){
+ if(!snapshots[k]) snapshots[k]=HISTO[k];
+ });
+ localStorage.setItem('hygie_snapshots', JSON.stringify(snapshots));
+ }catch(e){}
 })();
 
 restaurer();
