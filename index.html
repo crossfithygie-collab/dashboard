@@ -65,11 +65,11 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);
 /* Sections */
 .sec-wrap{padding:0 14px}
 .sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin:14px 0 7px}
-.stack{display:flex;flex-direction:column;gap:9px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
 /* Tuiles KPI */
-.kc{border-radius:16px;padding:16px;cursor:pointer;position:relative;
+.kc{border-radius:18px;padding:20px 18px;cursor:pointer;position:relative;
  overflow:hidden;transition:transform .12s;
  user-select:none;-webkit-user-select:none}
 .kc:active{transform:scale(.97)}
@@ -79,8 +79,8 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);
 .kc.blue{background:linear-gradient(135deg,#2270c4 0%,#1450a0 100%)}
 .kc .lbl{font-size:11px;font-weight:600;color:rgba(255,255,255,.65);
  margin-bottom:4px;letter-spacing:.04em;text-transform:uppercase}
-.kc .num{font-size:40px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff}
-.kc .num.sm{font-size:26px;letter-spacing:-.02em}
+.kc .num{font-size:52px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff}
+.kc .num.sm{font-size:34px;letter-spacing:-.02em}
 .kc .sub{font-size:10px;color:rgba(255,255,255,.55);margin-top:3px;line-height:1.3}
 .kc .arr{position:absolute;right:10px;top:10px;font-size:13px;color:rgba(255,255,255,.3)}
 .kc.wide{grid-column:1/-1}
@@ -183,12 +183,6 @@ canvas{display:block}
  <div class="sub" id="s-rempli"></div>
  <div class="arr"></div>
  </div>
- <div class="kc amber" onclick="ouvrirDetail('prelev')">
- <div class="lbl" id="lbl-prelev"> Prélèvement</div>
- <div class="num sm" id="n-prelev"></div>
- <div class="sub" id="s-prelev"></div>
- <div class="arr"></div>
- </div>
  </div>
 
  <div class="sec"> Chiffre d'affaires</div>
@@ -198,6 +192,12 @@ canvas{display:block}
  <div class="num sm" id="n-ca"></div>
  <div class="sub" id="s-ca"></div>
  <div class="arr"></div>
+ </div>
+ <div class="kc amber wide" onclick="ouvrirDetail('prelev')">
+  <div class="lbl" id="lbl-prelev"> Prélèvement</div>
+  <div class="num sm" id="n-prelev"></div>
+  <div class="sub" id="s-prelev"></div>
+  <div class="arr"></div>
  </div>
  </div>
  </div>
@@ -777,17 +777,17 @@ function processResa(rawRows){
  snapPourVariation[moisVar]=membres.length;
  var moisKeys_v=Object.keys(snapPourVariation).sort();
  var variation='';
- var MNOMS_V=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+ var MNOMS_V=['jan','fev','mar','avr','mai','jun','jul','aou','sep','oct','nov','dec'];
  if(moisKeys_v.length>=2){
- var dernierMois=moisKeys_v[moisKeys_v.length-1];
- var avantDernierMois=moisKeys_v[moisKeys_v.length-2];
- var valDernier=snapPourVariation[dernierMois];
- var valAvant=snapPourVariation[avantDernierMois];
- var diff=valDernier-valAvant;
- var pv=avantDernierMois.split('-');
- var nomAvant=MNOMS_V[parseInt(pv[1])-1]+' '+pv[0].slice(2);
- var signe=diff>0?'+':diff<0?'':'=';
- variation=(diff!==0?(signe+diff):' stable')+' vs '+nomAvant;
+   var dernierMois=moisKeys_v[moisKeys_v.length-1];
+   var avantDernierMois=moisKeys_v[moisKeys_v.length-2];
+   var valDernier=snapPourVariation[dernierMois];
+   var valAvant=snapPourVariation[avantDernierMois];
+   var diff=valDernier-valAvant;
+   var pv=avantDernierMois.split('-');
+   var nomAvant=MNOMS_V[parseInt(pv[1])-1]+' '+pv[0].slice(2);
+   var signe=diff>0?'+':diff===0?'=':'-';
+   variation=(diff!==0?(signe+Math.abs(diff)):signe)+' vs '+nomAvant+' ('+valAvant+')';
  }
  document.getElementById('s-actifs').textContent=variation||membres.length+' abonnés actifs';
  document.getElementById('b-actifs').textContent=membres.length+' membres';
