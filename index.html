@@ -6,6 +6,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Hygie">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjMWE5ZTcyIi8+CiAgPHRleHQgeD0iNTAiIHk9IjY4IiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxIZWx2ZXRpY2EgTmV1ZSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjU2IiBmb250LXdlaWdodD0iODAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SDwvdGV4dD4KPC9zdmc+">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjMWE5ZTcyIi8+CiAgPHRleHQgeD0iNTAiIHk9IjY4IiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxIZWx2ZXRpY2EgTmV1ZSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjU2IiBmb250LXdlaWdodD0iODAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SDwvdGV4dD4KPC9zdmc+">
 <title>Hygie Dashboard</title>
 <style>
 :root{
@@ -63,11 +65,11 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);
 /* Sections */
 .sec-wrap{padding:0 14px}
 .sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin:14px 0 7px}
-.stack{display:flex;flex-direction:column;gap:7px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.stack{display:flex;flex-direction:column;gap:9px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 
 /* Tuiles KPI */
-.kc{border-radius:12px;padding:12px 14px;cursor:pointer;position:relative;
+.kc{border-radius:16px;padding:16px;cursor:pointer;position:relative;
  overflow:hidden;transition:transform .12s;
  user-select:none;-webkit-user-select:none}
 .kc:active{transform:scale(.97)}
@@ -75,10 +77,10 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);
 .kc.red{background:linear-gradient(135deg,#e05a32 0%,#b83d1e 100%)}
 .kc.amber{background:linear-gradient(135deg,#d4861a 0%,#a8650e 100%)}
 .kc.blue{background:linear-gradient(135deg,#2270c4 0%,#1450a0 100%)}
-.kc .lbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.6);
+.kc .lbl{font-size:11px;font-weight:600;color:rgba(255,255,255,.65);
  margin-bottom:4px;letter-spacing:.04em;text-transform:uppercase}
-.kc .num{font-size:32px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff}
-.kc .num.sm{font-size:22px;letter-spacing:-.02em}
+.kc .num{font-size:40px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff}
+.kc .num.sm{font-size:26px;letter-spacing:-.02em}
 .kc .sub{font-size:10px;color:rgba(255,255,255,.55);margin-top:3px;line-height:1.3}
 .kc .arr{position:absolute;right:10px;top:10px;font-size:13px;color:rgba(255,255,255,.3)}
 .kc.wide{grid-column:1/-1}
