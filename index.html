@@ -34,10 +34,10 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);
 .main{min-height:100vh;display:flex;flex-direction:column;padding:env(safe-area-inset-top,0) 0 3rem}
 
 /* Header */
-.hdr{padding:20px 18px 16px;border-bottom:.5px solid var(--bd)}
+.hdr{padding:12px 16px 10px;border-bottom:.5px solid var(--bd)}
 .hdr-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
 .hdr-brand{display:flex;flex-direction:column;gap:2px}
-.hdr-title{font-size:18px;font-weight:700;letter-spacing:-.02em;color:var(--t)}
+.hdr-title{font-size:16px;font-weight:700;letter-spacing:-.02em;color:var(--t)}
 .hdr-date{font-size:12px;color:var(--t3)}
 
 /* Boutons import côte à côte */
@@ -61,27 +61,26 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);
 .imp.ok-purple .imp-status{color:#534ab7;opacity:.8}
 
 /* Sections */
-.sec-wrap{padding:0 18px}
-.sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin:22px 0 10px}
-.stack{display:flex;flex-direction:column;gap:10px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sec-wrap{padding:0 14px}
+.sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin:14px 0 7px}
+.stack{display:flex;flex-direction:column;gap:7px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
 
 /* Tuiles KPI */
-.kc{border-radius:var(--r);padding:18px 16px;cursor:pointer;position:relative;
- overflow:hidden;transition:transform .12s, opacity .12s;
+.kc{border-radius:12px;padding:12px 14px;cursor:pointer;position:relative;
+ overflow:hidden;transition:transform .12s;
  user-select:none;-webkit-user-select:none}
-.kc:active{transform:scale(.972);opacity:.9}
+.kc:active{transform:scale(.97)}
 .kc.green{background:linear-gradient(135deg,#1db87f 0%,#158a5e 100%)}
 .kc.red{background:linear-gradient(135deg,#e05a32 0%,#b83d1e 100%)}
 .kc.amber{background:linear-gradient(135deg,#d4861a 0%,#a8650e 100%)}
 .kc.blue{background:linear-gradient(135deg,#2270c4 0%,#1450a0 100%)}
-.kc .lbl{font-size:11px;font-weight:600;color:rgba(255,255,255,.65);
- margin-bottom:8px;letter-spacing:.02em;text-transform:uppercase}
-.kc .num{font-size:46px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff}
-.kc .num.sm{font-size:30px;letter-spacing:-.02em}
-.kc .sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.4}
-.kc .arr{position:absolute;right:14px;bottom:14px;font-size:20px;color:rgba(255,255,255,.3)}
-/* Tuile large (pleine largeur) */
+.kc .lbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.6);
+ margin-bottom:4px;letter-spacing:.04em;text-transform:uppercase}
+.kc .num{font-size:32px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff}
+.kc .num.sm{font-size:22px;letter-spacing:-.02em}
+.kc .sub{font-size:10px;color:rgba(255,255,255,.55);margin-top:3px;line-height:1.3}
+.kc .arr{position:absolute;right:10px;top:10px;font-size:13px;color:rgba(255,255,255,.3)}
 .kc.wide{grid-column:1/-1}
 
 .det{display:none;position:fixed;inset:0;z-index:100;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -176,7 +175,7 @@ canvas{display:block}
  <div class="sub" id="s-30j">dans 30 jours</div>
  <div class="arr"></div>
  </div>
- <div class="kc" style="background:linear-gradient(135deg,#534ab7 0%,#3a34a0 100%)" onclick="ouvrirDetail('rempli')">
+ <div class="kc" style="background:linear-gradient(135deg,#534ab7 0%,#3a34a0 100%);border-radius:14px" onclick="ouvrirDetail('rempli')">
  <div class="lbl"> Remplissage</div>
  <div class="num" id="n-rempli"></div>
  <div class="sub" id="s-rempli"></div>
@@ -205,44 +204,35 @@ canvas{display:block}
 
 <!-- TIROIR -->
 <div id="tiroir-overlay" onclick="fermerTiroir()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:200"></div>
-<div id="tiroir" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:201;background:var(--sur);border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom,16px);box-shadow:0 -4px 30px rgba(0,0,0,.12);transform:translateY(100%);transition:transform .3s cubic-bezier(.16,1,.3,1)">
-  <div style="width:32px;height:3px;border-radius:2px;background:var(--bd2);margin:10px auto 14px"></div>
-  <div style="padding:0 16px 16px">
-
-    <!-- Imports compacts -->
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:8px">Importer</div>
-    <div style="border-radius:var(--rs);overflow:hidden;border:.5px solid var(--bd);margin-bottom:14px">
-      <label for="fi-resa" id="lbl-resa" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--sur);cursor:pointer;border-bottom:.5px solid var(--bd)">
-        <div style="width:28px;height:28px;border-radius:8px;background:var(--bgreen);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--tgreen);flex-shrink:0">RW</div>
-        <div style="flex:1;min-width:0">
-          <div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-resa-name">Resawod</div>
-          <div style="font-size:11px;color:var(--t3)" id="txt-resa-status">.xlsx — abonnés</div>
-        </div>
-        <div style="font-size:16px;color:var(--t3)">›</div>
-      </label>
-      <label for="fi-hib" id="lbl-hib" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--sur);cursor:pointer;border-bottom:.5px solid var(--bd)">
-        <div style="width:28px;height:28px;border-radius:8px;background:var(--bblue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--tblue);flex-shrink:0">HB</div>
-        <div style="flex:1;min-width:0">
-          <div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-hib-name">Hiboutik</div>
-          <div style="font-size:11px;color:var(--t3)" id="txt-hib-status">.csv — ventes</div>
-        </div>
-        <div style="font-size:16px;color:var(--t3)">›</div>
-      </label>
-      <label for="fi-cours" id="lbl-cours" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--sur);cursor:pointer">
-        <div style="width:28px;height:28px;border-radius:8px;background:#eeedfe;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#3a34a0;flex-shrink:0">TR</div>
-        <div style="flex:1;min-width:0">
-          <div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-cours-name">Taux de remplissage</div>
-          <div style="font-size:11px;color:var(--t3)" id="txt-cours-status">.xlsx — cours</div>
-        </div>
-        <div style="font-size:16px;color:var(--t3)">›</div>
-      </label>
+<div id="tiroir" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:201;background:var(--bg);border-radius:16px 16px 0 0;padding-bottom:env(safe-area-inset-bottom,12px);box-shadow:0 -2px 20px rgba(0,0,0,.1);transform:translateY(100%);transition:transform .3s cubic-bezier(.16,1,.3,1)">
+  <div style="width:32px;height:3px;border-radius:2px;background:var(--bd2);margin:10px auto 12px"></div>
+  <div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:10px">
+    <div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:6px">Importer</div>
+      <div style="background:var(--sur);border-radius:12px;border:.5px solid var(--bd);overflow:hidden">
+        <label for="fi-resa" id="lbl-resa" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer;border-bottom:.5px solid var(--bd)">
+          <div style="width:28px;height:28px;border-radius:7px;background:var(--bgreen);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--tgreen)">RW</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-resa-name">Resawod</div><div style="font-size:11px;color:var(--t3)" id="txt-resa-status">.xlsx — abonnés</div></div>
+          <div style="color:var(--t3)">›</div>
+        </label>
+        <label for="fi-hib" id="lbl-hib" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer;border-bottom:.5px solid var(--bd)">
+          <div style="width:28px;height:28px;border-radius:7px;background:var(--bblue);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--tblue)">HB</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-hib-name">Hiboutik</div><div style="font-size:11px;color:var(--t3)" id="txt-hib-status">.csv — ventes</div></div>
+          <div style="color:var(--t3)">›</div>
+        </label>
+        <label for="fi-cours" id="lbl-cours" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer">
+          <div style="width:28px;height:28px;border-radius:7px;background:#eeedfe;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#3a34a0">TR</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-cours-name">Taux de remplissage</div><div style="font-size:11px;color:var(--t3)" id="txt-cours-status">.xlsx — cours</div></div>
+          <div style="color:var(--t3)">›</div>
+        </label>
+      </div>
     </div>
-
-    <!-- Sync compact -->
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:8px">Synchronisation</div>
-    <div style="display:flex;gap:8px">
-      <button onclick="fermerTiroir();setTimeout(exporterSync,220)" style="flex:1;padding:10px;border-radius:var(--rs);background:var(--s2);border:.5px solid var(--bd2);font-size:13px;font-weight:600;color:var(--t);cursor:pointer">&#8679; Exporter</button>
-      <button onclick="fermerTiroir();setTimeout(importerSync,220)" style="flex:1;padding:10px;border-radius:var(--rs);background:var(--t);border:none;font-size:13px;font-weight:600;color:var(--bg);cursor:pointer">&#8681; Importer</button>
+    <div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:6px">Sync</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+        <button onclick="fermerTiroir();setTimeout(exporterSync,220)" style="padding:9px;border-radius:10px;background:var(--sur);border:.5px solid var(--bd);font-size:13px;font-weight:600;color:var(--t);cursor:pointer">&#8679; Exporter</button>
+        <button onclick="fermerTiroir();setTimeout(importerSync,220)" style="padding:9px;border-radius:10px;background:var(--t);border:none;font-size:13px;font-weight:600;color:var(--bg);cursor:pointer">&#8681; Importer</button>
+      </div>
     </div>
   </div>
 </div>
