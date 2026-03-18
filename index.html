@@ -160,6 +160,7 @@ canvas{display:block}
   <input type="file" id="fi-resa" accept=".xlsx,.xls" style="display:none">
   <input type="file" id="fi-hib" accept=".csv" style="display:none">
   <input type="file" id="fi-cours" accept=".xlsx,.xls" style="display:none">
+  <input type="file" id="fi-ghosts" accept=".xlsx,.xls" style="display:none">
  </div>
 
  <div class="sec-wrap">
@@ -222,9 +223,14 @@ canvas{display:block}
           <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-hib-name">Hiboutik</div><div style="font-size:11px;color:var(--t3)" id="txt-hib-status">.csv — ventes</div></div>
           <div style="color:var(--t3)">›</div>
         </label>
-        <label for="fi-cours" id="lbl-cours" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer">
+        <label for="fi-cours" id="lbl-cours" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer;border-bottom:.5px solid var(--bd)">
           <div style="width:28px;height:28px;border-radius:7px;background:#eeedfe;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#3a34a0">TR</div>
           <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-cours-name">Taux de remplissage</div><div style="font-size:11px;color:var(--t3)" id="txt-cours-status">.xlsx — cours</div></div>
+          <div style="color:var(--t3)">›</div>
+        </label>
+        <label for="fi-ghosts" id="lbl-ghosts" onclick="fermerTiroir()" style="display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer">
+          <div style="width:28px;height:28px;border-radius:7px;background:#222;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#aaa">GH</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--t)" id="txt-ghosts-name">Ghosts</div><div style="font-size:11px;color:var(--t3)" id="txt-ghosts-status">.xlsx — absents +3 semaines</div></div>
           <div style="color:var(--t3)">›</div>
         </label>
       </div>
@@ -238,6 +244,7 @@ canvas{display:block}
     </div>
   </div>
 </div>
+
 <!-- DETAIL ACTIFS -->
 <div class="det" id="d-actifs">
  <div class="det-hdr"><div class="det-inner">
@@ -289,6 +296,16 @@ canvas{display:block}
  <div class="det-body" id="c-prelev"></div>
 </div>
 
+<!-- DETAIL GHOSTS -->
+<div class="det" id="d-ghosts">
+  <div class="det-hdr"><div class="det-inner">
+    <div class="back" onclick="fermerDetail('ghosts')">‹</div>
+    <div class="det-ttl">Ghosts</div>
+    <div class="dbadge" style="background:#222;color:#aaa" id="b-ghosts">—</div>
+  </div></div>
+  <div class="det-body" id="c-ghosts"></div>
+</div>
+
 <!-- DETAIL 30J -->
 <div class="det" id="d-30j">
  <div class="det-hdr"><div class="det-inner">
@@ -312,7 +329,7 @@ canvas{display:block}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-var membres = [], fin30 = [], prelevData = [], hibRows = [];
+var membres = [], fin30 = [], prelevData = [], hibRows = [], ghostRows = [];
 var chartCAinst = null;
 var chartActifsInst = null;
 var chartRempliInst = null;
@@ -361,14 +378,20 @@ function fermerTiroir(){
   setTimeout(function(){ t.style.display='none';o.style.display='none'; },320);
 }
 function ouvrirDetail(id){
- document.getElementById('d-'+id).classList.add('on');
+ var el=document.getElementById('d-'+id);
+ el.classList.add('on');
+ // Les détails imbriqués (depuis d-actifs) ont besoin d'un z-index supérieur
+ if(id==='ghosts'||id==='retention'||id==='nouveaux'){
+   el.style.zIndex='200';
+ }
  document.body.style.overflow='hidden';
  if(id==='retention') renderRetention();
  if(id==='nouveaux') renderNouveaux();
+ if(id==='ghosts') renderGhosts();
 }
 function fermerDetail(id){ document.getElementById('d-'+id).classList.remove('on'); document.body.style.overflow=''; }
 
-['actifs','prelev','30j','ca','rempli','retention','nouveaux'].forEach(function(id){
+['actifs','prelev','30j','ca','rempli','retention','nouveaux','ghosts'].forEach(function(id){
  var x0=0, el=document.getElementById('d-'+id);
  el.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
  el.addEventListener('touchend',function(e){ if(e.changedTouches[0].clientX-x0>70) fermerDetail(id); },{passive:true});
@@ -396,7 +419,7 @@ function parseXLSX(buffer){
  if(h) idx[h]=k;
  }
 
- var COLS=['Prénom','Nom','Portable','Email','Abonnement','Profil','Prix','Paiement','Statut','Acheté le',"Date d'engagement",'Expiré le','Durée'];
+ var COLS=['Prénom','Nom','Portable','Email','Abonnement','Profil','Prix','Paiement','Statut','Acheté le',"Date d'engagement",'Expiré le','Durée','Méthode de paiement par défaut'];
  var data=[];
  for(var r=hi+1;r<raw.length;r++){
  var row=raw[r];
@@ -717,6 +740,102 @@ function renderRempli(){
 window.setRempliMois=function(m){ rempliMoisActif=m; renderRempli(); };
 window.setRempliType=function(t){ rempliTypeActif=t; renderRempli(); };
 
+// ─── PARSE XLSX GHOSTS ───
+function parseXLSXGhosts(buffer){
+  var wb=XLSX.read(buffer,{type:'array',raw:true});
+  var ws=wb.Sheets[wb.SheetNames[0]];
+  var raw=XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:true});
+  var hi=-1;
+  for(var i=0;i<Math.min(raw.length,3);i++){
+    if(raw[i].some(function(c){return String(c||'').trim()==='Nom entier';})){hi=i;break;}
+  }
+  if(hi<0) return [];
+  var hdrs=raw[hi], idx={};
+  for(var k=0;k<hdrs.length;k++) idx[String(hdrs[k]||'').trim()]=k;
+  var data=[];
+  for(var r=hi+1;r<raw.length;r++){
+    var row=raw[r];
+    if(!row||!row[idx['Nom entier']]) continue;
+    var creeRaw=row[idx['Créé le...']];
+    var creeStr='';
+    if(typeof creeRaw==='number'&&creeRaw>40000){
+      var d=new Date(Math.round((creeRaw-25569)*86400*1000));
+      creeStr=d.toLocaleDateString('fr-FR');
+    } else { creeStr=String(creeRaw||'').split(' ')[0]; }
+    data.push({
+      nom:String(row[idx['Nom entier']]||'').trim(),
+      tel:String(row[idx['Portable']]||'').trim(),
+      email:String(row[idx['Email']]||'').trim(),
+      abonnement:String(row[idx['Abonnements actifs des utilisateurs']]||'—').trim(),
+      statut:String(row[idx['Statut']]||'').trim(),
+      cree:creeStr,
+      tag:String(row[idx['Tag']]||'').trim(),
+    });
+  }
+  return data;
+}
+
+function processGhosts(rows){
+  ghostRows=rows;
+  try{ localStorage.setItem('hygie_ghosts',JSON.stringify(rows)); }catch(e){}
+  var el=document.getElementById('mini-n-ghosts');
+  if(el) el.textContent=rows.length;
+  var b=document.getElementById('b-ghosts');
+  if(b) b.textContent=rows.length+' membres';
+}
+
+function majLabelGhosts(nom,date){
+  var l=document.getElementById('lbl-ghosts');
+  if(l){ l.style.background='rgba(0,0,0,.08)'; }
+  var n=document.getElementById('txt-ghosts-name');
+  if(n) n.textContent=(ghostRows.length?'✓ Ghosts ('+ghostRows.length+')':'Ghosts');
+  var s=document.getElementById('txt-ghosts-status');
+  if(s) s.textContent=(date||'')+(nom?' · '+nom:'');
+}
+
+// ─── RENDER GHOSTS ───
+function renderGhosts(){
+  var el=document.getElementById('c-ghosts');
+  if(!ghostRows.length){
+    el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3)"><div style="font-size:36px;margin-bottom:12px">👻</div><div style="font-size:14px">Importe le fichier Ghosts<br><span style="font-size:12px">Export ResaWod — absents depuis +3 semaines</span></div></div>';
+    return;
+  }
+  document.getElementById('b-ghosts').textContent=ghostRows.length+' membres';
+
+  var avecTel=ghostRows.filter(function(g){return g.tel;}).length;
+  var statsHTML='<div class="sgrid">'
+    +'<div class="sc"><div class="sc-lbl">Ghosts</div><div class="sc-val" style="color:#555">'+ghostRows.length+'</div><div class="sc-sub">absents +3 semaines</div></div>'
+    +'<div class="sc"><div class="sc-lbl">A relancer</div><div class="sc-val">'+avecTel+'</div><div class="sc-sub">avec telephone</div></div>'
+    +'</div>';
+
+  var listeHTML=ghostRows.map(function(g){
+    var tel=(g.tel||'').replace(/\s/g,'');
+    var initiales=g.nom.split(' ').map(function(w){return w[0]||'';}).join('').slice(0,2).toUpperCase();
+    return '<div class="mc">'
+      +'<div class="mc-top">'
+      +'<div class="av" style="background:#222;color:#ccc">'+initiales+'</div>'
+      +'<div style="flex:1;min-width:0">'
+      +'<div class="mc-name">'+g.nom+'</div>'
+      +'<div class="mc-abo">'+g.abonnement+'</div>'
+      +'</div>'
+      +'</div>'
+      +'<div class="div"></div>'
+      +'<div class="rows">'
+      +(g.tel?'<div class="row"><span class="rl">Telephone</span><span class="rv">'+g.tel+'</span></div>':'')
+      +(g.email?'<div class="row"><span class="rl">Email</span><span class="rv" style="font-size:11px">'+g.email+'</span></div>':'')
+      +'<div class="row"><span class="rl">Membre depuis</span><span class="rv">'+(g.cree||'—')+'</span></div>'
+      +(g.tag?'<div class="row"><span class="rl">Tag</span><span class="rv">'+g.tag+'</span></div>':'')
+      +'</div>'
+      +(tel?'<div class="btns"><a href="tel:'+tel+'" class="btn">Appeler</a><a href="sms:'+tel+'" class="btn p">SMS</a></div>':'')
+      +'</div>';
+  }).join('');
+
+  el.innerHTML=statsHTML+listeHTML;
+}
+
+// ─── RENDER GHOSTS (alias pour compatibilité) ───
+window.renderGhostsDetail=renderGhosts;
+
 // ─── PARSE CSV ───
 function parseCSV(text){
  var lines=text.split('\n').filter(function(l){return l.trim();});
@@ -792,7 +911,15 @@ function processResa(rawRows){
  document.getElementById('lbl-prelev').textContent='Prélèvement estimé '+nomProchain;
  document.getElementById('ttl-prelev').textContent='Prélèvement '+nomProchain;
  document.getElementById('n-prelev').textContent=fmtE(totalPrelev);
- document.getElementById('s-prelev').textContent=prelevData.length+' abonnés mensuels valides';
+ // Sous-total : Méthode=Prélèvements ET Paiement=Mensuel
+ var vraiPrelev=prelevData.filter(function(m){
+   var methode=(m['Méthode de paiement par défaut']||'').toLowerCase();
+   var paiement=(m['Paiement']||'').toLowerCase();
+   return methode.indexOf('prélèv')>=0 && paiement.indexOf('mensuel')>=0;
+ });
+ var totalVraiPrelev=vraiPrelev.reduce(function(a,m){return a+parseFloat(m['Prix']||0);},0);
+ var sousLigne=prelevData.length+' mensuels · '+fmtE(totalVraiPrelev)+' prélevés';
+ document.getElementById('s-prelev').textContent=sousLigne;
  document.getElementById('b-prelev').textContent=fmtE(totalPrelev);
  document.getElementById('n-30j').textContent=fin30.length;
  document.getElementById('s-30j').textContent=urgents>0
@@ -986,6 +1113,11 @@ function renderActifs(){
  +'<div class="num" id="mini-n-nouveaux" style="font-size:32px">'+(nouveauxActuel!==null?nouveauxActuel:'')+'</div>'
  +'<div class="sub" style="font-size:10px">mois en cours</div>'
  +'<div class="arr" style="font-size:16px"></div></div>'
+ +'<div class="kc wide" style="padding:14px;background:linear-gradient(135deg,#2a2a2a 0%,#111 100%)" data-det="ghosts">'
+ +'<div class="lbl" style="font-size:10px">Ghosts</div>'
+ +'<div class="num" id="mini-n-ghosts" style="font-size:32px">—</div>'
+ +'<div class="sub" style="font-size:10px">+3 semaines</div>'
+ +'<div class="arr" style="font-size:16px"></div></div>'
  +'</div>';
 
  document.getElementById('b-actifs').textContent=membres.length+' membres';
@@ -1033,17 +1165,14 @@ function renderActifs(){
      +'</div>';
  });
  repartitionHTML+='</div></div>';
- var listeHTML=sorted.map(function(e){
- return '<div class="gh">'+e[0]+' - '+e[1].length+' membre'+(e[1].length>1?'s':'')+'</div>'+
- e[1].map(function(m){return cardMembre(m,false);}).join('');
- }).join('');
- el.innerHTML=tuilesHTML+graphHTML+repartitionHTML+listeHTML;
- var miniTuiles=document.getElementById('mini-tuiles-actifs');
- if(miniTuiles) miniTuiles.addEventListener('click',function(e){
- var card=e.target.closest('[data-det]');
- if(card) ouvrirDetail(card.getAttribute('data-det'));
- });
 
+ el.innerHTML=graphHTML+repartitionHTML+tuilesHTML;
+ var miniTuiles=document.getElementById('mini-tuiles-actifs');
+  var miniTuiles=document.getElementById('mini-tuiles-actifs');
+  if(miniTuiles) miniTuiles.onclick=function(e){
+    var card=e.target.closest('[data-det]');
+    if(card){ e.stopPropagation(); ouvrirDetail(card.getAttribute('data-det')); }
+  };
  if(moisKeys.length>=2){
  setTimeout(function(){
  var ctx=document.getElementById('cvActifs');
@@ -1751,6 +1880,21 @@ function importerSync(){
  }
  };
 }
+
+document.getElementById('fi-ghosts').addEventListener('change',function(e){
+  var file=e.target.files[0]; if(!file) return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    var rows=parseXLSXGhosts(new Uint8Array(ev.target.result));
+    if(!rows.length){ alert('Fichier Ghosts non reconnu.'); return; }
+    processGhosts(rows);
+    var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+    try{ localStorage.setItem('hygie_ghosts_nom',file.name); localStorage.setItem('hygie_ghosts_date',d); }catch(e){}
+    majLabelGhosts(file.name,d);
+  };
+  reader.readAsArrayBuffer(file);
+  this.value='';
+});
 
 document.getElementById('hdr-date').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 
