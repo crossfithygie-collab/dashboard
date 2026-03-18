@@ -155,6 +155,10 @@ canvas{display:block}
         <div class="hdr-date" id="hdr-date"></div>
       </div>
     </div>
+    <div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:10px">
+      <button onclick="exporterSync()" style="font-size:10px;padding:3px 10px;border-radius:20px;border:.5px solid var(--bd2);background:transparent;color:var(--t3);cursor:pointer">&#8679; exporter</button>
+      <button onclick="importerSync()" style="font-size:10px;padding:3px 10px;border-radius:20px;border:.5px solid var(--bd2);background:transparent;color:var(--t3);cursor:pointer">&#8681; importer</button>
+    </div>
     <div class="imp-row">
       <label class="imp" id="lbl-resa" for="fi-resa">
         <span class="imp-icon">&#8683;</span>
@@ -1590,6 +1594,127 @@ document.getElementById('fi-cours').addEventListener('change',function(e){
   reader.readAsArrayBuffer(file);
   this.value='';
 });
+
+// ─── SYNC ───
+function exporterSync(){
+  var KEYS=['hygie_snapshots','hygie_snap_nouveaux','hygie_snap_retention',
+    'hygie_hib_cumul','hygie_cours_cumul','hygie_cours_ver',
+    'hygie_resa_nom','hygie_resa_date','hygie_hib_nom','hygie_hib_date',
+    'hygie_cours_nom','hygie_cours_date'];
+  for(var i=0;i<localStorage.length;i++){
+    var k=localStorage.key(i);
+    if(k&&k.indexOf('hygie_suppr_')===0) KEYS.push(k);
+  }
+  var data={};
+  KEYS.forEach(function(k){ var v=localStorage.getItem(k); if(v) data[k]=v; });
+  var json=JSON.stringify(data);
+  var b64=btoa(unescape(encodeURIComponent(json)));
+  var code='HYGIE-'+b64;
+
+  var overlay=document.createElement('div');
+  overlay.style='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
+  var box=document.createElement('div');
+  box.style='background:var(--sur);border-radius:16px;padding:20px;width:100%;max-width:400px;display:flex;flex-direction:column;gap:12px';
+  var titre=document.createElement('div');
+  titre.textContent='Code de sync';
+  titre.style='font-size:15px;font-weight:700;color:var(--t)';
+  var sub=document.createElement('div');
+  sub.textContent="Copie ce code sur l'autre appareil";
+  sub.style='font-size:12px;color:var(--t3);margin-top:-6px';
+  var ta=document.createElement('textarea');
+  ta.value=code;
+  ta.readOnly=true;
+  ta.style='width:100%;height:100px;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:var(--s2);color:var(--t);font-size:11px;resize:none;font-family:monospace';
+  var rowBtns=document.createElement('div');
+  rowBtns.style='display:flex;gap:8px';
+  var btnCopy=document.createElement('button');
+  btnCopy.textContent='Copier';
+  btnCopy.style='flex:1;padding:10px;border-radius:10px;border:none;background:var(--t);color:var(--bg);cursor:pointer;font-size:13px;font-weight:700';
+  var btnFermer=document.createElement('button');
+  btnFermer.textContent='Fermer';
+  btnFermer.style='flex:1;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:transparent;color:var(--t2);cursor:pointer;font-size:13px';
+  rowBtns.appendChild(btnCopy);
+  rowBtns.appendChild(btnFermer);
+  box.appendChild(titre);
+  box.appendChild(sub);
+  box.appendChild(ta);
+  box.appendChild(rowBtns);
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+  ta.focus(); ta.select();
+
+  function fermer(){ document.body.removeChild(overlay); }
+  btnFermer.onclick=fermer;
+  btnCopy.onclick=function(){
+    ta.select();
+    try{
+      navigator.clipboard.writeText(ta.value).then(function(){
+        btnCopy.textContent='✓ Copié !';
+        btnCopy.style.background='var(--green)';
+        setTimeout(fermer, 1000);
+      });
+    }catch(e){
+      document.execCommand('copy');
+      btnCopy.textContent='✓ Copié !';
+      btnCopy.style.background='var(--green)';
+      setTimeout(fermer, 1000);
+    }
+  };
+}
+
+function importerSync(){
+  // Interface maison — prompt() bloqué dans certains contextes
+  var overlay=document.createElement('div');
+  overlay.style='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
+  var box=document.createElement('div');
+  box.style='background:var(--sur);border-radius:16px;padding:20px;width:100%;max-width:400px;display:flex;flex-direction:column;gap:12px';
+  var titre=document.createElement('div');
+  titre.textContent='Colle le code de sync';
+  titre.style='font-size:15px;font-weight:700;color:var(--t)';
+  var ta=document.createElement('textarea');
+  ta.placeholder='HYGIE-...';
+  ta.style='width:100%;height:100px;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:var(--s2);color:var(--t);font-size:12px;resize:none;font-family:monospace';
+  var rowBtns=document.createElement('div');
+  rowBtns.style='display:flex;gap:8px';
+  var btnAnn=document.createElement('button');
+  btnAnn.textContent='Annuler';
+  btnAnn.style='flex:1;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:transparent;color:var(--t2);cursor:pointer;font-size:13px';
+  var btnOk=document.createElement('button');
+  btnOk.textContent='Importer';
+  btnOk.style='flex:1;padding:10px;border-radius:10px;border:none;background:var(--t);color:var(--bg);cursor:pointer;font-size:13px;font-weight:700';
+  rowBtns.appendChild(btnAnn);
+  rowBtns.appendChild(btnOk);
+  box.appendChild(titre);
+  box.appendChild(ta);
+  box.appendChild(rowBtns);
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+  ta.focus();
+
+  function fermer(){ document.body.removeChild(overlay); }
+  btnAnn.onclick=fermer;
+
+  btnOk.onclick=function(){
+    var code=ta.value.trim();
+    if(!code||code.indexOf('HYGIE-')!==0){
+      ta.style.borderColor='var(--red)';
+      ta.placeholder='Code invalide — commence par HYGIE-';
+      return;
+    }
+    try{
+      var b64=code.slice(6);
+      var json=decodeURIComponent(escape(atob(b64)));
+      var data=JSON.parse(json);
+      Object.keys(data).forEach(function(k){ localStorage.setItem(k,data[k]); });
+      fermer();
+      location.reload();
+    }catch(e){
+      ta.style.borderColor='var(--red)';
+      ta.value='';
+      ta.placeholder='Erreur: '+e.message;
+    }
+  };
+}
 
 document.getElementById('hdr-date').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 
