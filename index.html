@@ -173,7 +173,7 @@ canvas{display:block}
  <div class="arr"></div>
  </div>
  <div class="kc red" id="card-30j" onclick="ouvrirDetail('30j')">
- <div class="lbl">Fins engagement</div>
+ <div class="lbl">Expirations</div>
  <div class="num" id="n-30j"></div>
  <div class="sub" id="s-30j">dans 30 jours</div>
  <div class="arr"></div>
@@ -310,7 +310,7 @@ canvas{display:block}
 <div class="det" id="d-30j">
  <div class="det-hdr"><div class="det-inner">
  <div class="back" onclick="fermerDetail('30j')">‹</div>
- <div class="det-ttl">Fins d'engagement</div>
+ <div class="det-ttl">Expirations</div>
  <div class="dbadge red" id="b-30j"></div>
  </div></div>
  <div class="det-body" id="c-30j"></div>
@@ -380,11 +380,15 @@ function fermerTiroir(){
 function ouvrirDetail(id){
  var el=document.getElementById('d-'+id);
  el.classList.add('on');
- // Les détails imbriqués (depuis d-actifs) ont besoin d'un z-index supérieur
  if(id==='ghosts'||id==='retention'||id==='nouveaux'){
    el.style.zIndex='200';
  }
  document.body.style.overflow='hidden';
+ if(id==='actifs') renderActifs();
+ if(id==='prelev') renderPrelev();
+ if(id==='30j') render30j();
+ if(id==='ca') renderCA(null);
+ if(id==='rempli') renderRempli();
  if(id==='retention') renderRetention();
  if(id==='nouveaux') renderNouveaux();
  if(id==='ghosts') renderGhosts();
@@ -762,6 +766,7 @@ function parseXLSXGhosts(buffer){
       var d=new Date(Math.round((creeRaw-25569)*86400*1000));
       creeStr=d.toLocaleDateString('fr-FR');
     } else { creeStr=String(creeRaw||'').split(' ')[0]; }
+
     data.push({
       nom:String(row[idx['Nom entier']]||'').trim(),
       tel:String(row[idx['Portable']]||'').trim(),
@@ -776,22 +781,50 @@ function parseXLSXGhosts(buffer){
 }
 
 function processGhosts(rows){
-  ghostRows=rows;
-  try{ localStorage.setItem('hygie_ghosts',JSON.stringify(rows)); }catch(e){}
+  var now=new Date();
+
+  // Exclure 1 : membres créés depuis moins de 30 jours
+  var SEUIL_CREATION=30;
+
+  // Exclure 2 : membres dont Expiré le est dans les 60 prochains jours
+  // (inutile de les relancer, ils partent bientôt)
+  // On croise avec `membres` (ResaWod abonnés) par nom
+  var SEUIL_EXPIRATION=60;
+  var membresParNom={};
+  membres.forEach(function(m){
+    var nom=((m['Prénom']||'')+' '+(m['Nom']||'')).trim().toLowerCase();
+    membresParNom[nom]=m;
+  });
+
+  ghostRows=rows.filter(function(g){
+    // Filtre 1 : pas trop récent
+    if(g.cree){
+      var parts=g.cree.split(' ')[0].split('-');
+      if(parts.length===3){
+        var dc=new Date(parseInt(parts[2]),parseInt(parts[1])-1,parseInt(parts[0]));
+        if(Math.round((now-dc)/864e5)<SEUIL_CREATION) return false;
+      }
+    }
+    // Filtre 2 : pas en fin d'abonnement proche (Expiré le)
+    var nomLower=g.nom.toLowerCase();
+    var membre=membresParNom[nomLower];
+    if(membre){
+      var exp=parseDate(membre['Expiré le']);
+      if(exp){
+        var joursAvantExp=Math.round((exp-now)/864e5);
+        if(joursAvantExp>=0&&joursAvantExp<=SEUIL_EXPIRATION) return false;
+      }
+    }
+    return true;
+  });
+  try{ localStorage.setItem('hygie_ghosts',JSON.stringify(ghostRows)); }catch(e){}
   var el=document.getElementById('mini-n-ghosts');
-  if(el) el.textContent=rows.length;
+  if(el) el.textContent=ghostRows.length;
   var b=document.getElementById('b-ghosts');
-  if(b) b.textContent=rows.length+' membres';
+  if(b) b.textContent=ghostRows.length+' membres';
 }
 
-function majLabelGhosts(nom,date){
-  var l=document.getElementById('lbl-ghosts');
-  if(l){ l.style.background='rgba(0,0,0,.08)'; }
-  var n=document.getElementById('txt-ghosts-name');
-  if(n) n.textContent=(ghostRows.length?'✓ Ghosts ('+ghostRows.length+')':'Ghosts');
-  var s=document.getElementById('txt-ghosts-status');
-  if(s) s.textContent=(date||'')+(nom?' · '+nom:'');
-}
+
 
 // ─── RENDER GHOSTS ───
 function renderGhosts(){
@@ -853,141 +886,9 @@ function parseCSV(text){
  return rows;
 }
 
-// ─── PROCESS RESAWOD ───
-function processResa(rawRows){
- var now=new Date();
- membres=rawRows.filter(function(r){
- var s=(r['Statut']||'').toLowerCase();
- return s==='active'||s==='actif'||s==='activo';
- }).map(function(r,i){
- var engDate=parseDate(r["Date d'engagement"]);
- var jours=engDate?Math.round((engDate-now)/864e5):null;
- r._i=i; r._engDate=engDate; r._jours=jours;
- return r;
- });
 
- fin30=membres.filter(function(m){return m._jours!==null&&m._jours>=0&&m._jours<=30;})
- .sort(function(a,b){return a._jours-b._jours;});
 
- var next1=new Date(now.getFullYear(),now.getMonth()+1,1);
- var nomProchain=next1.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
 
- prelevData=membres.filter(function(m){
- if((m['Paiement']||'').toLowerCase().indexOf('mensuel')<0) return false;
- var exp=parseDate(m['Expiré le']);
- if(exp&&exp<next1) return false;
- return true;
- }).sort(function(a,b){return parseFloat(b['Prix']||0)-parseFloat(a['Prix']||0);});
-
- var totalPrelev=prelevData.reduce(function(a,m){return a+parseFloat(m['Prix']||0);},0);
- var mrr=membres.reduce(function(a,m){return a+parseFloat(m['Prix']||0);},0);
- var urgents=fin30.filter(function(m){return m._jours<=7;}).length;
-
- document.getElementById('n-actifs').textContent=fmtN(membres.length);
- // Variation vs mois précédent
- var snapPourVariation={};
- try{ var exv=localStorage.getItem('hygie_snapshots'); if(exv) snapPourVariation=JSON.parse(exv); }catch(e){}
- // Inclure les données historiques HISTO pour la variation
- var HISTO_VAR={"2025-01":210,"2025-02":202,"2025-03":211,"2025-04":226,"2025-05":235,"2025-06":242,"2025-07":242,"2025-08":247,"2025-09":264,"2025-10":264,"2025-11":271,"2025-12":269,"2026-01":269,"2026-02":271};
- Object.keys(HISTO_VAR).forEach(function(k){ if(!snapPourVariation[k]) snapPourVariation[k]=HISTO_VAR[k]; });
- // Ajouter le snapshot actuel
- var now_var=new Date();
- var moisVar=now_var.getFullYear()+'-'+String(now_var.getMonth()+1).padStart(2,'0');
- // Ne pas injecter le mois courant - on compare membres.length vs le dernier mois passé
- var moisKeys_v=Object.keys(snapPourVariation).filter(function(k){ return k<moisVar; }).sort();
- var variation='';
- var MNOMS_V=['jan','fev','mar','avr','mai','jun','jul','aou','sep','oct','nov','dec'];
- if(moisKeys_v.length>=1){
-   var avantDernierMois=moisKeys_v[moisKeys_v.length-1];
-   var valAvant=snapPourVariation[avantDernierMois];
-   var diff=membres.length-valAvant;
-   var pv=avantDernierMois.split('-');
-   var nomAvant=MNOMS_V[parseInt(pv[1])-1]+' '+pv[0].slice(2);
-   var signe=diff>0?'+':diff===0?'=':'';
-   variation=(diff>0?('+'+diff):diff===0?'stable':diff)+' vs '+nomAvant;
- }
- document.getElementById('s-actifs').textContent=variation||membres.length+' abonnés actifs';
- document.getElementById('b-actifs').textContent=membres.length+' membres';
- document.getElementById('lbl-prelev').textContent='Prélèvement estimé '+nomProchain;
- document.getElementById('ttl-prelev').textContent='Prélèvement '+nomProchain;
- document.getElementById('n-prelev').textContent=fmtE(totalPrelev);
- // Sous-total : Méthode=Prélèvements ET Paiement=Mensuel
- var vraiPrelev=prelevData.filter(function(m){
-   var methode=(m['Méthode de paiement par défaut']||'').toLowerCase();
-   var paiement=(m['Paiement']||'').toLowerCase();
-   return methode.indexOf('prélèv')>=0 && paiement.indexOf('mensuel')>=0;
- });
- var totalVraiPrelev=vraiPrelev.reduce(function(a,m){return a+parseFloat(m['Prix']||0);},0);
- var sousLigne=prelevData.length+' mensuels · '+fmtE(totalVraiPrelev)+' prélevés';
- document.getElementById('s-prelev').textContent=sousLigne;
- document.getElementById('b-prelev').textContent=fmtE(totalPrelev);
- document.getElementById('n-30j').textContent=fin30.length;
- document.getElementById('s-30j').textContent=urgents>0
- ?urgents+' membre'+(urgents>1?'s':'')+' dans les 7 prochains jours'
- :(fin30[0]?'Prochain dans '+fin30[0]._jours+'j':'Aucun dans les 30j');
- document.getElementById('b-30j').textContent=fin30.length+' membres';
- document.getElementById('card-30j').className='kc '+(urgents>0?'red':'amber');
-
- // Calculer nouveaux et rétention pour le snapshot
- var now_snap=new Date();
- var moisSnap=now_snap.getFullYear()+'-'+String(now_snap.getMonth()+1).padStart(2,'0');
- var nouveauxSnap=membres.filter(function(m){
- var d=parseDate(m['Acheté le']);
- return d&&d.getFullYear()===now_snap.getFullYear()&&d.getMonth()===now_snap.getMonth();
- }).length;
- var churnsSnap=rawRows.filter(function(r){
- var s=(r['Statut']||'').toLowerCase();
- var d=parseDate(r['Expiré le']);
- return (s==='caducado'||s==='expiré'||s==='expired')&&d&&d.getFullYear()===now_snap.getFullYear()&&d.getMonth()===now_snap.getMonth();
- }).length;
- var retentionSnap=membres.length>0?Math.round((membres.length/(membres.length+churnsSnap))*100):0;
- sauvegarderSnapshotMembres(membres.length, nouveauxSnap, retentionSnap);
- renderActifs(); renderPrelev(totalPrelev,next1,nomProchain); render30j();
-}
-
-// ─── PROCESS HIBOUTIK ───
-function processHib(rows){
- // Fusionner avec données cumulatives en mémoire
- var cumul={};
- try{ var ex=localStorage.getItem('hygie_hib_cumul'); if(ex) cumul=JSON.parse(ex); }catch(e){}
-
- // Intégrer les nouvelles lignes dans le cumul en mémoire
- var now=new Date();
- var moisCourant=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
- rows.forEach(function(r){
- var mois=(r['Date']||'').slice(0,7);
- if(!mois) return;
- if(!cumul[mois]) cumul[mois]=[];
- if(mois===moisCourant){
- // Mois courant : toujours remplacer avec les données fraîches
- cumul[mois]=rows.filter(function(r2){return (r2['Date']||'').indexOf(mois)===0;});
- return; // sortir du forEach après avoir traité tout le mois courant
- } else {
- var ids={};
- cumul[mois].forEach(function(r2){ ids[r2['ID']]=true; });
- if(!ids[r['ID']]) cumul[mois].push(r);
- }
- });
-
- // Aplatir le cumul en tableau pour hibRows
- hibRows=[];
- Object.keys(cumul).forEach(function(m){ hibRows=hibRows.concat(cumul[m]); });
-
- moisActif=moisCourant;
- var nomMois=now.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
- var moisRows=hibRows.filter(function(r){return (r['Date']||'').indexOf(moisActif)===0;});
- var ca=moisRows.reduce(function(a,r){return a+parseFloat(r['CA TTC']||0);},0);
- var nb=moisRows.length;
- var panier=nb?ca/nb:0;
-
- document.getElementById('lbl-ca').textContent='Boutique '+nomMois;
- document.getElementById('ttl-ca').textContent='Boutique '+nomMois;
- document.getElementById('n-ca').textContent=fmtE(ca);
- document.getElementById('s-ca').textContent=nb+' transactions · panier moy. '+fmtE(panier);
- document.getElementById('b-ca').textContent=fmtE(ca);
-
- renderCA(moisActif);
-}
 
 // ─── RENDER CA AVEC FILTRE MOIS ───
 function getMoisDispo(){
@@ -997,8 +898,13 @@ function getMoisDispo(){
 }
 
 function renderCA(prefixMois){
+ if(!prefixMois){
+   var now=new Date();
+   prefixMois=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+ }
  moisActif=prefixMois;
  var el=document.getElementById('c-ca');
+ if(!hibRows.length){ el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3)">Importe le fichier Hiboutik</div>'; return; }
  var rows=prefixMois==='all'?hibRows:hibRows.filter(function(r){return (r['Date']||'').indexOf(prefixMois)===0;});
  var ca=rows.reduce(function(a,r){return a+parseFloat(r['CA TTC']||0);},0);
  var nb=rows.length;
@@ -1115,7 +1021,7 @@ function renderActifs(){
  +'<div class="arr" style="font-size:16px"></div></div>'
  +'<div class="kc wide" style="padding:14px;background:linear-gradient(135deg,#2a2a2a 0%,#111 100%)" data-det="ghosts">'
  +'<div class="lbl" style="font-size:10px">Ghosts</div>'
- +'<div class="num" id="mini-n-ghosts" style="font-size:32px">—</div>'
+ +'<div class="num" id="mini-n-ghosts" style="font-size:32px">'+(ghostRows.length||'—')+'</div>'
  +'<div class="sub" style="font-size:10px">+3 semaines</div>'
  +'<div class="arr" style="font-size:16px"></div></div>'
  +'</div>';
@@ -1481,247 +1387,319 @@ function renderNouveaux(){
  }
 }
 
-// ─── RENDER PRÉLÈVEMENT ───
-function renderPrelev(total,next1,nomProchain){
- var el=document.getElementById('c-prelev');
- var byAbo={};
- prelevData.forEach(function(m){
- var k=m['Abonnement']||'Autre';
- if(!byAbo[k]) byAbo[k]={count:0,total:0,membres:[]};
- byAbo[k].count++; byAbo[k].total+=parseFloat(m['Prix']||0); byAbo[k].membres.push(m);
- });
- var aboList=Object.entries(byAbo).sort(function(a,b){return b[1].total-a[1].total;});
- var maxAbo=aboList.length?aboList[0][1].total:1;
 
- var bars=aboList.map(function(e){
- var pct=Math.round(e[1].total/maxAbo*100);
- return '<div class="bi"><div class="bt"><span>'+e[0]+'</span><span style="font-weight:700">'+fmtE(e[1].total)+
- ' <span style="font-weight:400;color:var(--t3)">'+e[1].count+' mbr</span></span></div>'+
- '<div class="bbg"><div class="bfill" style="width:'+pct+'%;background:var(--amber)"></div></div></div>';
- }).join('');
-
- el.innerHTML=
- '<div class="sgrid">'+
- '<div class="sc"><div class="sc-lbl">Total estimé</div><div class="sc-val">'+fmtE(total)+'</div>'+
- '<div class="sc-sub">au '+next1.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})+'</div></div>'+
- '<div class="sc"><div class="sc-lbl">Abonnés concernés</div><div class="sc-val">'+prelevData.length+'</div>'+
- '<div class="sc-sub">paiements mensuels</div></div>'+
- '</div>'+
- '<div class="cc"><div class="cc-ttl">Répartition par formule</div>'+
- '<div class="cc-sub">Montant prélevé par abonnement</div>'+
- '<div class="blist">'+bars+'</div></div>'+
- aboList.map(function(e){
- return '<div class="gh">'+e[0]+' '+e[1].count+' membre'+(e[1].count>1?'s':'')+' · '+fmtE(e[1].total)+'</div>'+
- e[1].membres.map(function(m){return cardPrelev(m);}).join('');
- }).join('');
-}
 
 // ─── RENDER 30J ───
+// ─── CARTES MEMBRES ───
+function cardMembre(m, showExp){
+  var nom=(m['Prénom']||'').trim()+' '+(m['Nom']||'').toUpperCase().trim();
+  var init=ini(m['Prénom'],m['Nom']);
+  var bg=AV_BG[m._i%AV_BG.length], tx=AV_TX[m._i%AV_TX.length];
+  var tel=(m['Portable']||'').replace(/\s/g,'');
+  var exp=m._expDate;
+  var joursLabel='';
+  if(showExp&&m._jours!==null){
+    joursLabel=m._jours<=0?'Expiré':m._jours+' j restants';
+  }
+  var tagClass=m._jours!==null&&m._jours<=7?'tag-r':m._jours!==null&&m._jours<=14?'tag-a':'tag-g';
+  return '<div class="mc">'
+    +'<div class="mc-top">'
+    +'<div class="av" style="background:'+bg+';color:'+tx+'">'+init+'</div>'
+    +'<div style="flex:1;min-width:0"><div class="mc-name">'+nom.trim()+'</div>'
+    +'<div class="mc-abo">'+(m['Abonnement']||'—')+'</div></div>'
+    +(joursLabel?'<div class="mc-tag '+tagClass+'">'+joursLabel+'</div>':'')
+    +'</div>'
+    +'<div class="div"></div>'
+    +'<div class="rows">'
+    +(m['Portable']?'<div class="row"><span class="rl">Téléphone</span><span class="rv">'+m['Portable']+'</span></div>':'')
+    +(m['Email']?'<div class="row"><span class="rl">Email</span><span class="rv" style="font-size:11px">'+m['Email']+'</span></div>':'')
+    +(showExp&&m['Expiré le']?'<div class="row"><span class="rl">Expiration</span><span class="rv">'+fmtDate(m['Expiré le'])+'</span></div>':'')
+    +'</div>'
+    +(tel?'<div class="btns"><a href="tel:'+tel+'" class="btn">Appeler</a><a href="sms:'+tel+'" class="btn p">SMS</a></div>':'')
+    +'</div>';
+}
+
 function render30j(){
  var el=document.getElementById('c-30j');
- if(!fin30.length){
- el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3);font-size:14px">Aucune fin d\'engagement dans les 30 prochains jours</div>';
- return;
- }
- var g={'Cette semaine (0-7j)':[],'Semaine 2 (8-14j)':[],'Semaine 3 (15-21j)':[],'Semaine 4 (22-30j)':[]};
- fin30.forEach(function(m){
- if(m._jours<=7) g['Cette semaine (0-7j)'].push(m);
- else if(m._jours<=14) g['Semaine 2 (8-14j)'].push(m);
- else if(m._jours<=21) g['Semaine 3 (15-21j)'].push(m);
- else g['Semaine 4 (22-30j)'].push(m);
+
+ // Charger les suppressions
+ var now30=new Date();
+ var mois30=now30.getFullYear()+'-'+String(now30.getMonth()+1).padStart(2,'0');
+ var cle30='hygie_suppr_exp_'+mois30;
+ var suppr30={};
+ try{ var es30=localStorage.getItem(cle30); if(es30) suppr30=JSON.parse(es30); }catch(e){}
+
+ // Filtrer les non-supprimés
+ var fin30Visible=fin30.filter(function(m){
+   var uid=(m['Prénom']||'').trim()+'|'+(m['Nom']||'').trim();
+   return !suppr30[uid];
  });
- el.innerHTML=Object.entries(g).filter(function(e){return e[1].length;}).map(function(e){
- return '<div class="gh">'+e[0]+' '+e[1].length+' membre'+(e[1].length>1?'s':'')+'</div>'+
- e[1].map(function(m){return cardMembre(m,true);}).join('');
- }).join('');
-}
 
-// ─── CARTES MEMBRES ───
-function cardMembre(m,showEng){
- var nom=capNom(m['Prénom'])+' '+(m['Nom']||'').toUpperCase();
- var i=ini(m['Prénom'],m['Nom']);
- var bg=AV_BG[m._i%AV_BG.length], tx=AV_TX[m._i%AV_TX.length];
- var tel=(m['Portable']||'').replace(/\s/g,'');
- var tag='';
- if(showEng&&m._jours!==null){
- var cls=m._jours<=7?'tag-r':m._jours<=14?'tag-a':'tag-g';
- tag='<div class="mc-tag '+cls+'">J+'+m._jours+'</div>';
+ // Mettre à jour la tuile principale
+ document.getElementById('n-30j').textContent=fin30Visible.length;
+ var urgents30=fin30Visible.filter(function(m){return m._jours!==null&&m._jours<=7;}).length;
+ document.getElementById('s-30j').textContent=urgents30>0
+   ?urgents30+' membre'+(urgents30>1?'s':'')+' expirent dans 7j'
+   :(fin30Visible[0]?'Prochain dans '+fin30Visible[0]._jours+'j':'Aucun dans 30j');
+ var col=urgents30>0?'red':'amber';
+ document.getElementById('card-30j').className='kc '+col;
+
+ if(!fin30Visible.length){
+   el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3);font-size:14px">Aucun abonnement expirant dans les 30 prochains jours</div>';
+   return;
  }
- return '<div class="mc">'+
- '<div class="mc-top">'+
- '<div class="av" style="background:'+bg+';color:'+tx+'">'+i+'</div>'+
- '<div style="flex:1;min-width:0"><div class="mc-name">'+nom.trim()+'</div><div class="mc-abo">'+m['Abonnement']+'</div></div>'+
- tag+'</div>'+
- '<div class="div"></div>'+
- '<div class="rows">'+
- (showEng?'<div class="row"><span class="rl">Fin engagement</span><span class="rv" style="color:'+
- (m._jours<=7?'var(--red)':m._jours<=14?'var(--amber)':'var(--t)')+'">'+fmtDate(m["Date d'engagement"])+'</span></div>':'')+
- '<div class="row"><span class="rl">Téléphone</span><span class="rv">'+(m['Portable']||'')+'</span></div>'+
- '<div class="row"><span class="rl">Email</span><span class="rv" style="font-size:11px">'+(m['Email']||'')+'</span></div>'+
- '</div>'+
- (tel?'<div class="btns"><a href="tel:'+tel+'" class="btn">Appeler</a><a href="sms:'+tel+'" class="btn p">SMS</a></div>':'')+
- '</div>';
+
+ var g={'Expirent cette semaine':[],'Expirent semaine 2':[],'Expirent semaine 3':[],'Expirent semaine 4':[]};
+ fin30Visible.forEach(function(m){
+   if(m._jours<=7) g['Expirent cette semaine'].push(m);
+   else if(m._jours<=14) g['Expirent semaine 2'].push(m);
+   else if(m._jours<=21) g['Expirent semaine 3'].push(m);
+   else g['Expirent semaine 4'].push(m);
+ });
+
+ el.innerHTML=Object.entries(g).filter(function(e){return e[1].length;}).map(function(e){
+   return '<div class="gh">'+e[0]+' '+e[1].length+' membre'+(e[1].length>1?'s':'')+'</div>'+
+     e[1].map(function(m){
+       var uid=(m['Prénom']||'').trim()+'|'+(m['Nom']||'').trim();
+       var card=cardMembre(m,true);
+       // Insérer bouton croix
+       var btnCroix='<button class="btn-suppr-exp" data-uid="'+encodeURIComponent(uid)+'" data-cle="'+cle30+'"'
+         +' style="position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;'
+         +'background:var(--bred);border:none;color:var(--tred);font-size:16px;font-weight:700;'
+         +'cursor:pointer;line-height:24px;text-align:center;z-index:10;padding:0">&#xd7;</button>';
+       return card.replace('<div class="mc">', '<div class="mc" style="position:relative">'+btnCroix);
+     }).join('');
+ }).join('');
+
+ // Event delegation croix
+ el.onclick=function(e){
+   var btn=e.target.closest('.btn-suppr-exp');
+   if(!btn) return;
+   e.stopPropagation();
+   var uid=decodeURIComponent(btn.getAttribute('data-uid'));
+   var cle=btn.getAttribute('data-cle');
+   var s={};
+   try{ var es=localStorage.getItem(cle); if(es) s=JSON.parse(es); }catch(ex){}
+   s[uid]=true;
+   try{ localStorage.setItem(cle,JSON.stringify(s)); }catch(ex){}
+   render30j();
+ };
 }
 
-function cardPrelev(m){
- var nom=capNom(m['Prénom'])+' '+(m['Nom']||'').toUpperCase();
- var i=ini(m['Prénom'],m['Nom']);
- var bg=AV_BG[m._i%AV_BG.length], tx=AV_TX[m._i%AV_TX.length];
- var tel=(m['Portable']||'').replace(/\s/g,'');
- var prix=parseFloat(m['Prix']||0);
- return '<div class="mc">'+
- '<div class="mc-top">'+
- '<div class="av" style="background:'+bg+';color:'+tx+'">'+i+'</div>'+
- '<div style="flex:1;min-width:0"><div class="mc-name">'+nom.trim()+'</div><div class="mc-abo">'+m['Abonnement']+'</div></div>'+
- '<div class="mc-tag tag-b" style="font-size:13px;padding:4px 10px">'+fmtE(prix)+'</div></div>'+
- '<div class="div"></div>'+
- '<div class="rows">'+
- '<div class="row"><span class="rl">Mensualité</span><span class="rv" style="color:var(--amber);font-weight:700">'+fmtE(prix)+'</span></div>'+
- '<div class="row"><span class="rl">Fin abonnement</span><span class="rv">'+fmtDate(m['Expiré le'])+'</span></div>'+
- '<div class="row"><span class="rl">Téléphone</span><span class="rv">'+(m['Portable']||'')+'</span></div>'+
- '<div class="row"><span class="rl">Email</span><span class="rv" style="font-size:11px">'+(m['Email']||'')+'</span></div>'+
- '</div>'+
- (tel?'<div class="btns"><a href="tel:'+tel+'" class="btn">Appeler</a><a href="sms:'+tel+'" class="btn p">SMS</a></div>':'')+
- '</div>';
+// ─── RENDER PRÉLÈVEMENT ───
+function renderPrelev(){
+ var el=document.getElementById('c-prelev');
+ if(!prelevData.length){
+   el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--t3)">Importe le fichier ResaWod</div>';
+   return;
+ }
+ var now=new Date();
+ var next1=new Date(now.getFullYear(),now.getMonth()+1,1);
+ var nomProchain=next1.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+ var totalPrelev=prelevData.reduce(function(a,m){return a+parseFloat(m['Prix']||0);},0);
+ var statsHTML='<div class="sgrid">'
+   +'<div class="sc"><div class="sc-lbl">Total estimé</div><div class="sc-val">'+fmtE(totalPrelev)+'</div><div class="sc-sub">'+nomProchain+'</div></div>'
+   +'<div class="sc"><div class="sc-lbl">Abonnés</div><div class="sc-val">'+prelevData.length+'</div><div class="sc-sub">mensuels valides</div></div>'
+   +'</div>';
+ var listeHTML=prelevData.map(function(m){return cardMembre(m,false);}).join('');
+ el.innerHTML=statsHTML+listeHTML;
 }
 
-// ─── SAUVEGARDE / RESTAURATION ───
-function sauvegarder(cle,donnees,nomFichier){
- try{
- if(cle==='hib'){
- // CA : fusion cumulative les mois passés ne sont jamais écrasés
- var existing={};
- try{ var ex=localStorage.getItem('hygie_hib_cumul'); if(ex) existing=JSON.parse(ex); }catch(e){}
- // Indexer les nouvelles données par mois
- donnees.forEach(function(r){
- var mois=(r['Date']||'').slice(0,7);
- if(!mois) return;
- // Ne pas écraser les mois déjà en mémoire sauf si c'est le mois en cours
+// ─── PROCESS RESAWOD ───
+function processResa(rawRows){
+ var now=new Date();
+ membres=rawRows.filter(function(r){
+   var s=(r['Statut']||'').toLowerCase();
+   return s==='active'||s==='actif'||s==='activo';
+ }).map(function(r,i){
+   var engDate=parseDate(r["Date d'engagement"]);
+   var expDate=parseDate(r['Expiré le']);
+   var jours=expDate?Math.round((expDate-now)/864e5):null;
+   r._i=i; r._engDate=engDate; r._expDate=expDate; r._jours=jours;
+   return r;
+ });
+ fin30=membres.filter(function(m){return m._jours!==null&&m._jours>=0&&m._jours<=30;})
+   .sort(function(a,b){return a._jours-b._jours;});
+ var next1=new Date(now.getFullYear(),now.getMonth()+1,1);
+ var nomProchain=next1.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+ prelevData=membres.filter(function(m){
+   if((m['Paiement']||'').toLowerCase().indexOf('mensuel')<0) return false;
+   var exp=parseDate(m['Expiré le']);
+   if(exp&&exp<next1) return false;
+   return true;
+ }).sort(function(a,b){return parseFloat(b['Prix']||0)-parseFloat(a['Prix']||0);});
+ var totalPrelev=prelevData.reduce(function(a,m){return a+parseFloat(m['Prix']||0);},0);
+ var urgents=fin30.filter(function(m){return m._jours<=7;}).length;
+ document.getElementById('n-actifs').textContent=fmtN(membres.length);
+ // Variation vs mois précédent
+ var snapPourVariation={};
+ try{ var exv=localStorage.getItem('hygie_snapshots'); if(exv) snapPourVariation=JSON.parse(exv); }catch(e){}
+ var HISTO_VAR={"2025-01":210,"2025-02":202,"2025-03":211,"2025-04":226,"2025-05":235,"2025-06":242,"2025-07":242,"2025-08":247,"2025-09":264,"2025-10":264,"2025-11":271,"2025-12":269,"2026-01":269,"2026-02":271};
+ Object.keys(HISTO_VAR).forEach(function(k){ if(!snapPourVariation[k]) snapPourVariation[k]=HISTO_VAR[k]; });
+ var now_var=new Date();
+ var moisVar=now_var.getFullYear()+'-'+String(now_var.getMonth()+1).padStart(2,'0');
+ var moisKeys_v=Object.keys(snapPourVariation).filter(function(k){ return k<moisVar; }).sort();
+ var variation='';
+ var MNOMS_V=['jan','fev','mar','avr','mai','jun','jul','aou','sep','oct','nov','dec'];
+ if(moisKeys_v.length>=1){
+   var avantDernierMois=moisKeys_v[moisKeys_v.length-1];
+   var valAvant=snapPourVariation[avantDernierMois];
+   var diff=membres.length-valAvant;
+   var pv=avantDernierMois.split('-');
+   var nomAvant=MNOMS_V[parseInt(pv[1])-1]+' '+pv[0].slice(2);
+   variation=(diff>0?('+'+diff):diff===0?'stable':diff)+' vs '+nomAvant;
+ }
+ document.getElementById('s-actifs').textContent=variation||membres.length+' abonnés actifs';
+ document.getElementById('b-actifs').textContent=membres.length+' membres';
+ document.getElementById('lbl-prelev').textContent='Prélèvement estimé '+nomProchain;
+ document.getElementById('ttl-prelev').textContent='Prélèvement '+nomProchain;
+ document.getElementById('n-prelev').textContent=fmtE(totalPrelev);
+ // Sous-total vrais prélèvements
+ var vraiPrelev=prelevData.filter(function(m){
+   var methode=(m['Méthode de paiement par défaut']||'').toLowerCase();
+   var paiement=(m['Paiement']||'').toLowerCase();
+   return methode.indexOf('prélèv')>=0 && paiement.indexOf('mensuel')>=0;
+ });
+ var totalVraiPrelev=vraiPrelev.reduce(function(a,m){return a+parseFloat(m['Prix']||0);},0);
+ var nbAutres=prelevData.length-vraiPrelev.length;
+ var sousLigne=prelevData.length+' mensuels · '+fmtE(totalVraiPrelev)+' prélevés';
+ if(nbAutres>0) sousLigne+=' ('+nbAutres+' autre'+(nbAutres>1?'s':'')+')';
+ document.getElementById('s-prelev').textContent=sousLigne;
+ document.getElementById('b-prelev').textContent=fmtE(totalPrelev);
+ document.getElementById('n-30j').textContent=fin30.length;
+ var s30=urgents>0?urgents+' expire'+(urgents>1?'nt':'')+' dans 7j':(fin30[0]?'Prochain dans '+fin30[0]._jours+'j':'Aucun dans 30j');
+ document.getElementById('s-30j').textContent=s30;
+ document.getElementById('card-30j').className='kc '+(urgents>0?'red':'amber');
+ // Snapshot
+ var now_snap=new Date();
+ var moisSnap=now_snap.getFullYear()+'-'+String(now_snap.getMonth()+1).padStart(2,'0');
+ var nouveauxSnap=membres.filter(function(m){
+   var d=parseDate(m['Acheté le']);
+   return d&&d.getFullYear()===now_snap.getFullYear()&&d.getMonth()===now_snap.getMonth();
+ }).length;
+ var churnsSnap=rawRows.filter(function(r){
+   var s=(r['Statut']||'').toLowerCase();
+   var d=parseDate(r['Expiré le']);
+   return (s==='caducado'||s==='expiré'||s==='expired')&&d&&d.getFullYear()===now_snap.getFullYear()&&d.getMonth()===now_snap.getMonth();
+ }).length;
+ var retentionSnap=membres.length>0?Math.round((membres.length/(membres.length+churnsSnap))*100):0;
+ sauvegarderSnapshotMembres(membres.length, nouveauxSnap, retentionSnap);
+ renderActifs();
+ renderPrelev();
+ render30j();
+}
+
+// ─── PROCESS HIBOUTIK ───
+function processHib(rows){
+ hibRows=rows;
+ var cumul={};
+ try{ var ex=localStorage.getItem('hygie_hib_cumul'); if(ex) cumul=JSON.parse(ex); }catch(e){}
+ var rowsParMois={};
+ rows.forEach(function(r){
+   var d=r['Date']||'';
+   var mois=d.slice(0,7);
+   if(!mois) return;
+   if(!rowsParMois[mois]) rowsParMois[mois]=[];
+   rowsParMois[mois].push(r);
+ });
+ Object.keys(rowsParMois).forEach(function(m){ cumul[m]=rowsParMois[m]; });
+ try{ localStorage.setItem('hygie_hib_cumul',JSON.stringify(cumul)); }catch(e){}
+ hibRows=[];
+ Object.keys(cumul).forEach(function(m){ hibRows=hibRows.concat(cumul[m]); });
  var now=new Date();
  var moisCourant=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
- if(!existing[mois] || mois===moisCourant){
- if(!existing[mois]) existing[mois]=[];
- // Ajouter seulement les lignes pas encore présentes (par ID)
- var idsExistants={};
- existing[mois].forEach(function(r2){ idsExistants[r2['ID']]=true; });
- if(!idsExistants[r['ID']]) existing[mois].push(r);
- }
- });
- localStorage.setItem('hygie_hib_cumul', JSON.stringify(existing));
- } else {
- localStorage.setItem('hygie_'+cle, JSON.stringify(donnees));
- }
- localStorage.setItem('hygie_'+cle+'_nom', nomFichier);
- localStorage.setItem('hygie_'+cle+'_date', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}));
- }catch(e){ console.log('localStorage error',e); }
-}
-
-function sauvegarderSnapshotMembres(count, nouveaux, retention){
- try{
- var now=new Date();
- var moisCle=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
- var snapshots={};
- try{ var ex=localStorage.getItem('hygie_snapshots'); if(ex) snapshots=JSON.parse(ex); }catch(e){}
- snapshots[moisCle]=count;
- localStorage.setItem('hygie_snapshots', JSON.stringify(snapshots));
- // Sauvegarder aussi nouveaux et rétention
- var snapNouveaux={};
- try{ var exn=localStorage.getItem('hygie_snap_nouveaux'); if(exn) snapNouveaux=JSON.parse(exn); }catch(e){}
- snapNouveaux[moisCle]=nouveaux;
- localStorage.setItem('hygie_snap_nouveaux', JSON.stringify(snapNouveaux));
- var snapRetention={};
- try{ var exr=localStorage.getItem('hygie_snap_retention'); if(exr) snapRetention=JSON.parse(exr); }catch(e){}
- snapRetention[moisCle]=retention;
- localStorage.setItem('hygie_snap_retention', JSON.stringify(snapRetention));
- console.log('Snapshot sauvegardé:', moisCle, 'actifs:'+count, 'nouveaux:'+nouveaux, 'retention:'+retention+'%');
- }catch(e){ console.log('Erreur snapshot:', e); }
-}
-
-function majLabelCours(nom,date){
- document.getElementById('lbl-cours').className='imp ok-purple';
- document.getElementById('txt-cours-name').textContent=' Remplissage';
- document.getElementById('txt-cours-status').textContent=(date||'')+(nom?' · '+nom:'');
-}
-
-function majLabelResa(nom,date){
- document.getElementById('lbl-resa').className='imp ok-green';
- document.getElementById('txt-resa-name').textContent=' Resawod';
- document.getElementById('txt-resa-status').textContent=(date?date:'')+(nom?' · '+nom:'');
-}
-function majLabelHib(nom,date){
- document.getElementById('lbl-hib').className='imp ok-blue';
- document.getElementById('txt-hib-name').textContent=' Hiboutik';
- document.getElementById('txt-hib-status').textContent=(date?date:'')+(nom?' · '+nom:'');
-}
-
-function restaurer(){
- try{
- var resaRaw=localStorage.getItem('hygie_resa');
- if(resaRaw){
- processResa(JSON.parse(resaRaw));
- majLabelResa(localStorage.getItem('hygie_resa_nom'), localStorage.getItem('hygie_resa_date'));
- }
- }catch(e){}
- try{
- // Restaurer CA depuis le cumul
- var cumul=localStorage.getItem('hygie_hib_cumul');
- if(cumul){
- var rows=[];
- var obj=JSON.parse(cumul);
- Object.keys(obj).forEach(function(m){ rows=rows.concat(obj[m]); });
- if(rows.length){
- hibRows=rows;
- var now=new Date();
- moisActif=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
- var nomMois=now.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
- var moisRows=hibRows.filter(function(r){return (r['Date']||'').indexOf(moisActif)===0;});
- var ca=moisRows.reduce(function(a,r){return a+parseFloat(r['CA TTC']||0);},0);
- var nb=moisRows.length;
- var panier=nb?ca/nb:0;
+ var rowsMois=hibRows.filter(function(r){return (r['Date']||'').indexOf(moisCourant)===0;});
+ var ca=rowsMois.reduce(function(a,r){return a+parseFloat(r['CA TTC']||0);},0);
+ var nomMois=new Date(parseInt(moisCourant.split('-')[0]),parseInt(moisCourant.split('-')[1])-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+ document.getElementById('n-ca').textContent=fmtE(ca);
+ document.getElementById('s-ca').textContent=rowsMois.length+' transactions';
  document.getElementById('lbl-ca').textContent='Boutique '+nomMois;
  document.getElementById('ttl-ca').textContent='Boutique '+nomMois;
- document.getElementById('n-ca').textContent=fmtE(ca);
- document.getElementById('s-ca').textContent=nb+' transactions · panier moy. '+fmtE(panier);
  document.getElementById('b-ca').textContent=fmtE(ca);
- renderCA(moisActif);
- majLabelHib(localStorage.getItem('hygie_hib_nom'), localStorage.getItem('hygie_hib_date'));
- }
- }
+ if(document.getElementById('hdr-ca-mois')) document.getElementById('hdr-ca-mois').textContent=nomMois;
+}
+
+// ─── MAJLABELS ───
+function majLabelCours(nom,date){
+ document.getElementById('lbl-cours').style.background='var(--bpurple,#eeedfe)';
+ document.getElementById('txt-cours-name').textContent='✓ Remplissage';
+ document.getElementById('txt-cours-status').textContent=(date||'')+(nom?' · '+nom:'');
+}
+function majLabelResa(nom,date){
+ document.getElementById('lbl-resa').style.background='var(--bgreen)';
+ document.getElementById('txt-resa-name').textContent='✓ Resawod';
+ document.getElementById('txt-resa-status').textContent=(date||'')+(nom?' · '+nom:'');
+}
+function majLabelHib(nom,date){
+ document.getElementById('lbl-hib').style.background='var(--bblue)';
+ document.getElementById('txt-hib-name').textContent='✓ Hiboutik';
+ document.getElementById('txt-hib-status').textContent=(date||'')+(nom?' · '+nom:'');
+}
+function majLabelGhosts(nom,date){
+ var n=document.getElementById('txt-ghosts-name');
+ if(n) n.textContent=(ghostRows.length?'✓ Ghosts ('+ghostRows.length+')':'Ghosts');
+ var s=document.getElementById('txt-ghosts-status');
+ if(s) s.textContent=(date||'')+(nom?' · '+nom:'');
+}
+
+// ─── RESTAURER ───
+function restaurer(){
+ try{
+   var hibCumul=localStorage.getItem('hygie_hib_cumul');
+   if(hibCumul){
+     var cumul=JSON.parse(hibCumul);
+     hibRows=[];
+     Object.keys(cumul).forEach(function(m){ hibRows=hibRows.concat(cumul[m]); });
+     var now=new Date();
+     var mc=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+     var rowsMois=hibRows.filter(function(r){return (r['Date']||'').indexOf(mc)===0;});
+     var ca=rowsMois.reduce(function(a,r){return a+parseFloat(r['CA TTC']||0);},0);
+     var nm=new Date(parseInt(mc.split('-')[0]),parseInt(mc.split('-')[1])-1,1).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+     document.getElementById('n-ca').textContent=fmtE(ca);
+     document.getElementById('s-ca').textContent=rowsMois.length+' transactions';
+     document.getElementById('lbl-ca').textContent='Boutique '+nm;
+     var ln=localStorage.getItem('hygie_hib_nom'); var ld=localStorage.getItem('hygie_hib_date');
+     if(ln) majLabelHib(ln,ld);
+   }
  }catch(e){}
  try{
- // Version v2 : parser multi-format. Invalider les caches v1.
- var cachVer=localStorage.getItem('hygie_cours_ver');
- if(cachVer!=='v2'){
- localStorage.removeItem('hygie_cours_cumul');
- localStorage.setItem('hygie_cours_ver','v2');
- }
- var coursCumul=localStorage.getItem('hygie_cours_cumul');
- if(coursCumul){
- var cumul=JSON.parse(coursCumul);
- rempliRows=[];
- Object.keys(cumul).forEach(function(m){ rempliRows=rempliRows.concat(cumul[m]); });
- if(rempliRows.length){
- updateTuileCours();
- renderRempli();
- var lbl=localStorage.getItem('hygie_cours_nom');
- var dat=localStorage.getItem('hygie_cours_date');
- if(lbl) majLabelCours(lbl,dat);
- }
- }
+   var ghostsRaw=localStorage.getItem('hygie_ghosts');
+   if(ghostsRaw){
+     ghostRows=JSON.parse(ghostsRaw);
+     var elG=document.getElementById('mini-n-ghosts');
+     if(elG&&ghostRows.length) elG.textContent=ghostRows.length;
+     var bgG=document.getElementById('b-ghosts');
+     if(bgG&&ghostRows.length) bgG.textContent=ghostRows.length+' membres';
+     var ln2=localStorage.getItem('hygie_ghosts_nom'); var ld2=localStorage.getItem('hygie_ghosts_date');
+     if(ln2) majLabelGhosts(ln2,ld2);
+   }
+ }catch(e){}
+ try{
+   var cachVer=localStorage.getItem('hygie_cours_ver');
+   if(cachVer!=='v2'){ localStorage.removeItem('hygie_cours_cumul'); localStorage.setItem('hygie_cours_ver','v2'); }
+   var coursCumul=localStorage.getItem('hygie_cours_cumul');
+   if(coursCumul){
+     var cumulC=JSON.parse(coursCumul);
+     rempliRows=[];
+     Object.keys(cumulC).forEach(function(m){ rempliRows=rempliRows.concat(cumulC[m]); });
+     if(rempliRows.length){ updateTuileCours(); renderRempli(); }
+     var lnc=localStorage.getItem('hygie_cours_nom'); var ldc=localStorage.getItem('hygie_cours_date');
+     if(lnc) majLabelCours(lnc,ldc);
+   }
  }catch(e){}
 }
 
-// ─── IMPORT ───
+// ─── LISTENERS IMPORT ───
 document.getElementById('fi-resa').addEventListener('change',function(e){
  var file=e.target.files[0]; if(!file) return;
  var reader=new FileReader();
  reader.onload=function(ev){
- var rows=parseXLSX(new Uint8Array(ev.target.result));
- if(!rows.length) return;
- processResa(rows);
- sauvegarder('resa',rows,file.name);
- var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
- majLabelResa(file.name,d);
+   var rows=parseXLSX(new Uint8Array(ev.target.result));
+   if(!rows.length){ alert('Fichier ResaWod non reconnu.'); return; }
+   processResa(rows);
+   var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+   try{ localStorage.setItem('hygie_resa_nom',file.name); localStorage.setItem('hygie_resa_date',d); }catch(ex){}
+   majLabelResa(file.name,d);
  };
  reader.readAsArrayBuffer(file);
  this.value='';
@@ -1731,12 +1709,12 @@ document.getElementById('fi-hib').addEventListener('change',function(e){
  var file=e.target.files[0]; if(!file) return;
  var reader=new FileReader();
  reader.onload=function(ev){
- var rows=parseCSV(ev.target.result);
- if(!rows.length) return;
- processHib(rows);
- sauvegarder('hib',rows,file.name);
- var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
- majLabelHib(file.name,d);
+   var rows=parseCSV(ev.target.result);
+   if(!rows.length){ alert('Fichier Hiboutik non reconnu.'); return; }
+   processHib(rows);
+   var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+   try{ localStorage.setItem('hygie_hib_nom',file.name); localStorage.setItem('hygie_hib_date',d); }catch(ex){}
+   majLabelHib(file.name,d);
  };
  reader.readAsText(file,'UTF-8');
  this.value='';
@@ -1746,15 +1724,27 @@ document.getElementById('fi-cours').addEventListener('change',function(e){
  var file=e.target.files[0]; if(!file) return;
  var reader=new FileReader();
  reader.onload=function(ev){
- var rows=parseXLSXCours(new Uint8Array(ev.target.result));
- if(!rows.length){ alert('Fichier cours non reconnu.'); return; }
- processCours(rows);
- try{
- localStorage.setItem('hygie_cours_nom', file.name);
- localStorage.setItem('hygie_cours_date', new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}));
- }catch(e){}
- var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
- majLabelCours(file.name,d);
+   var rows=parseXLSXCours(new Uint8Array(ev.target.result));
+   if(!rows.length){ alert('Fichier cours non reconnu.'); return; }
+   processCours(rows);
+   var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+   try{ localStorage.setItem('hygie_cours_nom',file.name); localStorage.setItem('hygie_cours_date',d); }catch(ex){}
+   majLabelCours(file.name,d);
+ };
+ reader.readAsArrayBuffer(file);
+ this.value='';
+});
+
+document.getElementById('fi-ghosts').addEventListener('change',function(e){
+ var file=e.target.files[0]; if(!file) return;
+ var reader=new FileReader();
+ reader.onload=function(ev){
+   var rows=parseXLSXGhosts(new Uint8Array(ev.target.result));
+   if(!rows.length){ alert('Fichier Ghosts non reconnu.'); return; }
+   processGhosts(rows);
+   var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+   try{ localStorage.setItem('hygie_ghosts_nom',file.name); localStorage.setItem('hygie_ghosts_date',d); }catch(ex){}
+   majLabelGhosts(file.name,d);
  };
  reader.readAsArrayBuffer(file);
  this.value='';
@@ -1763,19 +1753,18 @@ document.getElementById('fi-cours').addEventListener('change',function(e){
 // ─── SYNC ───
 function exporterSync(){
  var KEYS=['hygie_snapshots','hygie_snap_nouveaux','hygie_snap_retention',
- 'hygie_hib_cumul','hygie_cours_cumul','hygie_cours_ver',
- 'hygie_resa_nom','hygie_resa_date','hygie_hib_nom','hygie_hib_date',
- 'hygie_cours_nom','hygie_cours_date'];
+   'hygie_hib_cumul','hygie_cours_cumul','hygie_cours_ver',
+   'hygie_resa_nom','hygie_resa_date','hygie_hib_nom','hygie_hib_date',
+   'hygie_cours_nom','hygie_cours_date','hygie_ghosts','hygie_ghosts_nom','hygie_ghosts_date'];
  for(var i=0;i<localStorage.length;i++){
- var k=localStorage.key(i);
- if(k&&k.indexOf('hygie_suppr_')===0) KEYS.push(k);
+   var k=localStorage.key(i);
+   if(k&&(k.indexOf('hygie_suppr_')===0)) KEYS.push(k);
  }
  var data={};
  KEYS.forEach(function(k){ var v=localStorage.getItem(k); if(v) data[k]=v; });
  var json=JSON.stringify(data);
  var b64=btoa(unescape(encodeURIComponent(json)));
  var code='HYGIE-'+b64;
-
  var overlay=document.createElement('div');
  overlay.style='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
  var box=document.createElement('div');
@@ -1787,8 +1776,7 @@ function exporterSync(){
  sub.textContent="Copie ce code sur l'autre appareil";
  sub.style='font-size:12px;color:var(--t3);margin-top:-6px';
  var ta=document.createElement('textarea');
- ta.value=code;
- ta.readOnly=true;
+ ta.value=code; ta.readOnly=true;
  ta.style='width:100%;height:100px;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:var(--s2);color:var(--t);font-size:11px;resize:none;font-family:monospace';
  var rowBtns=document.createElement('div');
  rowBtns.style='display:flex;gap:8px';
@@ -1798,41 +1786,24 @@ function exporterSync(){
  var btnFermer=document.createElement('button');
  btnFermer.textContent='Fermer';
  btnFermer.style='flex:1;padding:10px;border-radius:10px;border:.5px solid var(--bd2);background:transparent;color:var(--t2);cursor:pointer;font-size:13px';
- rowBtns.appendChild(btnCopy);
- rowBtns.appendChild(btnFermer);
- box.appendChild(titre);
- box.appendChild(sub);
- box.appendChild(ta);
- box.appendChild(rowBtns);
- overlay.appendChild(box);
- document.body.appendChild(overlay);
+ rowBtns.appendChild(btnCopy); rowBtns.appendChild(btnFermer);
+ box.appendChild(titre); box.appendChild(sub); box.appendChild(ta); box.appendChild(rowBtns);
+ overlay.appendChild(box); document.body.appendChild(overlay);
  ta.focus(); ta.select();
-
  function fermer(){ document.body.removeChild(overlay); }
  btnFermer.onclick=fermer;
  btnCopy.onclick=function(){
- ta.select();
- try{
- navigator.clipboard.writeText(ta.value).then(function(){
- btnCopy.textContent=' Copié !';
- btnCopy.style.background='var(--green)';
- setTimeout(fermer, 1000);
- });
- }catch(e){
- document.execCommand('copy');
- btnCopy.textContent=' Copié !';
- btnCopy.style.background='var(--green)';
- setTimeout(fermer, 1000);
- }
+   ta.select();
+   try{ navigator.clipboard.writeText(ta.value).then(function(){ btnCopy.textContent='Copié!'; btnCopy.style.background='var(--green)'; setTimeout(fermer,800); }); }
+   catch(err){ document.execCommand('copy'); btnCopy.textContent='Copié!'; btnCopy.style.background='var(--green)'; setTimeout(fermer,800); }
  };
 }
 
 function importerSync(){
- // Interface maison prompt() bloqué dans certains contextes
  var overlay=document.createElement('div');
- overlay.style='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
+ overlay.style='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:flex-end;justify-content:center;padding:0';
  var box=document.createElement('div');
- box.style='background:var(--sur);border-radius:16px;padding:20px;width:100%;max-width:400px;display:flex;flex-direction:column;gap:12px';
+ box.style='background:var(--sur);border-radius:24px 24px 0 0;padding:24px 20px calc(env(safe-area-inset-bottom,16px)+20px);width:100%;max-width:500px;display:flex;flex-direction:column;gap:12px';
  var titre=document.createElement('div');
  titre.textContent='Colle le code de sync';
  titre.style='font-size:15px;font-weight:700;color:var(--t)';
@@ -1847,81 +1818,44 @@ function importerSync(){
  var btnOk=document.createElement('button');
  btnOk.textContent='Importer';
  btnOk.style='flex:1;padding:10px;border-radius:10px;border:none;background:var(--t);color:var(--bg);cursor:pointer;font-size:13px;font-weight:700';
- rowBtns.appendChild(btnAnn);
- rowBtns.appendChild(btnOk);
- box.appendChild(titre);
- box.appendChild(ta);
- box.appendChild(rowBtns);
- overlay.appendChild(box);
- document.body.appendChild(overlay);
+ rowBtns.appendChild(btnAnn); rowBtns.appendChild(btnOk);
+ box.appendChild(titre); box.appendChild(ta); box.appendChild(rowBtns);
+ overlay.appendChild(box); document.body.appendChild(overlay);
  ta.focus();
-
  function fermer(){ document.body.removeChild(overlay); }
  btnAnn.onclick=fermer;
-
  btnOk.onclick=function(){
- var code=ta.value.trim();
- if(!code||code.indexOf('HYGIE-')!==0){
- ta.style.borderColor='var(--red)';
- ta.placeholder='Code invalide commence par HYGIE-';
- return;
- }
- try{
- var b64=code.slice(6);
- var json=decodeURIComponent(escape(atob(b64)));
- var data=JSON.parse(json);
- Object.keys(data).forEach(function(k){ localStorage.setItem(k,data[k]); });
- fermer();
- location.reload();
- }catch(e){
- ta.style.borderColor='var(--red)';
- ta.value='';
- ta.placeholder='Erreur: '+e.message;
- }
+   var code=ta.value.trim();
+   if(!code||code.indexOf('HYGIE-')!==0){ ta.style.borderColor='var(--red)'; return; }
+   try{
+     var b64=code.slice(6);
+     var json=decodeURIComponent(escape(atob(b64)));
+     var data=JSON.parse(json);
+     Object.keys(data).forEach(function(k){ localStorage.setItem(k,data[k]); });
+     fermer(); location.reload();
+   }catch(err){ ta.style.borderColor='var(--red)'; ta.value=''; ta.placeholder='Erreur: '+err.message; }
  };
 }
 
-document.getElementById('fi-ghosts').addEventListener('change',function(e){
-  var file=e.target.files[0]; if(!file) return;
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    var rows=parseXLSXGhosts(new Uint8Array(ev.target.result));
-    if(!rows.length){ alert('Fichier Ghosts non reconnu.'); return; }
-    processGhosts(rows);
-    var d=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-    try{ localStorage.setItem('hygie_ghosts_nom',file.name); localStorage.setItem('hygie_ghosts_date',d); }catch(e){}
-    majLabelGhosts(file.name,d);
-  };
-  reader.readAsArrayBuffer(file);
-  this.value='';
+// ─── INIT ───
+document.getElementById('hdr-date').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+
+['actifs','prelev','30j','ca','rempli','retention','nouveaux','ghosts'].forEach(function(id){
+ var el=document.getElementById('d-'+id);
+ if(!el) return;
+ var x0=0;
+ el.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+ el.addEventListener('touchend',function(e){if(e.changedTouches[0].clientX-x0>70) fermerDetail(id);},{passive:true});
 });
 
-document.getElementById('hdr-date').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-
-// Listener global pour les croix de suppression nouveaux membres
-document.addEventListener('click', function(e){
- var btn=e.target.closest('.btn-suppr-nouveau');
- if(!btn) return;
- var uid=decodeURIComponent(btn.getAttribute('data-uid'));
- var cle=btn.getAttribute('data-cle');
- if(confirm('Retirer ce membre des nouveaux ce mois ?')){
- window._supprimerNouveauMembre(uid, cle);
- }
-});
-
-// ─── DONNÉES HISTORIQUES ───
-// Injectées une fois, jamais écrasées par les imports suivants
+// Données historiques
 (function(){
- // Clés YYYY-MM pour cohérence avec le reste
- var HISTO = {"2025-01": 210, "2025-02": 202, "2025-03": 211, "2025-04": 226, "2025-05": 235, "2025-06": 242, "2025-07": 242, "2025-08": 247, "2025-09": 264, "2025-10": 264, "2025-11": 271, "2025-12": 269, "2026-01": 269, "2026-02": 271};
+ var HISTO={"2025-01":210,"2025-02":202,"2025-03":211,"2025-04":226,"2025-05":235,"2025-06":242,"2025-07":242,"2025-08":247,"2025-09":264,"2025-10":264,"2025-11":271,"2025-12":269,"2026-01":269,"2026-02":271};
  try{
- var snapshots={};
- try{ var ex=localStorage.getItem('hygie_snapshots'); if(ex) snapshots=JSON.parse(ex); }catch(e){}
- // Injecter les mois historiques sans écraser ce qui existe déjà
- Object.keys(HISTO).forEach(function(k){
- if(!snapshots[k]) snapshots[k]=HISTO[k];
- });
- localStorage.setItem('hygie_snapshots', JSON.stringify(snapshots));
+   var snapshots={};
+   try{ var ex=localStorage.getItem('hygie_snapshots'); if(ex) snapshots=JSON.parse(ex); }catch(e){}
+   Object.keys(HISTO).forEach(function(k){ if(!snapshots[k]) snapshots[k]=HISTO[k]; });
+   localStorage.setItem('hygie_snapshots',JSON.stringify(snapshots));
  }catch(e){}
 })();
 
